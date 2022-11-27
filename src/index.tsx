@@ -9,7 +9,13 @@ import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 
 import * as React from 'react';
-import ReactDOM from 'react-dom/client';
+import * as ReactDOMClient from 'react-dom/client';
+import { ChakraProvider } from '@chakra-ui/react';
+import { ApolloClient, ApolloProvider, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import tokenStorage from 'app/lib/tokenStorage';
+import cache from 'app/lib/cache';
+import { onSignOut } from 'app/lib/mutations/Auth';
 
 // Use consistent styling
 import 'sanitize.css/sanitize.css';
@@ -23,17 +29,57 @@ import reportWebVitals from 'reportWebVitals';
 
 // Initialize languages
 import './locales/i18n';
+import { onError } from '@apollo/client/link/error';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
-);
+// Log any GraphQL errors or network error that occurred
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors)
+    graphQLErrors.forEach(({ message, locations, path }) => {
+      if (message === 'Authentication expired') {
+        onSignOut();
+      }
+    });
+  if (networkError) console.log(`[Network error]: ${networkError}`);
+});
 
-root.render(
-  <HelmetProvider>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </HelmetProvider>,
+const MOUNT_NODE = document.getElementById('root') as HTMLElement;
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = tokenStorage.read();
+  // return the headers to the context so httpLink can read them
+
+  if (typeof token === 'undefined') {
+    return { headers: { ...headers } };
+  } else {
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : '',
+      },
+    };
+  }
+});
+
+const link = createHttpLink({
+  uri: `${process.env.REACT_APP_API_ENDPOINT}/execute`,
+});
+
+const client = new ApolloClient({
+  cache,
+  link: authLink.concat(errorLink).concat(link),
+});
+
+ReactDOMClient.createRoot(MOUNT_NODE!).render(
+  <ApolloProvider client={client}>
+    <HelmetProvider>
+      <React.StrictMode>
+        <ChakraProvider>
+          <App />
+        </ChakraProvider>
+      </React.StrictMode>
+    </HelmetProvider>
+  </ApolloProvider>,
 );
 
 // Hot reloadable translation json files
