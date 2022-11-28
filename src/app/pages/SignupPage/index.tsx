@@ -22,7 +22,6 @@ const { useState } = React;
 export function Signup() {
   const [signUp, { loading }] = useMutation(SIGNUP);
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
   const [name, setName] = useState<string>('');
   const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -90,7 +89,7 @@ export function Signup() {
                 <Divider mt="12px" mb="12px" />
                 <Stack>
                   <Text fontSize="sm" textAlign="left" fontWeight="200">
-                    <Link href="/login">
+                    <Link onClick={() => navigate('/login')}>
                       Login here if you already have an account
                     </Link>
                   </Text>
