@@ -143,7 +143,7 @@ const NavItem = ({
         role="group"
         cursor="pointer"
         _hover={{
-          bg: 'cyan.400',
+          bg: 'brand.400',
           color: 'white',
         }}
         {...rest}

@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import {
-  Container,
-  Center,
   Box,
+  Center,
   Input,
   Stack,
   FormControl,
   FormLabel,
   Button,
   Text,
+  VStack,
+  Divider,
 } from '@chakra-ui/react';
 import { useMutation, useReactiveVar } from '@apollo/client';
 import { onSignIn } from 'app/lib/mutations/Auth';
@@ -47,11 +48,20 @@ export function Login() {
         <title>Login</title>
         <meta name="description" content="Login" />
       </Helmet>
-      <Container w="400px">
-        <Box p={8} w={'100%'}>
+      <VStack h={'100%'}>
+        <Box
+          w="400px"
+          background={'white'}
+          borderRadius={'8px'}
+          mt="auto"
+          mb="auto"
+          rounded="lg"
+          p={12}
+        >
           <Center>
             <form onSubmit={onSubmit} className="full-width">
               <Stack spacing={6} w={'100%'}>
+                <Text fontSize="3xl">Sign In</Text>
                 <FormControl size={'xs'}>
                   <FormLabel>Email address</FormLabel>
                   <Input
@@ -73,15 +83,29 @@ export function Login() {
                   isLoading={loading}
                   loadingText={'Submitting'}
                   mt={4}
+                  colorScheme="brand"
                   type="submit"
                 >
                   Submit
                 </Button>
               </Stack>
+              <Divider mt="24px" mb="12px" />
+              <Stack>
+                <Text fontSize="sm" textAlign="left" fontWeight="200">
+                  Don't have an account?
+                </Text>
+                <Button
+                  colorScheme="brand"
+                  variant="outline"
+                  onClick={() => navigate('/signup')}
+                >
+                  Sign up
+                </Button>
+              </Stack>
             </form>
           </Center>
         </Box>
-      </Container>
+      </VStack>
     </>
   );
 }

@@ -16,6 +16,7 @@ import { setContext } from '@apollo/client/link/context';
 import tokenStorage from 'app/lib/tokenStorage';
 import cache from 'app/lib/cache';
 import { onSignOut } from 'app/lib/mutations/Auth';
+import theme from './theme';
 
 // Use consistent styling
 import 'sanitize.css/sanitize.css';
@@ -74,7 +75,7 @@ ReactDOMClient.createRoot(MOUNT_NODE!).render(
   <ApolloProvider client={client}>
     <HelmetProvider>
       <React.StrictMode>
-        <ChakraProvider>
+        <ChakraProvider theme={theme}>
           <App />
         </ChakraProvider>
       </React.StrictMode>
