@@ -6,6 +6,7 @@ import { GET_PLAN } from 'app/lib/queries/Plan';
 import { useQuery } from '@apollo/client';
 import type { Plan } from 'types';
 import { NotFoundPage } from 'app/components/NotFoundPage/index';
+import Goals from 'app/pages/PlanPage/Goals';
 
 export function Page() {
   const { uuid } = useParams();
@@ -39,10 +40,11 @@ export function Page() {
           <title>Plan {data!.getPlan?.name}</title>
           <meta name="description" content="Plans page" />
         </Helmet>
-        <Box w={'100%'} h={'100%'} p={6}>
+        <Box p={6}>
           <Text fontSize={'2xl'} fontWeight={'bold'}>
             {data!.getPlan?.name}
           </Text>
+          <Goals goals={data!.getPlan?.goals || []} />
         </Box>
       </>
     );

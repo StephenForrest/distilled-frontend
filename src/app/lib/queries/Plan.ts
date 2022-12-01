@@ -5,6 +5,9 @@ export const GET_PLAN = gql`
     getPlan(uuid: $uuid) {
       id
       name
+      goals {
+        title
+      }
     }
   }
 `;
