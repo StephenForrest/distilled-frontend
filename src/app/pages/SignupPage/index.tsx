@@ -20,7 +20,7 @@ import { useNavigate } from 'react-router-dom';
 const { useState } = React;
 
 export function Signup() {
-  const [signUp, { loading }] = useMutation(SIGNUP);
+  const [signUp, { loading, error }] = useMutation(SIGNUP);
   const navigate = useNavigate();
   const [name, setName] = useState<string>('');
   const [login, setLogin] = useState<string>('');
@@ -78,6 +78,7 @@ export function Signup() {
                     onChange={e => setPassword(e.target.value)}
                   />
                 </FormControl>
+                {error && <Text as="i">{error.message}</Text>}
                 <Button
                   mt={4}
                   colorScheme="brand"

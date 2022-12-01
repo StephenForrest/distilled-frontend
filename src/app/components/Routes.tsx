@@ -5,23 +5,34 @@ import { Routes, Route } from 'react-router-dom';
 import { LoginPage } from '../pages/LoginPage/Loadable';
 import { SignupPage } from '../pages/SignupPage/Loadable';
 import { HomePage } from '../pages/HomePage';
+import { DashboardPage } from '../pages/Dashboard/Loadable';
+import { PlanPage } from '../pages/PlanPage/Loadable';
 import { NotFoundPage } from './NotFoundPage/Loadable';
+import { AnimatePresence } from 'framer-motion';
 
 export const RoutesComponent = () => (
-  <Routes>
-    <Route path="/" element={<PrivateRoute Component={HomePage} />}></Route>
+  <AnimatePresence mode={'wait'}>
+    <Routes>
+      <Route path="/" element={<PrivateRoute Component={HomePage} />}>
+        <Route path="/" element={<PrivateRoute Component={DashboardPage} />} />
+        <Route
+          path="plan/:uuid"
+          element={<PrivateRoute Component={PlanPage} />}
+        />
+      </Route>
 
-    <Route
-      path="/login"
-      element={<NonAuthenticatedRoute Component={LoginPage} />}
-    />
-    <Route
-      path="/signup"
-      element={<NonAuthenticatedRoute Component={SignupPage} />}
-    />
+      <Route
+        path="/login"
+        element={<NonAuthenticatedRoute Component={LoginPage} />}
+      />
+      <Route
+        path="/signup"
+        element={<NonAuthenticatedRoute Component={SignupPage} />}
+      />
 
-    <Route path="*" element={<NotFoundPage />} />
-  </Routes>
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
+  </AnimatePresence>
 );
 
 export default RoutesComponent;
