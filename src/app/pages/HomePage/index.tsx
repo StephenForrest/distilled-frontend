@@ -20,7 +20,13 @@ export function HomePage() {
         <meta name="description" content="Well hello" />
       </Helmet>
       <Sidebar>
-        <Box w={'100%'} background={'white'} h={'100%'} borderRadius={8}>
+        <Box
+          w={'100%'}
+          background={'white'}
+          h={'100%'}
+          borderRadius={0}
+          overflow={'auto'}
+        >
           <Outlet />
         </Box>
       </Sidebar>

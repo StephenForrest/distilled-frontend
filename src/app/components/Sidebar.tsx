@@ -28,16 +28,19 @@ import { SIGNOUT_MUTATION } from 'app/lib/mutations/Auth';
 import { useMutation, useReactiveVar } from '@apollo/client';
 import { sessionIdVar } from 'app/lib/cache';
 import { onSignOut } from 'app/lib/mutations/Auth';
+import LogoFull from './LogoFull';
+import { useNavigate } from 'react-router-dom';
 
 interface LinkItemProps {
   name: string;
   icon: IconType;
+  url: string;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Dashboard', icon: FiHome },
-  { name: 'Plans', icon: FiTrendingUp },
-  { name: 'Milestones', icon: FiCompass },
-  { name: 'Integrations', icon: FiStar },
+  { name: 'Dashboard', icon: FiHome, url: '/' },
+  { name: 'Plans', icon: FiTrendingUp, url: '/plans' },
+  { name: 'Milestones', icon: FiCompass, url: '/' },
+  { name: 'Integrations', icon: FiStar, url: '/' },
 ];
 
 export default function SimpleSidebar({ children }: { children: ReactNode }) {
@@ -61,9 +64,8 @@ export default function SimpleSidebar({ children }: { children: ReactNode }) {
           <SidebarContent onClose={onClose} />
         </DrawerContent>
       </Drawer>
-      {/* mobilenav */}
       <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4" h={'100%'}>
+      <Box ml={{ base: 0, md: 60 }} h={'100%'}>
         {children}
       </Box>
     </Box>
@@ -75,6 +77,7 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+  const navigate = useNavigate();
   const sessionId = useReactiveVar(sessionIdVar);
 
   const [logOut] = useMutation(SIGNOUT_MUTATION);
@@ -89,14 +92,22 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       {...rest}
       flexDirection="column"
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
-        </Text>
+      <Flex
+        h="20"
+        alignItems="center"
+        mx="8"
+        mb="2"
+        justifyContent="space-between"
+      >
+        <LogoFull />
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map(link => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem
+          key={link.name}
+          icon={link.icon}
+          onClick={() => navigate(link.url)}
+        >
           {link.name}
         </NavItem>
       ))}
@@ -138,7 +149,7 @@ const NavItem = ({
     >
       <Flex
         align="center"
-        p="4"
+        p="3"
         px="8"
         role="group"
         cursor="pointer"
@@ -188,7 +199,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       />
 
       <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
-        Logo
+        <LogoFull />
       </Text>
     </Flex>
   );

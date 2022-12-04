@@ -14,15 +14,7 @@ export function Page() {
     variables: { uuid },
   });
   if (loading) {
-    return (
-      <>
-        <Helmet>
-          <title>Plan</title>
-          <meta name="description" content="Plans page" />
-        </Helmet>
-        <Center>Loading...</Center>
-      </>
-    );
+    return <Center>Loading...</Center>;
   } else if (!data) {
     return (
       <>

@@ -7,6 +7,7 @@ import { SignupPage } from '../pages/SignupPage/Loadable';
 import { HomePage } from '../pages/HomePage';
 import { DashboardPage } from '../pages/Dashboard/Loadable';
 import { PlanPage } from '../pages/PlanPage/Loadable';
+import { AllPlans } from '../pages/AllPlans/Loadable';
 import { NotFoundPage } from './NotFoundPage/Loadable';
 import { AnimatePresence } from 'framer-motion';
 
@@ -15,6 +16,7 @@ export const RoutesComponent = () => (
     <Routes>
       <Route path="/" element={<PrivateRoute Component={HomePage} />}>
         <Route path="/" element={<PrivateRoute Component={DashboardPage} />} />
+        <Route path="plans" element={<PrivateRoute Component={AllPlans} />} />
         <Route
           path="plan/:uuid"
           element={<PrivateRoute Component={PlanPage} />}
