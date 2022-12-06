@@ -29,3 +29,29 @@ export const CREATE_GOAL_MUTATION = gql`
     }
   }
 `;
+
+export const CREATE_ACTION_MUTATION = gql`
+  mutation CreateAction(
+    $planUuid: String!
+    $goalId: String!
+    $name: String!
+    $description: String!
+    $startDate: String!
+    $endDate: String!
+    $trackingSettings: ActionTrackingInput!
+  ) {
+    createAction(
+      planUuid: $planUuid
+      goalId: $goalId
+      name: $name
+      description: $description
+      startDate: $startDate
+      endDate: $endDate
+      trackingSettings: $trackingSettings
+    ) {
+      action {
+        id
+      }
+    }
+  }
+`;

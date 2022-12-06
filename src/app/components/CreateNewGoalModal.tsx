@@ -17,20 +17,7 @@ import { CREATE_GOAL_MUTATION } from 'app/lib/mutations/Plan';
 import { GOAL_FRAGMENT } from 'app/lib/fragments/Plan';
 import { useMutation } from '@apollo/client';
 import { useParams } from 'react-router-dom';
-import { convertDateToUTC } from 'app/lib/utilities';
-
-const getDateSevenDaysFromToday = () => {
-  // Create a date object for today
-  const today = new Date();
-
-  // Add 7 days to the date object
-  const sevenDaysFromToday = new Date(
-    today.getTime() + 7 * 24 * 60 * 60 * 1000,
-  );
-
-  // Return the date in the 'YYYY-MM-DD' format
-  return sevenDaysFromToday.toISOString().split('T')[0];
-};
+import { convertDateToUTC, getDateSevenDaysFromToday } from 'app/lib/utilities';
 
 const CreateNewGoalModal = (props: {
   isOpen: boolean;

@@ -27,11 +27,22 @@ export const GOAL_DETAILS_FRAGMENT = gql`
     actionsCount
     successCriterias {
       id
+      name
       description
       startDate
       endDate
       owner {
         name
+      }
+      action {
+        id
+        tracking {
+          __typename
+          ... on Checklist {
+            id
+            settings
+          }
+        }
       }
     }
   }

@@ -3,6 +3,7 @@ import { GoalWithDetails, SuccessCriteriaType } from 'types';
 import { Box, Divider, HStack, Text, VStack, Icon } from '@chakra-ui/react';
 import { BiTask } from 'react-icons/bi';
 import { GrLineChart } from 'react-icons/gr';
+import ListSuccessCriterias from './ListSuccessCriterias';
 
 const EmptyState = (props: {
   onCreateNew: (successCriteriaType: SuccessCriteriaType) => void;
@@ -77,7 +78,7 @@ const SuccessCriteriaTab = (props: {
   if (!successCriterias.length) {
     return <EmptyState onCreateNew={onCreateNew} />;
   }
-  return <div>Success Criterias</div>;
+  return <ListSuccessCriterias successCriterias={successCriterias} />;
 };
 
 export default SuccessCriteriaTab;

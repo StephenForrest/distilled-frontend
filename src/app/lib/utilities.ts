@@ -13,8 +13,6 @@ export const convertDateToUTC = (dateString: string) => {
 };
 
 export const formatDate = date => {
-  console.log(date);
-
   // Convert the date to the local time zone
   date = new Date(date.toString());
 
@@ -60,3 +58,21 @@ export const formatDate = date => {
   // Return the formatted date string
   return day + ' ' + month;
 };
+
+export const getDateNDaysFromToday = (n: number) => {
+  // Create a date object for today
+  const today = new Date();
+
+  // Add 7 days to the date object
+  const sevenDaysFromToday = new Date(
+    today.getTime() + n * 24 * 60 * 60 * 1000,
+  );
+
+  // Return the date in the 'YYYY-MM-DD' format
+  return sevenDaysFromToday.toISOString().split('T')[0];
+};
+
+export const formatDateForInput = (date: Date) =>
+  date.toISOString().split('T')[0];
+
+export const getDateSevenDaysFromToday = () => getDateNDaysFromToday(7);

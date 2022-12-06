@@ -5,12 +5,14 @@ import {
   DrawerHeader,
   DrawerBody,
   DrawerContent,
+  Text,
 } from '@chakra-ui/react';
 import { useQuery } from '@apollo/client';
 import { GoalWithDetails, SuccessCriteriaType } from 'types';
 import { GET_GOAL } from 'app/lib/queries/Plan';
 import Tabs from './Tabs';
 import NewAction from './NewAction';
+import Header from './Header';
 
 export type Screens = 'tabs' | 'new-measure' | 'new-action';
 
@@ -66,7 +68,11 @@ const GoalDrawer = (props: {
                 if (screen === 'tabs') {
                   return (
                     <>
-                      <DrawerHeader>{data?.getGoal?.title}</DrawerHeader>
+                      <DrawerHeader>
+                        <Header showBackButton={false} onClose={onClose}>
+                          <Text>{data?.getGoal?.title}</Text>
+                        </Header>
+                      </DrawerHeader>
                       <DrawerBody>
                         {screen === 'tabs' && (
                           <Tabs
