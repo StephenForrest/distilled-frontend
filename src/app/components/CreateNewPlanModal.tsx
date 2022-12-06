@@ -31,6 +31,7 @@ const CreateNewPlanModal = (props: {
       variables: {
         name: planName,
       },
+      refetchQueries: ['getPlans'],
     });
     const uuid = result.data?.createPlan?.plan?.uuid;
     if (uuid) {
@@ -54,6 +55,7 @@ const CreateNewPlanModal = (props: {
                 type="text"
                 value={planName}
                 required
+                autoFocus
                 onChange={e => setPlanName(e.target.value)}
               />
             </FormControl>

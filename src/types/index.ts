@@ -10,6 +10,16 @@ export interface Goal {
   };
 }
 
+export type ActionType = 'milestone' | 'checklist';
+
+export type SuccessCriteriaType = 'action' | 'measurement';
+
+export interface GoalWithDetails extends Goal {
+  successCriterias: {
+    successCriteriaType: SuccessCriteriaType;
+  }[];
+}
+
 export interface Plan {
   id: number;
   name: string;

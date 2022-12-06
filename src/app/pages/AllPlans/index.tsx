@@ -39,7 +39,7 @@ export function Page() {
                   return (
                     <Tr
                       key={plan.id}
-                      _hover={{ bg: 'brand.50', cursor: 'pointer' }}
+                      _hover={{ bg: 'brand.50' }}
                       onClick={() => navigate(`/plan/${plan.id}`)}
                     >
                       <Td w={'100%'}>

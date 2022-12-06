@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { GOAL_FRAGMENT } from '../fragments/Plan';
+import { GOAL_FRAGMENT, GOAL_DETAILS_FRAGMENT } from '../fragments/Plan';
 
 export const GET_PLAN = gql`
   ${GOAL_FRAGMENT}
@@ -19,6 +19,15 @@ export const GET_PLANS = gql`
     getPlans {
       id
       name
+    }
+  }
+`;
+
+export const GET_GOAL = gql`
+  ${GOAL_DETAILS_FRAGMENT}
+  query getGoal($id: String!) {
+    getGoal(id: $id) {
+      ...GoalDetails
     }
   }
 `;

@@ -1,6 +1,5 @@
-import { extendTheme, theme as baseTheme } from '@chakra-ui/react';
+import { extendTheme } from '@chakra-ui/react';
 
-console.log(baseTheme.colors.red);
 const theme = extendTheme({
   colors: {
     brand: {
@@ -20,6 +19,16 @@ const theme = extendTheme({
     global: props => ({
       body: {
         bg: '#d3d6e9',
+      },
+      a: {
+        _hover: {
+          cursor: 'default !important',
+        },
+      },
+      button: {
+        _hover: {
+          cursor: 'default !important',
+        },
       },
     }),
   },

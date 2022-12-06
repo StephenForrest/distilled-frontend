@@ -1,0 +1,83 @@
+import React from 'react';
+import { GoalWithDetails, SuccessCriteriaType } from 'types';
+import { Box, Divider, HStack, Text, VStack, Icon } from '@chakra-ui/react';
+import { BiTask } from 'react-icons/bi';
+import { GrLineChart } from 'react-icons/gr';
+
+const EmptyState = (props: {
+  onCreateNew: (successCriteriaType: SuccessCriteriaType) => void;
+}) => {
+  return (
+    <VStack spacing={8} p={8}>
+      <Text fontSize={'sm'}>
+        You don't have any success criterias created. Let's get you started:
+      </Text>
+      <HStack
+        spacing={8}
+        justify={'center'}
+        divider={
+          <Divider orientation="vertical" variant={'solid'} h={'100px'} />
+        }
+      >
+        <Box
+          borderRadius={8}
+          p={4}
+          _hover={{ bg: 'gray.50' }}
+          onClick={() => props.onCreateNew('measurement')}
+        >
+          <VStack spacing={1}>
+            <Icon color={'gray.200'} as={GrLineChart} boxSize={8} mb={2} />
+            <Text fontSize={'sm'} fontWeight={'semibold'}>
+              Add a measurement
+            </Text>
+            <Text
+              fontSize={'xs'}
+              color={'gray.600'}
+              fontWeight={'light'}
+              align={'center'}
+            >
+              A specific and quantifiable way of tracking progress towards
+              achieving a goal
+            </Text>
+          </VStack>
+        </Box>
+        <Box
+          borderRadius={8}
+          p={4}
+          _hover={{ bg: 'gray.50' }}
+          onClick={() => props.onCreateNew('action')}
+        >
+          <VStack spacing={1}>
+            <Icon color={'gray.800'} as={BiTask} boxSize={8} mb={2} />
+            <Text fontSize={'sm'} fontWeight={'semibold'}>
+              Add an action
+            </Text>
+            <Text
+              fontSize={'xs'}
+              color={'gray.600'}
+              fontWeight={'light'}
+              align={'center'}
+            >
+              A specific task or activity that an individual or team takes in
+              order to move closer to achieving a goal
+            </Text>
+          </VStack>
+        </Box>
+      </HStack>
+    </VStack>
+  );
+};
+
+const SuccessCriteriaTab = (props: {
+  goal: GoalWithDetails;
+  onCreateNew: (successCriteriaType: SuccessCriteriaType) => void;
+}) => {
+  const { goal, onCreateNew } = props;
+  const successCriterias = goal.successCriterias;
+  if (!successCriterias.length) {
+    return <EmptyState onCreateNew={onCreateNew} />;
+  }
+  return <div>Success Criterias</div>;
+};
+
+export default SuccessCriteriaTab;
