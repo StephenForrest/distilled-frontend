@@ -1,11 +1,30 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Center, Box, Text } from '@chakra-ui/react';
+import {
+  Center,
+  Box,
+  Text,
+  Stack,
+  Divider,
+  Card,
+  CardBody,
+  CardHeader,
+  CardFooter,
+} from '@chakra-ui/react';
 import { GET_PLANS } from 'app/lib/queries/Plan';
 import { useQuery } from '@apollo/client';
 import type { Plan } from 'types';
 import { NotFoundPage } from 'app/components/NotFoundPage/index';
-import { Table, Tbody, Tr, Td, TableContainer, HStack } from '@chakra-ui/react';
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Td,
+  TableContainer,
+  HStack,
+} from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
 export function Page() {
@@ -32,27 +51,27 @@ export function Page() {
           <meta name="description" content="Plans page" />
         </Helmet>
         <Box p={8}>
-          <TableContainer w={'100%'}>
-            <Table variant="simple" size="sm">
-              <Tbody>
-                {plans.map(plan => {
-                  return (
-                    <Tr
-                      key={plan.id}
-                      _hover={{ bg: 'brand.50' }}
-                      onClick={() => navigate(`/plan/${plan.id}`)}
-                    >
-                      <Td w={'100%'}>
-                        <HStack marginLeft={'auto !important'}>
-                          <Text>{plan.name} </Text>
-                        </HStack>
-                      </Td>
-                    </Tr>
-                  );
-                })}
-              </Tbody>
-            </Table>
-          </TableContainer>
+          <Card variant="elevated">
+            <CardBody>
+              <TableContainer w={'100%'}>
+                <Table variant="simple" size="sm">
+                  <thead>
+                    <td>Plan</td>
+                    <td>Objectives</td>
+                    <td>Plan Owner</td>
+                  </thead>
+                  <Divider />
+                  <Tbody>
+                    <tr>
+                      <td>Distilling Lab Q4 OKRs</td>
+                      <td>Grow membership by 20%</td>
+                      <td>James B</td>
+                    </tr>
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </CardBody>
+          </Card>
         </Box>
       </>
     );

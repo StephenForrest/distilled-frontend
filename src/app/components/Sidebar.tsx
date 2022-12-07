@@ -83,7 +83,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const [logOut] = useMutation(SIGNOUT_MUTATION);
   return (
     <Box
-      bg={useColorModeValue('white', 'gray.900')}
+      bg={'#EDF2F7'}
       borderRight="1px"
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
       w={{ base: 'full', md: 60 }}
