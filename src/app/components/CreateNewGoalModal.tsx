@@ -64,7 +64,6 @@ const CreateNewGoalModal = (props: {
       setExpiresOn(getDateSevenDaysFromToday());
       setFormError(undefined);
     } catch (e) {
-      console.log(e);
       setFormError('Something went wrong');
     }
   };

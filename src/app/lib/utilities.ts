@@ -1,15 +1,6 @@
 export const convertDateToUTC = (dateString: string) => {
-  const date = new Date(dateString);
-  const utcDate = new Date(
-    date.getUTCFullYear(),
-    date.getUTCMonth(),
-    date.getUTCDate(),
-    date.getUTCHours(),
-    date.getUTCMinutes(),
-    date.getUTCSeconds(),
-  );
-
-  return utcDate.toISOString();
+  const date = new Date(`${dateString} 00:00:00`);
+  return date.toISOString();
 };
 
 export const formatDate = date => {
@@ -72,7 +63,11 @@ export const getDateNDaysFromToday = (n: number) => {
   return sevenDaysFromToday.toISOString().split('T')[0];
 };
 
-export const formatDateForInput = (date: Date) =>
-  date.toISOString().split('T')[0];
+export const formatDateForInput = (d: Date) =>
+  d.getFullYear().toString().padStart(4, '0') +
+  '-' +
+  (d.getMonth() + 1).toString().padStart(2, '0') +
+  '-' +
+  d.getDate().toString().padStart(2, '0');
 
 export const getDateSevenDaysFromToday = () => getDateNDaysFromToday(7);

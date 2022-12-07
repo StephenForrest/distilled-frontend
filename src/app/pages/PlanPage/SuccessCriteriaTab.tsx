@@ -4,6 +4,8 @@ import { Box, Divider, HStack, Text, VStack, Icon } from '@chakra-ui/react';
 import { BiTask } from 'react-icons/bi';
 import { GrLineChart } from 'react-icons/gr';
 import ListSuccessCriterias from './ListSuccessCriterias';
+import { Menu, MenuButton, MenuList, MenuItem, Button } from '@chakra-ui/react';
+import { ChevronDownIcon, AddIcon } from '@chakra-ui/icons';
 
 const EmptyState = (props: {
   onCreateNew: (successCriteriaType: SuccessCriteriaType) => void;
@@ -78,7 +80,37 @@ const SuccessCriteriaTab = (props: {
   if (!successCriterias.length) {
     return <EmptyState onCreateNew={onCreateNew} />;
   }
-  return <ListSuccessCriterias successCriterias={successCriterias} />;
+  return (
+    <VStack w={'100%'}>
+      <Menu size={'xs'}>
+        {({ isOpen }) => (
+          <>
+            <MenuButton
+              isActive={isOpen}
+              as={Button}
+              leftIcon={<AddIcon boxSize={2} />}
+              ml={'auto !important'}
+              size={'xs'}
+            >
+              Add success criteria
+            </MenuButton>
+            <MenuList w={'100px'}>
+              <MenuItem fontSize={'xs'} onClick={() => onCreateNew('action')}>
+                Action
+              </MenuItem>
+              <MenuItem
+                onClick={() => onCreateNew('measurement')}
+                fontSize={'xs'}
+              >
+                Measurement
+              </MenuItem>
+            </MenuList>
+          </>
+        )}
+      </Menu>
+      <ListSuccessCriterias successCriterias={successCriterias} />
+    </VStack>
+  );
 };
 
 export default SuccessCriteriaTab;

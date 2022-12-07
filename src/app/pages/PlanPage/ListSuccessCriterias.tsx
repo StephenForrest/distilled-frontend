@@ -1,31 +1,23 @@
 import React from 'react';
 import { SuccessCriteria } from 'types';
-import { VStack, Box } from '@chakra-ui/react';
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Text,
-  Heading,
-} from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
+import { Card, CardHeader, CardBody, Text, Heading } from '@chakra-ui/react';
 
 const ListSuccessCriterias = (props: {
   successCriterias: SuccessCriteria[];
 }) => {
   const { successCriterias } = props;
   return (
-    <VStack>
+    <VStack w={'100%'}>
       {successCriterias.map(successCriteria => {
         return (
-          <Card key={successCriteria.id}>
+          <Card key={successCriteria.id} w={'100%'}>
             <CardHeader>
               <Heading size="sm">{successCriteria.name}</Heading>
             </CardHeader>
             <CardBody>
               <Text>
-                {successCriteria.name}, {successCriteria.description} View a
-                summary of all your customers over the last month.
+                {successCriteria.name}, {successCriteria.description}
               </Text>
             </CardBody>
           </Card>

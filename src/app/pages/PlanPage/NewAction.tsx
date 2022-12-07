@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { GoalWithDetails, ActionTrackingType, GoalActionForm } from 'types';
+import {
+  GoalWithDetails,
+  ActionTrackingType,
+  GoalActionForm,
+  GoalActionFormErrors,
+} from 'types';
 import { DrawerHeader, DrawerBody } from '@chakra-ui/react';
 import {
   Input,
@@ -13,9 +18,14 @@ import {
   HStack,
   Text,
   Select,
+  FormErrorMessage,
 } from '@chakra-ui/react';
 import ChecklistForm from './ChecklistForm';
-import { getDateNDaysFromToday, formatDateForInput } from 'app/lib/utilities';
+import {
+  getDateNDaysFromToday,
+  formatDateForInput,
+  convertDateToUTC,
+} from 'app/lib/utilities';
 import { defaultMilestoneTracking } from 'app/lib/defaults';
 import Header from './Header';
 import { CREATE_ACTION_MUTATION } from 'app/lib/mutations/Plan';
@@ -29,38 +39,50 @@ const NewAction = (props: {
 }) => {
   const { uuid: planUuid } = useParams();
   const { goal, onClose, onBack } = props;
-  const [createActionMutation, { loading, error }] = useMutation(
-    CREATE_ACTION_MUTATION,
-  );
+  const [createActionMutation, { loading, error }] = useMutation<{
+    createAction: { action: unknown; errors: GoalActionFormErrors };
+  }>(CREATE_ACTION_MUTATION);
 
   const endDate = formatDateForInput(
     new Date(new Date(goal.expiresOn).toString()),
   );
   const [form, setForm] = useState<GoalActionForm>({
-    title: '',
+    name: '',
     description: '',
     trackingType: 'checklist',
     startDate: getDateNDaysFromToday(0),
     endDate,
     trackingSettings: [defaultMilestoneTracking(goal.expiresOn)],
   });
+  const [formErrors, setFormErrors] = useState<GoalActionFormErrors>({});
 
-  const updateForm = (attr: keyof GoalActionForm, value: unknown) =>
+  const updateForm = (attr: keyof GoalActionForm, value: unknown) => {
     setForm({ ...form, [attr]: value });
+    if (attr !== 'trackingSettings') {
+      updateErrors(attr, undefined);
+    }
+  };
+
+  const updateErrors = (attr: keyof GoalActionForm, value: unknown) => {
+    setFormErrors({ ...formErrors, [attr]: value });
+  };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await createActionMutation({
+    const result = await createActionMutation({
       variables: {
         planUuid: planUuid,
         goalId: goal.id,
-        name: form.title,
+        name: form.name,
         description: form.description,
-        startDate: form.startDate,
-        endDate: form.endDate,
+        startDate: convertDateToUTC(form.startDate),
+        endDate: convertDateToUTC(form.endDate),
         trackingSettings: { [form.trackingType]: form.trackingSettings },
       },
     });
+    if (result?.data?.createAction?.errors as GoalActionFormErrors) {
+      setFormErrors(result.data?.createAction?.errors || {});
+    }
   };
 
   return (
@@ -74,45 +96,61 @@ const NewAction = (props: {
         <VStack>
           <form onSubmit={onSubmit} className="full-width">
             <Stack spacing={6} w={'100%'}>
-              <FormControl>
+              <FormControl isInvalid={!!formErrors.name}>
                 <FormLabel fontSize={'small'}>Name</FormLabel>
                 <Input
                   type="text"
-                  value={form.title}
-                  onChange={e => updateForm('title', e.target.value)}
+                  value={form.name}
+                  onChange={e => updateForm('name', e.target.value)}
                   maxWidth={'300px'}
                   size={'sm'}
                 />
+                <FormErrorMessage fontSize={'xs'}>
+                  {formErrors.name}
+                </FormErrorMessage>
               </FormControl>
-              <FormControl>
-                <HStack spacing="24px">
-                  <VStack spacing={0} alignItems={'flex-start'}>
+              <HStack spacing="24px" alignItems={'flex-start'}>
+                <VStack spacing={0} alignItems={'flex-start'}>
+                  <FormControl isInvalid={!!formErrors.startDate}>
                     <FormLabel fontSize={'small'}>Start date</FormLabel>
                     <Input
                       type="date"
                       size={'sm'}
+                      width={'150px'}
                       value={form.startDate}
                       onChange={e => updateForm('startDate', e.target.value)}
                     />
-                  </VStack>
-                  <VStack spacing={0} alignItems={'flex-start'}>
+                    <FormErrorMessage fontSize={'xs'}>
+                      {formErrors.startDate}
+                    </FormErrorMessage>
+                  </FormControl>
+                </VStack>
+                <VStack spacing={0} alignItems={'flex-start'}>
+                  <FormControl isInvalid={!!formErrors.endDate}>
                     <FormLabel fontSize={'small'}>End date</FormLabel>
                     <Input
                       type="date"
                       size={'sm'}
+                      width={'150px'}
                       value={form.endDate}
                       onChange={e => updateForm('endDate', e.target.value)}
                     />
-                  </VStack>
-                </HStack>
-              </FormControl>
-              <FormControl>
+                    <FormErrorMessage fontSize={'xs'}>
+                      {formErrors.endDate}
+                    </FormErrorMessage>
+                  </FormControl>
+                </VStack>
+              </HStack>
+              <FormControl isInvalid={!!formErrors.description}>
                 <FormLabel fontSize={'small'}>Description</FormLabel>
                 <Textarea
                   value={form.description}
                   onChange={e => updateForm('description', e.target.value)}
                   size={'sm'}
                 />
+                <FormErrorMessage fontSize={'xs'}>
+                  {formErrors.description}
+                </FormErrorMessage>
               </FormControl>
               <FormControl>
                 <FormLabel fontSize={'small'}>Tracking type</FormLabel>
@@ -137,8 +175,12 @@ const NewAction = (props: {
                     return (
                       <ChecklistForm
                         settings={form.trackingSettings}
+                        errors={formErrors.trackingSettings}
                         onUpdate={settings =>
                           updateForm('trackingSettings', settings)
+                        }
+                        onUpdateErrors={errors =>
+                          updateErrors('trackingSettings', errors)
                         }
                         endDate={goal.expiresOn}
                       />
@@ -155,7 +197,7 @@ const NewAction = (props: {
                 colorScheme="brand"
                 type="submit"
                 width={'100px'}
-                isLoading={false}
+                isLoading={loading}
                 size={'sm'}
               >
                 Create

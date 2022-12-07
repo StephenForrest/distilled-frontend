@@ -10,12 +10,21 @@ export interface Goal {
   };
 }
 
+export interface GoalActionFormErrors
+  extends Partial<ActionFormAttributesCommon> {
+  trackingSettings?: {
+    [id: string]: {
+      [key: string]: string;
+    };
+  };
+}
+
 export type GoalActionForm =
   | ActionChecklistAttributes
   | ActionMilestoneAttributes;
 
 export interface ActionFormAttributesCommon {
-  title: string;
+  name: string;
   description: string;
   startDate: string;
   endDate: string;

@@ -52,6 +52,7 @@ export const CREATE_ACTION_MUTATION = gql`
       action {
         id
       }
+      errors
     }
   }
 `;
