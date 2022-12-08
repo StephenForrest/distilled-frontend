@@ -22,6 +22,7 @@ import {
   Progress,
 } from '@chakra-ui/react';
 import GoalDrawer from './GoalDrawer';
+import { completionFormatted } from 'app/lib/utilities';
 
 const NewGoalsComponent = (props: {
   onNewGoal: () => void;
@@ -70,6 +71,9 @@ const Goals = (props: { goals: Goal[] }) => {
                         new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1,
                       )
                       .map(goal => {
+                        const completion = completionFormatted(
+                          goal.completion!,
+                        );
                         return (
                           <Tr
                             key={goal.id}
@@ -85,12 +89,12 @@ const Goals = (props: { goals: Goal[] }) => {
                             <Td>
                               <HStack spacing={4}>
                                 <Progress
-                                  value={80}
+                                  value={completion}
                                   borderRadius={8}
                                   colorScheme="green"
                                   w={'200px'}
                                 />
-                                <Text>80%</Text>
+                                <Text>{completion}%</Text>
                                 <Text>On Track</Text>
                               </HStack>
                             </Td>

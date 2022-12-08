@@ -12,6 +12,7 @@ export const GOAL_FRAGMENT = gql`
     measurementsCount
     actionsCount
     createdAt
+    completion
   }
 `;
 
@@ -26,6 +27,7 @@ export const SUCCESS_CRITERIA_FRAGMENT = gql`
     owner {
       name
     }
+    completion
     successCriteriaType
     action {
       id
@@ -51,6 +53,7 @@ export const GOAL_DETAILS_FRAGMENT = gql`
     owner {
       name
     }
+    completion
     measurementsCount
     actionsCount
     successCriterias {

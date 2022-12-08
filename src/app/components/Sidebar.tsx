@@ -86,7 +86,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       bg={'#E6F6FD'}
       borderRight="1px"
       borderRightColor={'#E6F6FD'}
-      Radius="4"
+      borderRadius={'0px 4px 0px 0px'}
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"

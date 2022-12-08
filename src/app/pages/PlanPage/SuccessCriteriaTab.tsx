@@ -5,7 +5,7 @@ import { BiTask } from 'react-icons/bi';
 import { GrLineChart } from 'react-icons/gr';
 import ListSuccessCriterias from './ListSuccessCriterias';
 import { Menu, MenuButton, MenuList, MenuItem, Button } from '@chakra-ui/react';
-import { ChevronDownIcon, AddIcon } from '@chakra-ui/icons';
+import { AddIcon } from '@chakra-ui/icons';
 
 const EmptyState = (props: {
   onCreateNew: (successCriteriaType: SuccessCriteriaType) => void;

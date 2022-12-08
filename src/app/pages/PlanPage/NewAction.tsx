@@ -97,7 +97,6 @@ export const NewActionForm = (props: {
       trackingSettings: { [form.trackingType]: form.trackingSettings },
     };
 
-    console.log(successCriteriaId, 'successCriteriaId');
     if (!successCriteriaId) {
       const result = await createActionMutation({
         variables,

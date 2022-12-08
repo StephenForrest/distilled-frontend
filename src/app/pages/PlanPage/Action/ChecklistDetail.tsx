@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ActionTrackingChecklistSettings } from 'types';
 import {
   Card,
@@ -10,6 +10,7 @@ import {
   Checkbox,
   CardHeader,
   Heading,
+  Spinner,
 } from '@chakra-ui/react';
 import { formatDate } from 'app/lib/utilities';
 import { UPDATE_CHECKLIST } from 'app/lib/mutations/Checklist';
@@ -20,19 +21,24 @@ const ChecklistDetail = (props: {
   settings: ActionTrackingChecklistSettings[];
 }) => {
   const [updateChecklist, { loading }] = useMutation(UPDATE_CHECKLIST);
+  const [disabled, setDisabled] = useState<{ [id: string]: boolean }>({});
   const { settings } = props;
 
   const onChange = async (itemId: string, checked: boolean) => {
-    const data = await updateChecklist({
+    setDisabled({ [itemId]: true });
+    await updateChecklist({
       variables: { id: props.checklistId, itemId, checked },
     });
-    console.log(data);
+    setDisabled({ [itemId]: false });
   };
 
   return (
     <Card w={'100%'} variant={'outline'}>
       <CardHeader>
-        <Heading size="md">Checklist items</Heading>
+        <HStack>
+          <Heading size="md">Checklist items</Heading>
+          {loading && <Spinner size={'sm'} />}
+        </HStack>
       </CardHeader>
 
       <CardBody>
@@ -50,6 +56,8 @@ const ChecklistDetail = (props: {
                 p={2}
                 spacing={4}
                 borderRadius={4}
+                onClick={e => onChange(setting.id, !setting.checked)}
+                pointerEvents={disabled[setting.id] ? 'none' : 'auto'}
               >
                 <Checkbox
                   isChecked={setting.checked}

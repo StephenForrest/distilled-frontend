@@ -43,6 +43,7 @@ export type SuccessCriteriaWithAction =
 
 const DetailTab = (props: { successCriteria: SuccessCriteriaWithAction }) => {
   const { successCriteria } = props;
+  const completion = (successCriteria.completion || 0) * 100;
   console.log(successCriteria);
   return (
     <VStack w={'100%'} alignItems={'flex-start'} spacing={4}>
@@ -51,9 +52,9 @@ const DetailTab = (props: { successCriteria: SuccessCriteriaWithAction }) => {
       </HStack>
       <VStack w={'100%'} alignItems={'flex-start'} pb={8}>
         <Text fontSize={'3xl'} fontWeight={'bold'}>
-          40%
+          {completion}%
         </Text>
-        <ProgressSlider />
+        <ProgressSlider value={completion} />
       </VStack>
       <Box w={'100%'}>
         {(() => {

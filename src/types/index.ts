@@ -5,6 +5,7 @@ export interface Goal {
   title: string;
   expiresOn: string;
   createdAt: string;
+  completion: number;
   owner: {
     name: string;
   };
@@ -65,6 +66,11 @@ export interface SuccessCriteria {
   successCriteriaType: SuccessCriteriaType;
   name: string;
   description: string;
+  completion?: number;
+  endDate?: string;
+  owner?: {
+    name: string;
+  };
 }
 
 export interface GoalWithDetails extends Goal {

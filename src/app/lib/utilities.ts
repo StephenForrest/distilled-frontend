@@ -71,3 +71,6 @@ export const formatDateForInput = (d: Date) =>
   d.getDate().toString().padStart(2, '0');
 
 export const getDateSevenDaysFromToday = () => getDateNDaysFromToday(7);
+
+export const completionFormatted = (completionNumber: number | undefined) =>
+  Math.ceil((completionNumber || 0) * 100);
