@@ -15,13 +15,13 @@ import {
   FlexProps,
 } from '@chakra-ui/react';
 import {
-  FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiMenu,
-  FiLogOut,
-} from 'react-icons/fi';
+  FcHome,
+  FcPlanner,
+  FcFlowChart,
+  FcServices,
+  FcMenu,
+} from 'react-icons/fc';
+import { RiLogoutBoxRLine } from 'react-icons/ri';
 import { IconType } from 'react-icons';
 import { ReactText } from 'react';
 import { SIGNOUT_MUTATION } from 'app/lib/mutations/Auth';
@@ -37,16 +37,16 @@ interface LinkItemProps {
   url: string;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Dashboard', icon: FiHome, url: '/' },
-  { name: 'Plans', icon: FiTrendingUp, url: '/plans' },
-  { name: 'Milestones', icon: FiCompass, url: '/' },
-  { name: 'Integrations', icon: FiStar, url: '/' },
+  { name: 'Dashboard', icon: FcHome, url: '/' },
+  { name: 'Plans', icon: FcPlanner, url: '/plans' },
+  { name: 'Milestones', icon: FcFlowChart, url: '/' },
+  { name: 'Integrations', icon: FcServices, url: '/' },
 ];
 
 export default function SimpleSidebar({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box h="100%" bg={useColorModeValue('gray.100', 'gray.900')}>
+    <Box h="100%" bg={'#E6F6FD'}>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'flex' }}
@@ -83,9 +83,10 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const [logOut] = useMutation(SIGNOUT_MUTATION);
   return (
     <Box
-      bg={'#EDF2F7'}
+      bg={'#E6F6FD'}
       borderRight="1px"
-      borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+      borderRightColor={'#E6F6FD'}
+      Radius="4"
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
@@ -114,7 +115,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       <NavItem
         stickToBottom={true}
         key={'signout'}
-        icon={FiLogOut}
+        icon={RiLogoutBoxRLine}
         onClick={() => {
           logOut({ variables: { sessionId: sessionId! } });
           onSignOut();
@@ -142,7 +143,7 @@ const NavItem = ({
   return (
     <Link
       href="#"
-      style={{ textDecoration: 'none' }}
+      style={{ textDecoration: 'none', color: '#4A5568' }}
       _focus={{ boxShadow: 'none' }}
       mt={stickToBottom ? 'auto' : ''}
       onClick={typeof onClick !== 'undefined' ? onClick : () => null}
@@ -154,8 +155,8 @@ const NavItem = ({
         role="group"
         cursor="pointer"
         _hover={{
-          bg: 'brand.400',
-          color: 'white',
+          bg: 'brand.100',
+          color: '#4A5568',
         }}
         {...rest}
       >
@@ -195,7 +196,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         variant="outline"
         onClick={onOpen}
         aria-label="open menu"
-        icon={<FiMenu />}
+        icon={<FcMenu />}
       />
 
       <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
