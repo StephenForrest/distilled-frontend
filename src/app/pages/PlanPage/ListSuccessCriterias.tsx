@@ -13,6 +13,7 @@ import {
 import TrackStatus from 'app/components/TrackStatus';
 import ProgressSlider from 'app/components/ProgressSlider';
 import { formatDate } from 'app/lib/utilities';
+import { completionFormatted } from 'app/lib/utilities';
 
 const ListSuccessCriterias = (props: {
   successCriterias: SuccessCriteria[];
@@ -23,7 +24,7 @@ const ListSuccessCriterias = (props: {
   return (
     <VStack w={'100%'} spacing={4}>
       {successCriterias.map(successCriteria => {
-        const completion = (successCriteria.completion || 0) * 100;
+        const completion = completionFormatted(successCriteria.completion || 0);
         return (
           <Card
             key={successCriteria.id}
