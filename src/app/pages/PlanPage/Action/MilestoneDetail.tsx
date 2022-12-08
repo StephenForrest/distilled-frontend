@@ -21,9 +21,9 @@ const MilestoneDetail = (props: {
   const [updateMilestone, { loading }] = useMutation(UPDATE_MILESTONE);
   const { settings } = props;
 
-  const onChange = async (percent: number, checked: boolean) => {
+  const onChange = async (itemId: string, checked: boolean) => {
     await updateMilestone({
-      variables: { id: props.checklistId, percent, checked },
+      variables: { id: props.checklistId, itemId, checked },
     });
   };
 
@@ -41,7 +41,7 @@ const MilestoneDetail = (props: {
           {settings.map(setting => {
             return (
               <VStack
-                key={setting.percent}
+                key={setting.id}
                 borderLeft={'3px solid var(--chakra-colors-brand-100)'}
                 pt={'0.8rem'}
                 pb={'0.8rem'}
@@ -57,7 +57,7 @@ const MilestoneDetail = (props: {
                   p={2}
                   borderRadius={4}
                   _hover={{ bg: 'brand.50' }}
-                  onClick={e => onChange(setting.percent, !setting.checked)}
+                  onClick={e => onChange(setting.id, !setting.checked)}
                 >
                   <Text fontSize={'sm'}>{setting.percent}%</Text>
 
@@ -65,7 +65,7 @@ const MilestoneDetail = (props: {
                   <Checkbox
                     marginLeft={'auto !important'}
                     isChecked={setting.checked}
-                    onChange={e => onChange(setting.percent, e.target.checked)}
+                    onChange={e => onChange(setting.id, e.target.checked)}
                   />
                 </HStack>
               </VStack>

@@ -26,8 +26,8 @@ export const UPDATE_CHECKLIST = gql`
 `;
 
 export const UPDATE_MILESTONE = gql`
-  mutation UpdateMilestone($id: String!, $percent: Int!, $checked: Boolean!) {
-    updateMilestone(id: $id, percent: $percent, checked: $checked) {
+  mutation UpdateMilestone($id: String!, $itemId: String!, $checked: Boolean!) {
+    updateMilestone(id: $id, itemId: $itemId, checked: $checked) {
       goal {
         id
         completion

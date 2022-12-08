@@ -51,6 +51,7 @@ export type ActionTrackingChecklistSettings = {
 };
 
 export type ActionTrackingMilestoneSettings = {
+  id: string;
   percent: number;
   item: string;
   dueDate: string;

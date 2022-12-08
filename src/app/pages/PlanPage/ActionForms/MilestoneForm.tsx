@@ -110,7 +110,8 @@ const MilestoneForm = (props: {
     percent: number,
     percentNext: number | undefined,
   ) => {
-    const percentMid = Math.ceil(percent + (percentNext || 100) / 2);
+    console.log(percent, percentNext);
+    const percentMid = Math.ceil((percent + (percentNext || 100)) / 2);
     props.onUpdate(
       [...props.settings, addNewMilestoneItem(props.endDate, percentMid)].sort(
         (a, b) => (a.percent > b.percent ? 1 : -1),
@@ -133,10 +134,8 @@ const MilestoneForm = (props: {
     props.onUpdateErrors({ ...(props.errors || {}), [percent]: {} });
   };
 
-  const onRemoveSetting = (percent: number) => {
-    props.onUpdate(
-      props.settings.filter(setting => setting.percent !== percent),
-    );
+  const onRemoveSetting = (id: string) => {
+    props.onUpdate(props.settings.filter(setting => setting.id !== id));
   };
 
   return (
@@ -144,12 +143,12 @@ const MilestoneForm = (props: {
       {props.settings.map((milestoneItem, index) => (
         <MilestoneItem
           error={props.errors ? props.errors[milestoneItem.percent] || {} : {}}
-          key={milestoneItem.percent}
+          key={milestoneItem.id}
           setting={milestoneItem}
           onSettingUpdate={(updatedSetting: ActionTrackingMilestoneSettings) =>
             onEditMilestoneItem(milestoneItem.percent, updatedSetting)
           }
-          onRemoveSetting={() => onRemoveSetting(milestoneItem.percent)}
+          onRemoveSetting={() => onRemoveSetting(milestoneItem.id)}
           showDeleteButton={
             milestoneItem.percent !== 0 && milestoneItem.percent !== 100
           }
