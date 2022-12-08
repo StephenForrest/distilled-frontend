@@ -1,7 +1,8 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { CURRENT_USER } from 'app/lib/queries/User';
-import { Image, Img, Text, VStack } from '@chakra-ui/react';
+import { Text, VStack } from '@chakra-ui/react';
+import LogoIcon from './LogoIcon';
 
 const WelcomeToDistilled = () => {
   const { loading: userLoading } = useQuery(CURRENT_USER);
@@ -12,11 +13,8 @@ const WelcomeToDistilled = () => {
 
   return (
     <VStack p={8} w="100%">
-      <Image
-        width="250px"
-        src="https://drive.google.com/file/d/11KQ66lmE0gpH34W7V1yFqvuzsIWYFgWF/view?usp=sharing"
-        alt="Distilled logo"
-      />
+      <LogoIcon />
+
       <Text fontSize={'xl'} fontWeight={'bold'}>
         Welcome to Distilled
       </Text>

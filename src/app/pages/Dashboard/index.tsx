@@ -14,7 +14,13 @@ export function Page() {
       </Helmet>
       <VStack w={'100%'} spacing={'12px'} p={4}>
         <WelcomeToDistilled />
-        <Button onClick={() => setIsNewPlanModal(true)}>Create new plan</Button>
+        <Button
+          bg="brand.500"
+          textColor="white"
+          onClick={() => setIsNewPlanModal(true)}
+        >
+          Create new plan
+        </Button>
       </VStack>
       <CreateNewPlanModal
         isOpen={isNewPlanModal}

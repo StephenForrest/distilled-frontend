@@ -46,7 +46,7 @@ const LinkItems: Array<LinkItemProps> = [
 export default function SimpleSidebar({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box borderRightRadius="4" boxShadow="dark-lg" h="100%" bg={'brand.500'}>
+    <Box h="100%" bg={'#E6F6FD'}>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'flex' }}
@@ -83,11 +83,10 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const [logOut] = useMutation(SIGNOUT_MUTATION);
   return (
     <Box
-      bg={'brand.500'}
+      bg={'#E6F6FD'}
       borderRight="1px"
-      borderRightColor={'brand.500'}
-      borderRightRadius="4"
-      boxShadow="dark-lg"
+      borderRightColor={'#E6F6FD'}
+      Radius="4"
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
@@ -144,7 +143,7 @@ const NavItem = ({
   return (
     <Link
       href="#"
-      style={{ textDecoration: 'none', color: 'white' }}
+      style={{ textDecoration: 'none', color: '#4A5568' }}
       _focus={{ boxShadow: 'none' }}
       mt={stickToBottom ? 'auto' : ''}
       onClick={typeof onClick !== 'undefined' ? onClick : () => null}
@@ -157,7 +156,7 @@ const NavItem = ({
         cursor="pointer"
         _hover={{
           bg: 'brand.100',
-          color: 'white',
+          color: '#4A5568',
         }}
         {...rest}
       >
