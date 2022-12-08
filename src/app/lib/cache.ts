@@ -9,6 +9,9 @@ const cache: InMemoryCache = new InMemoryCache({
     Goal: {
       keyFields: ['id'],
     },
+    SucccessCriteria: {
+      keyFields: ['id'],
+    },
   },
 });
 

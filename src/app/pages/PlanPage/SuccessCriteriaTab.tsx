@@ -74,6 +74,7 @@ const EmptyState = (props: {
 const SuccessCriteriaTab = (props: {
   goal: GoalWithDetails;
   onCreateNew: (successCriteriaType: SuccessCriteriaType) => void;
+  onSuccessCriteriaSelect: (id: string) => void;
 }) => {
   const { goal, onCreateNew } = props;
   const successCriterias = goal.successCriterias;
@@ -108,7 +109,10 @@ const SuccessCriteriaTab = (props: {
           </>
         )}
       </Menu>
-      <ListSuccessCriterias successCriterias={successCriterias} />
+      <ListSuccessCriterias
+        successCriterias={successCriterias}
+        onSuccessCriteriaSelect={props.onSuccessCriteriaSelect}
+      />
     </VStack>
   );
 };

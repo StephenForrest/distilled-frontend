@@ -56,3 +56,32 @@ export const CREATE_ACTION_MUTATION = gql`
     }
   }
 `;
+
+export const UPDATE_SUCCESS_CRITERIA_MUTATION = gql`
+  mutation UpdateSuccessCriteria(
+    $planUuid: String!
+    $goalId: String!
+    $successCriteriaId: String!
+    $name: String!
+    $description: String!
+    $startDate: String!
+    $endDate: String!
+    $trackingSettings: ActionTrackingInput!
+  ) {
+    updateSuccessCriteria(
+      planUuid: $planUuid
+      goalId: $goalId
+      name: $name
+      successCriteriaId: $successCriteriaId
+      description: $description
+      startDate: $startDate
+      endDate: $endDate
+      trackingSettings: $trackingSettings
+    ) {
+      successCriteria {
+        id
+      }
+      errors
+    }
+  }
+`;

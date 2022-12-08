@@ -1,14 +1,17 @@
 import React from 'react';
 import { Button, HStack } from '@chakra-ui/react';
-import { ChevronLeftIcon, CloseIcon } from '@chakra-ui/icons';
+import { ChevronLeftIcon, CloseIcon, EditIcon } from '@chakra-ui/icons';
 
 const DrawerHeader = (props: {
   showBackButton: boolean;
+  showEditButton?: boolean;
   onBack?: () => void;
   onClose?: () => void;
+  onEdit?: () => void;
   children: React.ReactElement;
 }) => {
-  const { onBack, onClose, children, showBackButton } = props;
+  const { onBack, onClose, children, showBackButton, showEditButton, onEdit } =
+    props;
   return (
     <HStack w={'100%'}>
       {showBackButton && (
@@ -22,15 +25,26 @@ const DrawerHeader = (props: {
         </Button>
       )}
       {children}
-      <Button
-        p={2}
-        variant="ghost"
-        marginLeft={'auto !important'}
-        _hover={{ bg: 'brand.50' }}
-        onClick={onClose}
-      >
-        <CloseIcon boxSize={2.5} />
-      </Button>
+      <HStack marginLeft={'auto !important'}>
+        {showEditButton && (
+          <Button
+            p={2}
+            variant="ghost"
+            _hover={{ bg: 'brand.50' }}
+            onClick={onEdit}
+          >
+            <EditIcon boxSize={5} />
+          </Button>
+        )}
+        <Button
+          p={2}
+          variant="ghost"
+          _hover={{ bg: 'brand.50' }}
+          onClick={onClose}
+        >
+          <CloseIcon boxSize={2.5} />
+        </Button>
+      </HStack>
     </HStack>
   );
 };

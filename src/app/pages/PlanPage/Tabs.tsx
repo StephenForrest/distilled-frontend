@@ -6,6 +6,7 @@ import SuccessCriteriaTab from './SuccessCriteriaTab';
 const TabsComponent = (props: {
   goal: GoalWithDetails;
   onCreateNew: (successCriteriaType: SuccessCriteriaType) => void;
+  onSuccessCriteriaSelect: (id: string) => void;
 }) => {
   const { goal, onCreateNew } = props;
 
@@ -18,7 +19,11 @@ const TabsComponent = (props: {
 
       <TabPanels>
         <TabPanel>
-          <SuccessCriteriaTab goal={goal} onCreateNew={onCreateNew} />
+          <SuccessCriteriaTab
+            goal={goal}
+            onCreateNew={onCreateNew}
+            onSuccessCriteriaSelect={props.onSuccessCriteriaSelect}
+          />
         </TabPanel>
         <TabPanel>
           <p>two!</p>

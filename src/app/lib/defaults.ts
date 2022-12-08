@@ -1,9 +1,10 @@
 import uuid from 'react-uuid';
 
-export const defaultMilestoneTracking = endDateString => {
+export const defaultChecklistTracking = endDateString => {
   return {
     id: uuid(),
     item: '',
     dueDate: new Date(endDateString).toISOString(),
+    checked: false,
   };
 };

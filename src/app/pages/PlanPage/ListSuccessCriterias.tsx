@@ -5,13 +5,19 @@ import { Card, CardHeader, CardBody, Text, Heading } from '@chakra-ui/react';
 
 const ListSuccessCriterias = (props: {
   successCriterias: SuccessCriteria[];
+  onSuccessCriteriaSelect: (id: string) => void;
 }) => {
   const { successCriterias } = props;
   return (
-    <VStack w={'100%'}>
+    <VStack w={'100%'} spacing={4}>
       {successCriterias.map(successCriteria => {
         return (
-          <Card key={successCriteria.id} w={'100%'}>
+          <Card
+            key={successCriteria.id}
+            w={'100%'}
+            variant={'outline'}
+            onClick={() => props.onSuccessCriteriaSelect(successCriteria.id)}
+          >
             <CardHeader>
               <Heading size="sm">{successCriteria.name}</Heading>
             </CardHeader>

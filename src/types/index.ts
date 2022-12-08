@@ -46,6 +46,7 @@ export type ActionTrackingChecklistSettings = {
   id: string;
   item: string;
   dueDate: string;
+  checked: boolean;
 };
 
 export type ActionTrackingMilestoneSettings = {
@@ -59,12 +60,12 @@ export type ActionTrackingSettings =
 
 export type SuccessCriteriaType = 'action' | 'measurement';
 
-export type SuccessCriteria = {
+export interface SuccessCriteria {
   id: string;
   successCriteriaType: SuccessCriteriaType;
   name: string;
   description: string;
-};
+}
 
 export interface GoalWithDetails extends Goal {
   successCriterias: SuccessCriteria[];

@@ -13,14 +13,18 @@ import { GET_GOAL } from 'app/lib/queries/Plan';
 import Tabs from './Tabs';
 import NewAction from './NewAction';
 import Header from './Header';
+import SuccessCriteriaDetail from './SuccessCriteriaDetail';
 
-export type Screens = 'tabs' | 'new-measure' | 'new-action';
+export type Screens = 'tabs' | 'new-measure' | 'new-action' | 'action-detail';
 
 const GoalDrawer = (props: {
   goalId: number | undefined;
   onClose: () => void;
 }) => {
   const [screen, setScreen] = useState<Screens>('tabs');
+  const [selectedSuccessCriteria, setSelectedSuccessCriteria] = useState<
+    string | undefined
+  >(undefined);
   const { goalId } = props;
   const { data, loading } = useQuery<{ getGoal: GoalWithDetails }>(GET_GOAL, {
     variables: { id: goalId },
@@ -36,6 +40,7 @@ const GoalDrawer = (props: {
 
   const onClose = () => {
     setScreen('tabs');
+    setSelectedSuccessCriteria(undefined);
     props.onClose();
   };
 
@@ -65,7 +70,16 @@ const GoalDrawer = (props: {
           return (
             <DrawerContent>
               {(() => {
-                if (screen === 'tabs') {
+                if (typeof selectedSuccessCriteria !== 'undefined') {
+                  return (
+                    <SuccessCriteriaDetail
+                      onClose={onClose}
+                      goal={data!.getGoal}
+                      successCriteriaId={selectedSuccessCriteria}
+                      onBack={() => setSelectedSuccessCriteria(undefined)}
+                    />
+                  );
+                } else if (screen === 'tabs') {
                   return (
                     <>
                       <DrawerHeader>
@@ -78,6 +92,9 @@ const GoalDrawer = (props: {
                           <Tabs
                             goal={data!.getGoal}
                             onCreateNew={onCreateNew}
+                            onSuccessCriteriaSelect={(id: string) =>
+                              setSelectedSuccessCriteria(id)
+                            }
                           />
                         )}
                       </DrawerBody>

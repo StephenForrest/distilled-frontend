@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
 import { ActionTrackingChecklistSettings } from 'types';
-import { defaultMilestoneTracking } from 'app/lib/defaults';
+import { defaultChecklistTracking } from 'app/lib/defaults';
 
 const ChecklistItem = (props: {
   setting: ActionTrackingChecklistSettings;
@@ -72,7 +72,7 @@ const MilestoneForm = (props: {
   const onAddNewChecklistItem = () => {
     props.onUpdate([
       ...props.settings,
-      defaultMilestoneTracking(props.endDate),
+      defaultChecklistTracking(props.endDate),
     ]);
   };
 

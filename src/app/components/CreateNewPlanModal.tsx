@@ -21,8 +21,7 @@ const CreateNewPlanModal = (props: {
   onClose: () => void;
 }) => {
   const navigate = useNavigate();
-  const [createPlanMutation, { loading, error }] =
-    useMutation(CREATE_PLAN_MUTATION);
+  const [createPlanMutation, { loading }] = useMutation(CREATE_PLAN_MUTATION);
   const [planName, setPlanName] = useState<string>('');
   const { isOpen, onClose } = props;
   const createPlan = async (e: React.FormEvent<HTMLFormElement>) => {

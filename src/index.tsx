@@ -66,7 +66,7 @@ const link = createHttpLink({
   uri: `${process.env.REACT_APP_API_ENDPOINT}/execute`,
 });
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   cache,
   link: authLink.concat(errorLink).concat(link),
 });

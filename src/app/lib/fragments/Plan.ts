@@ -11,10 +11,38 @@ export const GOAL_FRAGMENT = gql`
     }
     measurementsCount
     actionsCount
+    createdAt
+  }
+`;
+
+export const SUCCESS_CRITERIA_FRAGMENT = gql`
+  fragment SuccessCriteriaFields on SuccessCriteria {
+    id
+    name
+    description
+    startDate
+    endDate
+    goalId
+    owner {
+      name
+    }
+    successCriteriaType
+    action {
+      id
+      trackingType
+      tracking {
+        __typename
+        ... on Checklist {
+          id
+          settings
+        }
+      }
+    }
   }
 `;
 
 export const GOAL_DETAILS_FRAGMENT = gql`
+  ${SUCCESS_CRITERIA_FRAGMENT}
   fragment GoalDetails on Goal {
     id
     title
@@ -26,24 +54,7 @@ export const GOAL_DETAILS_FRAGMENT = gql`
     measurementsCount
     actionsCount
     successCriterias {
-      id
-      name
-      description
-      startDate
-      endDate
-      owner {
-        name
-      }
-      action {
-        id
-        tracking {
-          __typename
-          ... on Checklist {
-            id
-            settings
-          }
-        }
-      }
+      ...SuccessCriteriaFields
     }
   }
 `;

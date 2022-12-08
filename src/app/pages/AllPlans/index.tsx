@@ -72,6 +72,28 @@ export function Page() {
               </TableContainer>
             </CardBody>
           </Card>
+
+          <TableContainer w={'100%'} mt={'100px'}>
+            <Table variant="simple" size="sm">
+              <Tbody>
+                {plans.map(plan => {
+                  return (
+                    <Tr
+                      key={plan.id}
+                      _hover={{ bg: 'brand.50', cursor: 'pointer' }}
+                      onClick={() => navigate(`/plan/${plan.id}`)}
+                    >
+                      <Td w={'100%'}>
+                        <HStack marginLeft={'auto !important'}>
+                          <Text>{plan.name} </Text>
+                        </HStack>
+                      </Td>
+                    </Tr>
+                  );
+                })}
+              </Tbody>
+            </Table>
+          </TableContainer>
         </Box>
       </>
     );
