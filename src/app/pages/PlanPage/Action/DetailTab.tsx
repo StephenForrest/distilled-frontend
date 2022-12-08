@@ -8,7 +8,8 @@ import {
   ActionTrackingMilestoneSettings,
 } from 'types';
 import ChecklistDetail from './ChecklistDetail';
-
+import MilestoneDetail from './MilestoneDetail';
+import { completionFormatted } from 'app/lib/utilities';
 export interface SuccessCriteriaWithActionChecklistTracking
   extends SuccessCriteria {
   action: {
@@ -31,7 +32,7 @@ export interface SuccessCriteriaWithActionMilestoneTracking
     tracking: {
       id: string;
       settings: {
-        milestone: ActionTrackingMilestoneSettings;
+        milestone: ActionTrackingMilestoneSettings[];
       };
     };
   };
@@ -43,8 +44,7 @@ export type SuccessCriteriaWithAction =
 
 const DetailTab = (props: { successCriteria: SuccessCriteriaWithAction }) => {
   const { successCriteria } = props;
-  const completion = (successCriteria.completion || 0) * 100;
-  console.log(successCriteria);
+  const completion = completionFormatted(successCriteria.completion || 0);
   return (
     <VStack w={'100%'} alignItems={'flex-start'} spacing={4}>
       <HStack w={'100%'}>
@@ -63,6 +63,13 @@ const DetailTab = (props: { successCriteria: SuccessCriteriaWithAction }) => {
               <ChecklistDetail
                 checklistId={successCriteria.action.tracking.id}
                 settings={successCriteria.action.tracking.settings.checklist}
+              />
+            );
+          } else if (successCriteria.action?.trackingType === 'milestone') {
+            return (
+              <MilestoneDetail
+                checklistId={successCriteria.action.tracking.id}
+                settings={successCriteria.action.tracking.settings.milestone}
               />
             );
           }

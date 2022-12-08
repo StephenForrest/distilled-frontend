@@ -20,13 +20,17 @@ import {
   Select,
   FormErrorMessage,
 } from '@chakra-ui/react';
-import ChecklistForm from './ChecklistForm';
+import ChecklistForm from './ActionForms/ChecklistForm';
+import MilestoneForm from './ActionForms/MilestoneForm';
 import {
   getDateNDaysFromToday,
   formatDateForInput,
   convertDateToUTC,
 } from 'app/lib/utilities';
-import { defaultChecklistTracking } from 'app/lib/defaults';
+import {
+  defaultChecklistTracking,
+  defaultMilestoneTracking,
+} from 'app/lib/defaults';
 import Header from './Header';
 import {
   CREATE_ACTION_MUTATION,
@@ -79,6 +83,16 @@ export const NewActionForm = (props: {
     if (attr !== 'trackingSettings') {
       updateErrors(attr, undefined);
     }
+  };
+
+  const updateTrackingType = (trackingType: ActionTrackingType) => {
+    let trackingSettings;
+    if (trackingType === 'checklist') {
+      trackingSettings = [defaultChecklistTracking(goal.expiresOn)];
+    } else {
+      trackingSettings = defaultMilestoneTracking(goal.expiresOn);
+    }
+    setForm({ ...form, trackingSettings, trackingType });
   };
 
   const updateErrors = (attr: keyof GoalActionForm, value: unknown) => {
@@ -185,7 +199,7 @@ export const NewActionForm = (props: {
               width={'300px'}
               value={form.trackingType}
               onChange={e =>
-                updateForm('trackingType', e.target.value as ActionTrackingType)
+                updateTrackingType(e.target.value as ActionTrackingType)
               }
             >
               <option value="milestone">Milestone</option>
@@ -193,7 +207,19 @@ export const NewActionForm = (props: {
             </Select>
             {(() => {
               if (form.trackingType === 'milestone') {
-                return null;
+                return (
+                  <MilestoneForm
+                    settings={form.trackingSettings}
+                    errors={formErrors.trackingSettings}
+                    onUpdate={settings =>
+                      updateForm('trackingSettings', settings)
+                    }
+                    onUpdateErrors={errors =>
+                      updateErrors('trackingSettings', errors)
+                    }
+                    endDate={goal.expiresOn}
+                  />
+                );
               } else if (form.trackingType === 'checklist') {
                 return (
                   <ChecklistForm

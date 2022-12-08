@@ -38,6 +38,10 @@ export const SUCCESS_CRITERIA_FRAGMENT = gql`
           id
           settings
         }
+        ... on Milestone {
+          id
+          settings
+        }
       }
     }
   }

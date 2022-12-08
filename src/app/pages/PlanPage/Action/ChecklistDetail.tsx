@@ -13,7 +13,7 @@ import {
   Spinner,
 } from '@chakra-ui/react';
 import { formatDate } from 'app/lib/utilities';
-import { UPDATE_CHECKLIST } from 'app/lib/mutations/Checklist';
+import { UPDATE_CHECKLIST } from 'app/lib/mutations/Action';
 import { useMutation } from '@apollo/client';
 
 const ChecklistDetail = (props: {

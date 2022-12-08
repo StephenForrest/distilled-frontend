@@ -51,8 +51,10 @@ export type ActionTrackingChecklistSettings = {
 };
 
 export type ActionTrackingMilestoneSettings = {
+  percent: number;
   item: string;
   dueDate: string;
+  checked: boolean;
 };
 
 export type ActionTrackingSettings =
