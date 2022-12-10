@@ -11,7 +11,8 @@ import { useQuery } from '@apollo/client';
 import { GoalWithDetails, SuccessCriteriaType } from 'types';
 import { GET_GOAL } from 'app/lib/queries/Plan';
 import Tabs from './Tabs';
-import NewAction from './NewAction';
+import NewAction from './Action/NewAction';
+import NewMeasurement from './Measure/NewMeasurement';
 import Header from './Header';
 import SuccessCriteriaDetail from './SuccessCriteriaDetail';
 
@@ -103,6 +104,14 @@ const GoalDrawer = (props: {
                 } else if (screen === 'new-action') {
                   return (
                     <NewAction
+                      goal={data!.getGoal}
+                      onClose={onClose}
+                      onBack={onBack}
+                    />
+                  );
+                } else if (screen === 'new-measure') {
+                  return (
+                    <NewMeasurement
                       goal={data!.getGoal}
                       onClose={onClose}
                       onBack={onBack}

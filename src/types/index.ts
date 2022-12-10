@@ -12,7 +12,7 @@ export interface Goal {
 }
 
 export interface GoalActionFormErrors
-  extends Partial<ActionFormAttributesCommon> {
+  extends Partial<SuccessCriteriaCommonAttrs> {
   trackingSettings?: {
     [id: string]: {
       [key: string]: string;
@@ -24,19 +24,19 @@ export type GoalActionForm =
   | ActionChecklistAttributes
   | ActionMilestoneAttributes;
 
-export interface ActionFormAttributesCommon {
+export interface SuccessCriteriaCommonAttrs {
   name: string;
   description: string;
   startDate: string;
   endDate: string;
 }
 
-export interface ActionChecklistAttributes extends ActionFormAttributesCommon {
+export interface ActionChecklistAttributes extends SuccessCriteriaCommonAttrs {
   trackingType: 'checklist';
   trackingSettings: ActionTrackingChecklistSettings[];
 }
 
-export interface ActionMilestoneAttributes extends ActionFormAttributesCommon {
+export interface ActionMilestoneAttributes extends SuccessCriteriaCommonAttrs {
   trackingType: 'milestone';
   trackingSettings: ActionTrackingMilestoneSettings[];
 }
@@ -84,4 +84,29 @@ export interface Plan {
   id: number;
   name: string;
   goals?: [Goal];
+}
+
+export type MeasurementTrackingType = 'github' | 'measurement';
+export type MeasurementTrackingSlackSettings = {};
+export type MeasurementTrackingGithubSettings = {};
+
+export type GoalMeasurementForm = MeasurementSlackForm | MeasurementGithubForm;
+
+export interface MeasurementGithubForm extends SuccessCriteriaCommonAttrs {
+  trackingType: 'github';
+  trackingSettings: MeasurementTrackingGithubSettings;
+}
+
+export interface MeasurementSlackForm extends SuccessCriteriaCommonAttrs {
+  trackingType: 'slack';
+  trackingSettings: MeasurementTrackingSlackSettings;
+}
+
+export interface GoalMeasurementFormErrors
+  extends Partial<SuccessCriteriaCommonAttrs> {
+  trackingSettings?: {
+    [id: string]: {
+      [key: string]: string;
+    };
+  };
 }

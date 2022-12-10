@@ -6,7 +6,7 @@ import DetailTab from './Action/DetailTab';
 import { useApolloClient } from '@apollo/client';
 import { SUCCESS_CRITERIA_FRAGMENT } from 'app/lib/fragments/Plan';
 import { GoalWithDetails } from 'types';
-import { NewActionForm } from './NewAction';
+import { NewActionForm } from './Action/NewAction';
 import { formatDateForInput } from 'app/lib/utilities';
 
 const SuccessCriteriaDetail = (props: {

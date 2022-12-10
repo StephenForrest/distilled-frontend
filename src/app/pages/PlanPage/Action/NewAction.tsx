@@ -20,8 +20,8 @@ import {
   Select,
   FormErrorMessage,
 } from '@chakra-ui/react';
-import ChecklistForm from './ActionForms/ChecklistForm';
-import MilestoneForm from './ActionForms/MilestoneForm';
+import ChecklistForm from '../ActionForms/ChecklistForm';
+import MilestoneForm from '../ActionForms/MilestoneForm';
 import {
   getDateNDaysFromToday,
   formatDateForInput,
@@ -31,13 +31,14 @@ import {
   defaultChecklistTracking,
   defaultMilestoneTracking,
 } from 'app/lib/defaults';
-import Header from './Header';
+import Header from '../Header';
 import {
-  CREATE_ACTION_MUTATION,
+  CREATE_SUCCESS_CRITERIA,
   UPDATE_SUCCESS_CRITERIA_MUTATION,
-} from 'app/lib/mutations/Plan';
+} from 'app/lib/mutations/SuccessCriteria';
 import { useMutation } from '@apollo/client';
 import { useParams } from 'react-router-dom';
+import { GET_GOAL } from 'app/lib/queries/Plan';
 
 export const NewActionForm = (props: {
   goal: GoalWithDetails;
@@ -47,11 +48,13 @@ export const NewActionForm = (props: {
 }) => {
   const { uuid: planUuid } = useParams();
   const { goal, onBack, successCriteriaId, existingForm } = props;
-  const [createActionMutation, { loading }] = useMutation<{
-    createAction: { action: unknown; errors: GoalActionFormErrors };
-  }>(CREATE_ACTION_MUTATION, {
-    refetchQueries: ['getPlan', 'getPlans', 'getGoal'],
-  });
+  const [createSuccessCriteriaMutation, { loading }] = useMutation(
+    CREATE_SUCCESS_CRITERIA,
+    {
+      refetchQueries: [{ query: GET_GOAL, variables: { id: goal.id } }],
+      awaitRefetchQueries: true,
+    },
+  );
 
   const [updateSuccessCriteriaMutation, { loading: updateLoading }] =
     useMutation<{
@@ -60,7 +63,7 @@ export const NewActionForm = (props: {
         errors: GoalActionFormErrors;
       };
     }>(UPDATE_SUCCESS_CRITERIA_MUTATION, {
-      refetchQueries: ['getPlan', 'getPlans', 'getGoal'],
+      refetchQueries: ['getPlans'],
     });
 
   const endDate = formatDateForInput(
@@ -112,11 +115,11 @@ export const NewActionForm = (props: {
     };
 
     if (!successCriteriaId) {
-      const result = await createActionMutation({
-        variables,
+      const result = await createSuccessCriteriaMutation({
+        variables: { ...variables, successCriteriaType: 'action' },
       });
-      if (result?.data?.createAction?.errors as GoalActionFormErrors) {
-        setFormErrors(result.data?.createAction?.errors || {});
+      if (result?.data?.createSuccessCriteria?.errors as GoalActionFormErrors) {
+        setFormErrors(result.data?.createSuccessCriteria?.errors || {});
       } else {
         onBack();
       }

@@ -40,7 +40,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: 'Dashboard', icon: FcHome, url: '/' },
   { name: 'Plans', icon: FcPlanner, url: '/plans' },
   { name: 'Milestones', icon: FcFlowChart, url: '/' },
-  { name: 'Integrations', icon: FcServices, url: '/' },
+  { name: 'Integrations', icon: FcServices, url: '/integrations' },
 ];
 
 export default function SimpleSidebar({ children }: { children: ReactNode }) {
