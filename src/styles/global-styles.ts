@@ -37,4 +37,12 @@ export const GlobalStyle = createGlobalStyle`
   .MilestoneTimeline:hover .MilestoneTimelineAdd {
     opacity: 1;
   }
+
+  .NavbarIcon path {
+    stroke: var(--chakra-colors-gray-200);
+  }
+
+  .NavbarIcon:hover path {
+    stroke: var(--chakra-colors-brand-200);
+  }
 `;

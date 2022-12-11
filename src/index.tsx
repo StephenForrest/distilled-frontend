@@ -17,6 +17,8 @@ import tokenStorage from 'app/lib/tokenStorage';
 import cache from 'app/lib/cache';
 import { onSignOut } from 'app/lib/mutations/Auth';
 import theme from './theme';
+import '@fontsource/inter/400.css';
+import '@fontsource/manrope/700.css';
 
 // Use consistent styling
 import 'sanitize.css/sanitize.css';

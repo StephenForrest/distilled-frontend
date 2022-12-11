@@ -54,6 +54,7 @@ export function Login() {
           background={'white'}
           borderRadius={'8px'}
           mt="auto"
+          boxShadow="dark-lg"
           mb="auto"
           rounded="lg"
           p={12}
@@ -83,10 +84,11 @@ export function Login() {
                   isLoading={loading}
                   loadingText={'Submitting'}
                   mt={4}
-                  colorScheme="brand"
+                  textColor={'black'}
+                  bg="secondary.500"
                   type="submit"
                 >
-                  Submit
+                  Log In
                 </Button>
               </Stack>
               <Divider mt="24px" mb="12px" />
@@ -95,7 +97,8 @@ export function Login() {
                   Don't have an account?
                 </Text>
                 <Button
-                  colorScheme="brand"
+                  textColor={'white'}
+                  bg="black"
                   variant="outline"
                   onClick={() => navigate('/signup')}
                 >

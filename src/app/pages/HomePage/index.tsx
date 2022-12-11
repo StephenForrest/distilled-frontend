@@ -22,7 +22,7 @@ export function HomePage() {
       <Sidebar>
         <Box
           w={'100%'}
-          background={'white'}
+          background={'#F7FAFC'}
           h={'100%'}
           borderRadius={0}
           overflow={'auto'}

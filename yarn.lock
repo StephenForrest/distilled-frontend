@@ -2145,6 +2145,11 @@
   resolved "https://registry.npmjs.org/@fontsource/inter/-/inter-4.5.14.tgz"
   integrity sha512-JDC9AocdPLuGsASkvWw9hS5gtHE7K9dOwL98XLrk5yjYqxy4uVnScG58NUvFMJDVJRl/7c8Wnap6PEs+7Zvj1Q==
 
+"@fontsource/manrope@4.5.12":
+  version "4.5.12"
+  resolved "https://registry.npmjs.org/@fontsource/manrope/-/manrope-4.5.12.tgz"
+  integrity sha512-s2G9tvaG8+p4OcxbYH9KS7JpgC+Tz2q7GNJLdKQJ/L2DrQZs6e0ARDhcA3KTTU/sVIE6MRfNPXvds8DNoQgEZw==
+
 "@fontsource/roboto@4.5.8":
   version "4.5.8"
   resolved "https://registry.npmjs.org/@fontsource/roboto/-/roboto-4.5.8.tgz"
