@@ -80,6 +80,7 @@ export interface SuccessCriteria {
   measurement?: {
     trackingType: string;
   };
+  createdAt?: string;
 }
 
 export interface GoalWithDetails extends Goal {

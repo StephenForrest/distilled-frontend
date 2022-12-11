@@ -83,7 +83,11 @@ const SlackIntegration = (props: {
 
   const selectIntegration = useCallback(
     async integration => {
-      onUpdate({ ...settings, integrationId: integration.id });
+      onUpdate({
+        ...settings,
+        integrationId: integration.id,
+        metric: 'new_users',
+      });
     },
     [onUpdate, settings],
   );
@@ -93,11 +97,10 @@ const SlackIntegration = (props: {
   }, [settings.integrationId, populateChannels]);
 
   useEffect(() => {
-    if (data && !settings.integrationId && data.getIntegrationsByType[0]) {
+    if (data?.getIntegrationsByType[0] && !settings.integrationId) {
       selectIntegration(data.getIntegrationsByType[0]);
-      onUpdate({ ...settings, metric: 'new_users' });
     }
-  }, [data, selectIntegration, settings, onUpdate]);
+  }, [data?.getIntegrationsByType, settings.integrationId, selectIntegration]);
 
   if (loading) {
     return <Center>Loading...</Center>;

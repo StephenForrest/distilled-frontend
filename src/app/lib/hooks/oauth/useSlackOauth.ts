@@ -31,7 +31,6 @@ const useSlackOauth = (customScopes?: String[]) => {
         const data = await createSlackIntegration({
           variables: { code: e.data.searchParams.code },
         });
-        console.log(data);
         setLoading(false);
       }
     },

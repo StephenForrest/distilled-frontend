@@ -110,7 +110,6 @@ const MilestoneForm = (props: {
     percent: number,
     percentNext: number | undefined,
   ) => {
-    console.log(percent, percentNext);
     const percentMid = Math.ceil((percent + (percentNext || 100)) / 2);
     props.onUpdate(
       [...props.settings, addNewMilestoneItem(props.endDate, percentMid)].sort(

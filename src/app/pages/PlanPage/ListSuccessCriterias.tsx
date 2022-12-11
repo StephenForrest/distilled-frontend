@@ -87,68 +87,73 @@ const ListSuccessCriterias = (props: {
   onSuccessCriteriaSelect: (id: string) => void;
 }) => {
   const { successCriterias } = props;
-
   return (
     <VStack w={'100%'} spacing={4}>
-      {successCriterias.map(successCriteria => {
-        const completion = completionFormatted(successCriteria.completion || 0);
-        return (
-          <Card key={successCriteria.id} w={'100%'} variant={'outline'}>
-            <CardBody>
-              <VStack alignItems={'flex-start'} spacing={0}>
-                <HStack
-                  w={'100%'}
-                  _hover={{ textDecoration: 'underline', cursor: 'pointer' }}
-                  alignItems={'flex-start'}
-                  spacing={4}
-                  onClick={() =>
-                    props.onSuccessCriteriaSelect(successCriteria.id)
-                  }
-                >
-                  <SuccessCriteriaIcon successCriteria={successCriteria} />
-                  <Heading size="sm">{successCriteria.name}</Heading>
-                  <Box marginLeft={'auto !important'}>
-                    <SuccessCriteriaTrackingIcon
-                      successCriteria={successCriteria}
-                    />
-                  </Box>
-                </HStack>
-                <VStack spacing={4} w={'100%'}>
-                  <HStack alignItems={'flex-end'} w={'100%'}>
-                    <Text>{completion}%</Text>
+      {[...successCriterias]
+        .sort((a, b) => ((a?.createdAt || 0) > (b?.createdAt || 0) ? -1 : 1))
+        .map(successCriteria => {
+          const completion = completionFormatted(
+            successCriteria.completion || 0,
+          );
+          return (
+            <Card key={successCriteria.id} w={'100%'} variant={'outline'}>
+              <CardBody>
+                <VStack alignItems={'flex-start'} spacing={0}>
+                  <HStack
+                    w={'100%'}
+                    _hover={{ textDecoration: 'underline', cursor: 'pointer' }}
+                    alignItems={'flex-start'}
+                    spacing={4}
+                    onClick={() =>
+                      props.onSuccessCriteriaSelect(successCriteria.id)
+                    }
+                  >
+                    <SuccessCriteriaIcon successCriteria={successCriteria} />
+                    <Heading size="sm">{successCriteria.name}</Heading>
                     <Box marginLeft={'auto !important'}>
-                      <TrackStatus />
+                      <SuccessCriteriaTrackingIcon
+                        successCriteria={successCriteria}
+                      />
                     </Box>
                   </HStack>
-                  <ProgressSlider value={completion} size={'xs'} />
-                  <HStack w={'100%'}>
-                    <HStack>
-                      <Avatar
-                        name={successCriteria.owner!.name}
-                        size="xs"
-                        colorScheme={'gray'}
-                      />
-                      <Text fontSize={'sm'}>{successCriteria.owner!.name}</Text>
+                  <VStack spacing={4} w={'100%'}>
+                    <HStack alignItems={'flex-end'} w={'100%'}>
+                      <Text>{completion}%</Text>
+                      <Box marginLeft={'auto !important'}>
+                        <TrackStatus />
+                      </Box>
                     </HStack>
-                    <HStack
-                      ml={'auto !important'}
-                      spacing={2}
-                      alignItems={'flex-end'}
-                    >
-                      <Text fontSize={'xs'} color={'gray.500'}>
-                        Due on
-                      </Text>{' '}
-                      <Text fontSize={'sm'}>
-                        {formatDate(successCriteria.endDate)}
-                      </Text>
+                    <ProgressSlider value={completion} size={'xs'} />
+                    <HStack w={'100%'}>
+                      <HStack>
+                        <Avatar
+                          name={successCriteria.owner!.name}
+                          size="xs"
+                          colorScheme={'gray'}
+                        />
+                        <Text fontSize={'sm'}>
+                          {successCriteria.owner!.name}
+                        </Text>
+                      </HStack>
+                      <HStack
+                        ml={'auto !important'}
+                        spacing={2}
+                        alignItems={'flex-end'}
+                      >
+                        <Text fontSize={'xs'} color={'gray.500'}>
+                          Due on
+                        </Text>{' '}
+                        <Text fontSize={'sm'}>
+                          {formatDate(successCriteria.endDate)}
+                        </Text>
+                      </HStack>
                     </HStack>
-                  </HStack>
+                  </VStack>
                 </VStack>
-              </VStack>
-            </CardBody>
-          </Card>
-        );
-      })}
+              </CardBody>
+            </Card>
+          );
+        })}
     </VStack>
   );
 };

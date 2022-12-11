@@ -28,13 +28,6 @@ const SuccessCriteriaDetail = (props: {
     screen === 'edit' ? setScreen('details') : onBack();
   };
 
-  console.log(
-    data,
-    'data',
-    screen,
-    screen === 'edit' && data.successCriteriaType === 'measurement',
-  );
-
   return (
     <>
       <DrawerHeader>

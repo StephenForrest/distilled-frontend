@@ -24,6 +24,7 @@ export const SUCCESS_CRITERIA_FRAGMENT = gql`
     startDate
     endDate
     goalId
+    createdAt
     owner {
       name
     }
