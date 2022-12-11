@@ -66,6 +66,9 @@ const SlackIntegration = (props: {
   );
 
   const populateChannels = useCallback(async integrationId => {
+    if (!integrationId) {
+      return;
+    }
     setChannelsLoading(true);
     setChannelSuggestions([]);
     const result = await client.query({
@@ -90,7 +93,7 @@ const SlackIntegration = (props: {
   }, [settings.integrationId, populateChannels]);
 
   useEffect(() => {
-    if (data && !settings.integrationId) {
+    if (data && !settings.integrationId && data.getIntegrationsByType[0]) {
       selectIntegration(data.getIntegrationsByType[0]);
       onUpdate({ ...settings, metric: 'new_users' });
     }
@@ -98,6 +101,26 @@ const SlackIntegration = (props: {
 
   if (loading) {
     return <Center>Loading...</Center>;
+  }
+
+  if (!data.getIntegrationsByType || !data.getIntegrationsByType.length) {
+    return (
+      <VStack alignItems={'flex-start'} spacing={6}>
+        <Text mt={8} fontSize={'sm'}>
+          You haven't add any slack integrations yet.
+        </Text>
+        <VStack alignItems={'flex-start'} spacing={2}>
+          <Button size={'sm'} onClick={onClick}>
+            Connect to slack
+          </Button>
+          {errors?.integrationId && (
+            <Text fontSize={'sm'} mt={4} color={'red.400'}>
+              {errors.integrationId}
+            </Text>
+          )}
+        </VStack>
+      </VStack>
+    );
   }
 
   const selectedIntegration = (data.getIntegrationsByType || []).find(

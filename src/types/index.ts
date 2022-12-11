@@ -125,8 +125,6 @@ export interface MeasurementSlackForm extends SuccessCriteriaCommonAttrs {
 export interface GoalMeasurementFormErrors
   extends Partial<SuccessCriteriaCommonAttrs> {
   trackingSettings?: {
-    [id: string]: {
-      [key: string]: string;
-    };
+    [key: string]: string;
   };
 }
