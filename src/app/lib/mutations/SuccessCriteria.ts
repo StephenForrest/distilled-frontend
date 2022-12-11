@@ -31,7 +31,6 @@ export const CREATE_SUCCESS_CRITERIA = gql`
 
 export const UPDATE_SUCCESS_CRITERIA_MUTATION = gql`
   mutation UpdateSuccessCriteria(
-    $planUuid: String!
     $goalId: String!
     $successCriteriaId: String!
     $name: String!
@@ -41,7 +40,6 @@ export const UPDATE_SUCCESS_CRITERIA_MUTATION = gql`
     $trackingSettings: ActionTrackingInput!
   ) {
     updateSuccessCriteria(
-      planUuid: $planUuid
       goalId: $goalId
       name: $name
       successCriteriaId: $successCriteriaId

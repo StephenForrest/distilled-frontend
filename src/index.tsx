@@ -74,11 +74,9 @@ export const client = new ApolloClient({
 ReactDOMClient.createRoot(MOUNT_NODE!).render(
   <ApolloProvider client={client}>
     <HelmetProvider>
-      <React.StrictMode>
-        <ChakraProvider theme={theme}>
-          <App />
-        </ChakraProvider>
-      </React.StrictMode>
+      <ChakraProvider theme={theme}>
+        <App />
+      </ChakraProvider>
     </HelmetProvider>
   </ApolloProvider>,
 );

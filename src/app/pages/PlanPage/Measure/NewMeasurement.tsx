@@ -9,7 +9,6 @@ import {
 } from 'types';
 import { DrawerHeader, DrawerBody, Text } from '@chakra-ui/react';
 import Header from '../Header';
-import { useParams } from 'react-router-dom';
 import {
   Input,
   Stack,
@@ -28,15 +27,38 @@ import {
   formatDateForInput,
   convertDateToUTC,
 } from 'app/lib/utilities';
+import SlackForm from './SlackForm';
+import {
+  CREATE_SUCCESS_CRITERIA,
+  UPDATE_SUCCESS_CRITERIA_MUTATION,
+} from 'app/lib/mutations/SuccessCriteria';
+import { GET_GOAL } from 'app/lib/queries/Plan';
+import { useMutation } from '@apollo/client';
 
-const NewMeasurementForm = (props: {
+export const NewMeasurementForm = (props: {
   goal: GoalWithDetails;
   existingForm?: Partial<MeasurementSlackForm>;
   onBack: () => void;
   successCriteriaId?: string;
 }) => {
-  const { uuid: planUuid } = useParams();
-  const { goal, onBack, existingForm, successCriteriaId } = props;
+  const { goal, existingForm, successCriteriaId, onBack } = props;
+  const [createSuccessCriteriaMutation, { loading }] = useMutation(
+    CREATE_SUCCESS_CRITERIA,
+    {
+      refetchQueries: [{ query: GET_GOAL, variables: { id: goal.id } }],
+      awaitRefetchQueries: true,
+    },
+  );
+
+  const [updateSuccessCriteriaMutation, { loading: updateLoading }] =
+    useMutation<{
+      updateSuccessCriteria: {
+        successCriteria: unknown;
+        errors: GoalMeasurementFormErrors;
+      };
+    }>(UPDATE_SUCCESS_CRITERIA_MUTATION, {
+      refetchQueries: ['getPlans'],
+    });
   const [formErrors, setFormErrors] = useState<GoalMeasurementFormErrors>({});
   const endDate = formatDateForInput(
     new Date(new Date(goal.expiresOn).toString()),
@@ -47,15 +69,15 @@ const NewMeasurementForm = (props: {
     trackingType: existingForm?.trackingType || 'slack',
     startDate: existingForm?.startDate || getDateNDaysFromToday(0),
     endDate: existingForm?.endDate || endDate,
-    trackingSettings: existingForm?.trackingSettings || [],
-  });
+    trackingSettings: existingForm?.trackingSettings || {},
+  } as MeasurementSlackForm);
 
   const updateErrors = (attr: keyof GoalMeasurementForm, value: unknown) => {
     setFormErrors({ ...formErrors, [attr]: value });
   };
 
-  const updateTrackingType = (trackingType: MeasurementTrackingType) => {
-    // setForm({ ...form, trackingSettings, trackingType });
+  const updateTrackingType = trackingType => {
+    setForm({ ...form, trackingType });
   };
 
   const updateForm = (attr: keyof MeasurementSlackForm, value: unknown) => {
@@ -66,35 +88,43 @@ const NewMeasurementForm = (props: {
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    // e.preventDefault();
-    // const variables = {
-    //   planUuid: planUuid,
-    //   goalId: goal.id,
-    //   name: form.name,
-    //   description: form.description,
-    //   startDate: convertDateToUTC(form.startDate),
-    //   endDate: convertDateToUTC(form.endDate),
-    //   trackingSettings: { [form.trackingType]: form.trackingSettings },
-    // };
-    // if (!successCriteriaId) {
-    //   const result = await createActionMutation({
-    //     variables,
-    //   });
-    //   if (result?.data?.createAction?.errors as GoalActionFormErrors) {
-    //     setFormErrors(result.data?.createAction?.errors || {});
-    //   } else {
-    //     onBack();
-    //   }
-    // } else {
-    //   const result = await updateSuccessCriteriaMutation({
-    //     variables: { ...variables, successCriteriaId },
-    //   });
-    //   if (result?.data?.updateSuccessCriteria?.errors as GoalActionFormErrors) {
-    //     setFormErrors(result.data?.updateSuccessCriteria?.errors || {});
-    //   } else {
-    //     onBack();
-    //   }
-    // }
+    e.preventDefault();
+    const variables = {
+      goalId: goal.id,
+      name: form.name,
+      description: form.description,
+      startDate: convertDateToUTC(form.startDate),
+      endDate: convertDateToUTC(form.endDate),
+      trackingSettings: { [form.trackingType]: form.trackingSettings },
+    };
+
+    if (!successCriteriaId) {
+      const result = await createSuccessCriteriaMutation({
+        variables: { ...variables, successCriteriaType: 'measurement' },
+      });
+      if (
+        result?.data?.createSuccessCriteria?.errors as GoalMeasurementFormErrors
+      ) {
+        setFormErrors(result.data?.createSuccessCriteria?.errors || {});
+      } else {
+        onBack();
+      }
+    } else {
+      const result = await updateSuccessCriteriaMutation({
+        variables: {
+          ...variables,
+          successCriteriaId,
+          successCriteriaType: 'measurement',
+        },
+      });
+      if (
+        result?.data?.updateSuccessCriteria?.errors as GoalMeasurementFormErrors
+      ) {
+        setFormErrors(result.data?.updateSuccessCriteria?.errors || {});
+      } else {
+        onBack();
+      }
+    }
   };
 
   return (
@@ -169,6 +199,24 @@ const NewMeasurementForm = (props: {
             >
               <option value="slack">Slack</option>
             </Select>
+            {(() => {
+              if (form.trackingType === 'slack') {
+                return (
+                  <SlackForm
+                    settings={form.trackingSettings}
+                    errors={formErrors.trackingSettings}
+                    onUpdate={settings =>
+                      updateForm('trackingSettings', settings)
+                    }
+                    onUpdateErrors={errors =>
+                      updateErrors('trackingSettings', errors)
+                    }
+                  />
+                );
+              } else {
+                return null;
+              }
+            })()}
           </FormControl>
 
           <Button
@@ -176,7 +224,7 @@ const NewMeasurementForm = (props: {
             colorScheme="brand"
             type="submit"
             width={'100px'}
-            isLoading={false}
+            isLoading={loading || updateLoading}
             size={'sm'}
           >
             {successCriteriaId ? 'Update' : 'Create'}

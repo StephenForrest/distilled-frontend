@@ -7,7 +7,8 @@ import { useApolloClient } from '@apollo/client';
 import { SUCCESS_CRITERIA_FRAGMENT } from 'app/lib/fragments/Plan';
 import { GoalWithDetails } from 'types';
 import { NewActionForm } from './Action/NewAction';
-import { formatDateForInput } from 'app/lib/utilities';
+import { NewMeasurementForm } from './Measure/NewMeasurement';
+import { formatDateForInput, omit } from 'app/lib/utilities';
 
 const SuccessCriteriaDetail = (props: {
   successCriteriaId: string;
@@ -26,6 +27,13 @@ const SuccessCriteriaDetail = (props: {
   const onBackProp = () => {
     screen === 'edit' ? setScreen('details') : onBack();
   };
+
+  console.log(
+    data,
+    'data',
+    screen,
+    screen === 'edit' && data.successCriteriaType === 'measurement',
+  );
 
   return (
     <>
@@ -58,7 +66,7 @@ const SuccessCriteriaDetail = (props: {
             </TabPanels>
           </Tabs>
         )}
-        {screen === 'edit' && (
+        {screen === 'edit' && data.successCriteriaType === 'action' && (
           <NewActionForm
             goal={goal}
             onBack={onBackProp}
@@ -71,6 +79,21 @@ const SuccessCriteriaDetail = (props: {
               startDate: formatDateForInput(new Date(data!.startDate)),
               endDate: formatDateForInput(new Date(data!.endDate)),
               trackingType: data!.action.trackingType,
+            }}
+          />
+        )}
+        {screen === 'edit' && data.successCriteriaType === 'measurement' && (
+          <NewMeasurementForm
+            goal={goal}
+            onBack={onBackProp}
+            successCriteriaId={successCriteriaId}
+            existingForm={{
+              name: data!.name,
+              description: data!.description,
+              trackingSettings: omit('__typename', data!.measurement.tracking),
+              startDate: formatDateForInput(new Date(data!.startDate)),
+              endDate: formatDateForInput(new Date(data!.endDate)),
+              trackingType: data!.measurement.trackingType,
             }}
           />
         )}

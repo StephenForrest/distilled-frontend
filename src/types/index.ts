@@ -86,8 +86,22 @@ export interface Plan {
   goals?: [Goal];
 }
 
-export type MeasurementTrackingType = 'github' | 'measurement';
-export type MeasurementTrackingSlackSettings = {};
+export type MeasurementTrackingType = 'github' | 'slack';
+export type SlackMetricType =
+  | 'new_users'
+  | 'all_users'
+  | 'user_churn'
+  | 'new_messages'
+  | 'all_messages'
+  | 'new_invites'
+  | 'all_invites';
+
+export type MeasurementTrackingSlackSettings = {
+  integrationId: string | number;
+  metric: SlackMetricType;
+  channelFilters?: string[];
+  value: number;
+};
 export type MeasurementTrackingGithubSettings = {};
 
 export type GoalMeasurementForm = MeasurementSlackForm | MeasurementGithubForm;

@@ -37,7 +37,6 @@ import {
   UPDATE_SUCCESS_CRITERIA_MUTATION,
 } from 'app/lib/mutations/SuccessCriteria';
 import { useMutation } from '@apollo/client';
-import { useParams } from 'react-router-dom';
 import { GET_GOAL } from 'app/lib/queries/Plan';
 
 export const NewActionForm = (props: {
@@ -46,7 +45,6 @@ export const NewActionForm = (props: {
   successCriteriaId?: string;
   onBack: () => void;
 }) => {
-  const { uuid: planUuid } = useParams();
   const { goal, onBack, successCriteriaId, existingForm } = props;
   const [createSuccessCriteriaMutation, { loading }] = useMutation(
     CREATE_SUCCESS_CRITERIA,
@@ -105,13 +103,13 @@ export const NewActionForm = (props: {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const variables = {
-      planUuid: planUuid,
       goalId: goal.id,
       name: form.name,
       description: form.description,
       startDate: convertDateToUTC(form.startDate),
       endDate: convertDateToUTC(form.endDate),
       trackingSettings: { [form.trackingType]: form.trackingSettings },
+      successCriteriaType: 'action',
     };
 
     if (!successCriteriaId) {

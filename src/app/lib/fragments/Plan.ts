@@ -44,6 +44,20 @@ export const SUCCESS_CRITERIA_FRAGMENT = gql`
         }
       }
     }
+
+    measurement {
+      id
+      trackingType
+      tracking {
+        __typename
+        ... on MeasurementSlack {
+          id
+          integrationId
+          metric
+          value
+        }
+      }
+    }
   }
 `;
 

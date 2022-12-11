@@ -74,3 +74,8 @@ export const getDateSevenDaysFromToday = () => getDateNDaysFromToday(7);
 
 export const completionFormatted = (completionNumber: number | undefined) =>
   Math.ceil((completionNumber || 0) * 100);
+
+export const omit = (key, obj) => {
+  const { [key]: omitted, ...rest } = obj;
+  return rest;
+};
