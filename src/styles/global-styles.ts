@@ -45,4 +45,12 @@ export const GlobalStyle = createGlobalStyle`
   .NavbarIcon:hover path {
     stroke: var(--chakra-colors-brand-200);
   }
+
+  .ListSuccessCriteriaIcon path {
+    stroke: var(--chakra-colors-gray-500);
+  }
+
+  .ListSuccessCriteriaActionIcon {
+    color: var(--chakra-colors-gray-500);
+  }
 `;

@@ -73,16 +73,8 @@ const theme = extendTheme({
         black: 900,
       },
 
-      a: {
-        _hover: {
-          cursor: 'default !important',
-        },
-      },
-      button: {
-        _hover: {
-          cursor: 'default !important',
-        },
-      },
+      a: {},
+      button: {},
     }),
   },
 });

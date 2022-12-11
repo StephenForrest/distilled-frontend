@@ -1,11 +1,10 @@
 import React from 'react';
 import { GoalWithDetails, SuccessCriteriaType } from 'types';
 import { Box, Divider, HStack, Text, VStack, Icon } from '@chakra-ui/react';
-import { BiTask } from 'react-icons/bi';
-import { GrLineChart } from 'react-icons/gr';
 import ListSuccessCriterias from './ListSuccessCriterias';
 import { Menu, MenuButton, MenuList, MenuItem, Button } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
+import AppIcons from 'app/components/AppIcons';
 
 const EmptyState = (props: {
   onCreateNew: (successCriteriaType: SuccessCriteriaType) => void;
@@ -29,7 +28,12 @@ const EmptyState = (props: {
           onClick={() => props.onCreateNew('measurement')}
         >
           <VStack spacing={1}>
-            <Icon color={'gray.200'} as={GrLineChart} boxSize={8} mb={2} />
+            <Icon
+              color={'gray.200'}
+              as={AppIcons['measurement']}
+              boxSize={8}
+              mb={2}
+            />
             <Text fontSize={'sm'} fontWeight={'semibold'}>
               Add a measurement
             </Text>
@@ -51,7 +55,12 @@ const EmptyState = (props: {
           onClick={() => props.onCreateNew('action')}
         >
           <VStack spacing={1}>
-            <Icon color={'gray.800'} as={BiTask} boxSize={8} mb={2} />
+            <Icon
+              color={'gray.800'}
+              as={AppIcons['action']}
+              boxSize={8}
+              mb={2}
+            />
             <Text fontSize={'sm'} fontWeight={'semibold'}>
               Add an action
             </Text>

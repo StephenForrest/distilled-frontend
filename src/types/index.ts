@@ -74,6 +74,12 @@ export interface SuccessCriteria {
   owner?: {
     name: string;
   };
+  action?: {
+    trackingType: string;
+  };
+  measurement?: {
+    trackingType: string;
+  };
 }
 
 export interface GoalWithDetails extends Goal {
