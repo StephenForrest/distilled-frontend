@@ -30,6 +30,7 @@ export const CREATE_SUCCESS_CRITERIA = gql`
 `;
 
 export const UPDATE_SUCCESS_CRITERIA_MUTATION = gql`
+  ${SUCCESS_CRITERIA_FRAGMENT}
   mutation UpdateSuccessCriteria(
     $goalId: String!
     $successCriteriaId: String!
@@ -49,7 +50,7 @@ export const UPDATE_SUCCESS_CRITERIA_MUTATION = gql`
       trackingSettings: $trackingSettings
     ) {
       successCriteria {
-        id
+        ...SuccessCriteriaFields
       }
       errors
     }

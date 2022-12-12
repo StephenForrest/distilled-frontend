@@ -182,8 +182,8 @@ const SlackIntegration = (props: {
               <option value="user_churn">Leaving users</option>
             </optgroup>
             <optgroup label="Messages (Public channels)">
-              <option value="all_messages">New Messages</option>
-              <option value="new_messages">Total messages</option>
+              <option value="new_messages">New Messages</option>
+              <option value="all_messages">Total messages</option>
             </optgroup>
             <optgroup label="Invites">
               <option value="new_invites">New invites</option>

@@ -96,7 +96,12 @@ const ListSuccessCriterias = (props: {
             successCriteria.completion || 0,
           );
           return (
-            <Card key={successCriteria.id} w={'100%'} variant={'outline'}>
+            <Card
+              key={successCriteria.id}
+              w={'100%'}
+              variant={'outline'}
+              boxShadow={'1px 3px 10px 0px var(--chakra-colors-gray-100)'}
+            >
               <CardBody>
                 <VStack alignItems={'flex-start'} spacing={0}>
                   <HStack
