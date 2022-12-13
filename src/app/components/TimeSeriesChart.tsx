@@ -9,7 +9,35 @@ import {
   Text,
   ResponsiveContainer,
 } from 'recharts';
+import { VStack, Text as ChakraText, Card, HStack } from '@chakra-ui/react';
 import moment from 'moment';
+
+const CustomTooltip = ({
+  active,
+  payload,
+  label,
+  format,
+}: {
+  [key: string]: unknown | string;
+}) => {
+  const payloadT = payload as { value: string }[];
+  if (active && payload && payloadT.length) {
+    return (
+      <Card p={4} bg={'white'}>
+        <VStack alignItems={'flex-start'}>
+          <ChakraText className="label">
+            Date: {moment(label as string).format(format as string)}
+          </ChakraText>
+          <ChakraText className="label">
+            Value: {`${payloadT[0].value}`}
+          </ChakraText>
+        </VStack>
+      </Card>
+    );
+  }
+
+  return null;
+};
 
 const TimeSeriesChart = (props: { data: { x: number; y: number }[] }) => {
   const firstDate = props.data[0].x;
@@ -62,7 +90,7 @@ const TimeSeriesChart = (props: { data: { x: number; y: number }[] }) => {
           labelFormatter={p => {
             return moment(p).format(format);
           }}
-          label={'Count'}
+          content={<CustomTooltip format={format} />}
         />
         <Line
           type="monotone"
