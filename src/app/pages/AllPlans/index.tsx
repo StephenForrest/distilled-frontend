@@ -14,6 +14,7 @@ import {
   GridItem,
   Avatar,
   Progress,
+  Tooltip,
   Icon,
 } from '@chakra-ui/react';
 import { GET_PLANS } from 'app/lib/queries/Plan';
@@ -57,33 +58,64 @@ export function Page() {
           <Text fontSize={'2xl'} fontWeight={'bold'}>
             All Plans
           </Text>
-          <Grid templateColumns="repeat(2, 1fr)" gap={6} mt={'32px'}>
+          <Grid templateColumns="repeat(2, 1fr)" gap={6} mt={'24px'}>
             {plans.map(plan => {
               return (
                 <Card key={plan.id} w={'100%'} bg={'white'} variant="elevated">
                   <CardHeader
                     onClick={() => navigate(`/plan/${plan.id}`)}
                     _hover={{ textDecoration: 'underline', cursor: 'pointer' }}
+                    pb={2}
                   >
-                    <Heading size="md">{plan.name}</Heading>
+                    <Heading size="sm">{plan.name}</Heading>
                   </CardHeader>
                   <CardBody>
+                    <Heading size="sm" ml={4} mb={4}>
+                      Objectives
+                    </Heading>
                     <TableContainer w={'100%'}>
                       <Table variant="simple" size="sm">
                         <Tbody>
                           {(plan.recentGoals || []).map(goal => {
+                            console.log(goal, 'goal');
                             return (
                               <Tr
                                 key={goal.id}
                                 _hover={{ bg: 'brand.50', cursor: 'pointer' }}
                               >
                                 <Td w={'100%'}>
-                                  <HStack marginLeft={'auto !important'}>
+                                  <HStack>
                                     <Icon
                                       color={'gray.500'}
                                       as={AppIcons['goal']}
                                     />
                                     <Text>{goal.title} </Text>
+                                  </HStack>
+                                </Td>
+                                <Td>
+                                  <HStack spacing={6}>
+                                    <Tooltip label="Actions">
+                                      <HStack w={'40px'}>
+                                        <Icon
+                                          color={'gray.500'}
+                                          as={AppIcons['action']}
+                                        />
+                                        <Text fontSize={'xs'}>
+                                          {goal.actionsCount!}
+                                        </Text>
+                                      </HStack>
+                                    </Tooltip>
+                                    <Tooltip label="Measurements">
+                                      <HStack w={'40px'}>
+                                        <Icon
+                                          color={'gray.500'}
+                                          as={AppIcons['measurement']}
+                                        />
+                                        <Text fontSize={'xs'}>
+                                          {goal.measurementsCount!}
+                                        </Text>
+                                      </HStack>
+                                    </Tooltip>
                                   </HStack>
                                 </Td>
                                 <Td>

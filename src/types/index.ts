@@ -9,6 +9,8 @@ export interface Goal {
   owner: {
     name: string;
   };
+  actionsCount?: number;
+  measurementsCount?: number;
 }
 
 export interface GoalActionFormErrors

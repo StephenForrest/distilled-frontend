@@ -19,10 +19,12 @@ import {
   Tr,
   Td,
   TableContainer,
+  Tooltip,
   Progress,
 } from '@chakra-ui/react';
 import GoalDrawer from './GoalDrawer';
 import { completionFormatted } from 'app/lib/utilities';
+import AppIcons from 'app/components/AppIcons';
 
 const NewGoalsComponent = (props: {
   onNewGoal: () => void;
@@ -84,6 +86,32 @@ const Goals = (props: { goals: Goal[] }) => {
                               <HStack marginLeft={'auto !important'}>
                                 <Icon color={'gray.500'} as={FiTarget} />
                                 <Text>{goal.title} </Text>
+                              </HStack>
+                            </Td>
+                            <Td>
+                              <HStack spacing={6}>
+                                <Tooltip label="Actions">
+                                  <HStack w={'40px'}>
+                                    <Icon
+                                      color={'gray.500'}
+                                      as={AppIcons['action']}
+                                    />
+                                    <Text fontSize={'xs'}>
+                                      {goal.actionsCount!}
+                                    </Text>
+                                  </HStack>
+                                </Tooltip>
+                                <Tooltip label="Measurements">
+                                  <HStack w={'40px'}>
+                                    <Icon
+                                      color={'gray.500'}
+                                      as={AppIcons['measurement']}
+                                    />
+                                    <Text fontSize={'xs'}>
+                                      {goal.measurementsCount!}
+                                    </Text>
+                                  </HStack>
+                                </Tooltip>
                               </HStack>
                             </Td>
                             <Td>
