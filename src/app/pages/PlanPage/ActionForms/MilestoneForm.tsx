@@ -14,7 +14,6 @@ import { DeleteIcon } from '@chakra-ui/icons';
 import { ActionTrackingMilestoneSettings, GoalActionFormErrors } from 'types';
 import { addNewMilestoneItem } from 'app/lib/defaults';
 import { AddIcon } from '@chakra-ui/icons';
-import { convertDateToUTC, formatDateForInput } from 'app/lib/utilities';
 
 const MilestoneItem = (props: {
   setting: ActionTrackingMilestoneSettings;

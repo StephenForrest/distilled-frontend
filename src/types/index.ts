@@ -104,6 +104,7 @@ export type SlackMetricType =
   | 'all_invites';
 
 export type MeasurementTrackingSlackSettings = {
+  id?: string;
   integrationId: string | number;
   metric: SlackMetricType;
   channelFilters?: string[];

@@ -28,7 +28,7 @@ const useSlackOauth = (customScopes?: String[]) => {
         if (openedWindow) {
           openedWindow.close();
         }
-        const data = await createSlackIntegration({
+        await createSlackIntegration({
           variables: { code: e.data.searchParams.code },
         });
         setLoading(false);

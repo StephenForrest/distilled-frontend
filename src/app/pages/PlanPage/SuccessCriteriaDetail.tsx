@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from './Header';
 import { DrawerHeader, DrawerBody, Text } from '@chakra-ui/react';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
-import DetailTab from './Action/DetailTab';
+import DetailTab from './DetailTab';
 import { useApolloClient } from '@apollo/client';
 import { SUCCESS_CRITERIA_FRAGMENT } from 'app/lib/fragments/Plan';
 import { GoalWithDetails } from 'types';
