@@ -77,7 +77,7 @@ const Goals = (props: { goals: Goal[] }) => {
                         return (
                           <Tr
                             key={goal.id}
-                            _hover={{ bg: 'brand.50' }}
+                            _hover={{ bg: 'brand.50', cursor: 'pointer' }}
                             onClick={() => setSelectedGoal(goal.id)}
                           >
                             <Td w={'100%'}>

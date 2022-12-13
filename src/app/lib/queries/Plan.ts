@@ -19,10 +19,16 @@ export const GET_PLAN = gql`
 `;
 
 export const GET_PLANS = gql`
+  ${GOAL_FRAGMENT}
+
   query getPlans {
     getPlans {
       id
       name
+      recentGoals {
+        ...GoalCommonFields
+      }
+      goalsCount
     }
   }
 `;

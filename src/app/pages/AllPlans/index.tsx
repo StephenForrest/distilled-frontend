@@ -1,35 +1,38 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { Center, Box, Text } from '@chakra-ui/react';
 import {
-  Center,
-  Box,
-  Text,
-  Stack,
-  Divider,
   Card,
-  CardBody,
   CardHeader,
+  CardBody,
   CardFooter,
+  Heading,
+  StackDivider,
+  Stack,
+  VStack,
+  Grid,
+  GridItem,
+  Avatar,
+  Progress,
+  Icon,
 } from '@chakra-ui/react';
 import { GET_PLANS } from 'app/lib/queries/Plan';
 import { useQuery } from '@apollo/client';
-import type { Plan } from 'types';
+import type { Plan, Goal } from 'types';
 import { NotFoundPage } from 'app/components/NotFoundPage/index';
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Td,
-  TableContainer,
-  HStack,
-} from '@chakra-ui/react';
+import { Table, Tbody, Tr, Td, TableContainer, HStack } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import AppIcons from 'app/components/AppIcons';
+import { formatDate, completionFormatted } from 'app/lib/utilities';
+
+interface PlanList extends Plan {
+  recentGoals: Goal[];
+  goalsCount: number;
+}
 
 export function Page() {
   const navigate = useNavigate();
-  const { data, loading } = useQuery<{ getPlans: Plan[] }>(GET_PLANS);
+  const { data, loading } = useQuery<{ getPlans: PlanList[] }>(GET_PLANS);
   if (loading) {
     return <Center>Loading...</Center>;
   } else if (!data) {
@@ -51,49 +54,140 @@ export function Page() {
           <meta name="description" content="Plans page" />
         </Helmet>
         <Box p={8}>
-          <Card variant="elevated">
-            <CardBody>
-              <TableContainer w={'100%'}>
-                <Table variant="simple" size="sm">
-                  <thead>
-                    <td>Plan</td>
-                    <td>Objectives</td>
-                    <td>Plan Owner</td>
-                  </thead>
-                  <Divider />
-                  <Tbody>
-                    <tr>
-                      <td>Distilling Lab Q4 OKRs</td>
-                      <td>Grow membership by 20%</td>
-                      <td>James B</td>
-                    </tr>
-                  </Tbody>
-                </Table>
-              </TableContainer>
-            </CardBody>
-          </Card>
+          <Text fontSize={'2xl'} fontWeight={'bold'}>
+            All Plans
+          </Text>
+          <Grid templateColumns="repeat(2, 1fr)" gap={6} mt={'32px'}>
+            {plans.map(plan => {
+              return (
+                <Card key={plan.id} w={'100%'} bg={'white'} variant="elevated">
+                  <CardHeader
+                    onClick={() => navigate(`/plan/${plan.id}`)}
+                    _hover={{ textDecoration: 'underline', cursor: 'pointer' }}
+                  >
+                    <Heading size="md">{plan.name}</Heading>
+                  </CardHeader>
+                  <CardBody>
+                    <TableContainer w={'100%'}>
+                      <Table variant="simple" size="sm">
+                        <Tbody>
+                          {(plan.recentGoals || []).map(goal => {
+                            return (
+                              <Tr
+                                key={goal.id}
+                                _hover={{ bg: 'brand.50', cursor: 'pointer' }}
+                              >
+                                <Td w={'100%'}>
+                                  <HStack marginLeft={'auto !important'}>
+                                    <Icon
+                                      color={'gray.500'}
+                                      as={AppIcons['goal']}
+                                    />
+                                    <Text>{goal.title} </Text>
+                                  </HStack>
+                                </Td>
+                                <Td>
+                                  <HStack marginLeft={'auto !important'}>
+                                    <Text
+                                      color={'gray.500'}
+                                      fontSize={'sm'}
+                                      ml={'auto'}
+                                    >
+                                      {formatDate(new Date(goal.expiresOn))}
+                                    </Text>
 
-          <TableContainer w={'100%'} mt={'100px'}>
-            <Table variant="simple" size="sm">
-              <Tbody>
-                {plans.map(plan => {
-                  return (
-                    <Tr
-                      key={plan.id}
-                      _hover={{ bg: 'brand.50', cursor: 'pointer' }}
-                      onClick={() => navigate(`/plan/${plan.id}`)}
-                    >
-                      <Td w={'100%'}>
-                        <HStack marginLeft={'auto !important'}>
-                          <Text>{plan.name} </Text>
-                        </HStack>
-                      </Td>
-                    </Tr>
-                  );
-                })}
-              </Tbody>
-            </Table>
-          </TableContainer>
+                                    <Avatar
+                                      name={goal.owner.name}
+                                      size="xs"
+                                      colorScheme={'gray'}
+                                    />
+                                  </HStack>
+                                </Td>
+                              </Tr>
+                            );
+                          })}
+                        </Tbody>
+                      </Table>
+                    </TableContainer>
+                    {plan.goalsCount > 3 && (
+                      <Box>
+                        <Text
+                          pl="4"
+                          onClick={() => navigate(`/plan/${plan.id}`)}
+                          mt={4}
+                          fontSize="sm"
+                          _hover={{
+                            textDecoration: 'underline',
+                            cursor: 'pointer',
+                          }}
+                        >
+                          {plan.goalsCount - 3} more
+                        </Text>
+                      </Box>
+                    )}
+                    {/* <Stack divider={<StackDivider />} spacing="2">
+                      {plan.recentGoals!.map(goal => {
+                        return (
+                          <Box key={goal.id}>
+                            <HStack>
+                              <Icon color={'gray.500'} as={AppIcons['goal']} />
+                              <Text fontSize="sm">{goal.title}</Text>
+                            </HStack>
+                          </Box>
+                        );
+                      })}
+                      {plan.goalsCount > 3 && (
+                        <Box>
+                          <Text pt="2" fontSize="sm">
+                            {plan.goalsCount - 3} more
+                          </Text>
+                        </Box>
+                      )}
+                    </Stack> */}
+                  </CardBody>
+                </Card>
+              );
+            })}
+          </Grid>
+          {/* <VStack spacing={4} w={'100%'} mt={'32px'}>
+            {plans.map(plan => {
+              console.log(plan, 'plan');
+              return (
+                <Card key={plan.id} w={'100%'} bg={'white'} variant="elevated">
+                  <CardHeader
+                    onClick={() => navigate(`/plan/${plan.id}`)}
+                    _hover={{ textDecoration: 'underline', cursor: 'pointer' }}
+                  >
+                    <Heading size="md">{plan.name}</Heading>
+                  </CardHeader>
+                  <CardBody>
+                    <Stack divider={<StackDivider />} spacing="2">
+                      {plan.recentGoals!.map(goal => {
+                        return (
+                          <Box key={goal.id}>
+                            <HStack>
+                              <Icon color={'gray.500'} as={AppIcons['goal']} />
+                              <Text fontSize="sm">{goal.title}</Text>
+                            </HStack>
+                          </Box>
+                        );
+                      })}
+                      {plan.goalsCount > 3 && (
+                        <Box>
+                          <Text pt="2" fontSize="sm">
+                            {plan.goalsCount - 3} more
+                          </Text>
+                        </Box>
+                      )}
+                    </Stack>
+                  </CardBody>
+                </Card>
+              );
+            })}
+          </VStack> */}
+          {/* </Tbody> */}
+          {/* </Table> */}
+          {/* </TableContainer> */}
         </Box>
       </>
     );
