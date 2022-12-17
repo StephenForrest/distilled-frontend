@@ -9,7 +9,7 @@ import {
   Text,
   ResponsiveContainer,
 } from 'recharts';
-import { VStack, Text as ChakraText, Card, HStack } from '@chakra-ui/react';
+import { VStack, Text as ChakraText, Card, Box } from '@chakra-ui/react';
 import moment from 'moment';
 
 const CustomTooltip = ({
@@ -40,6 +40,13 @@ const CustomTooltip = ({
 };
 
 const TimeSeriesChart = (props: { data: { x: number; y: number }[] }) => {
+  if (!props.data.length) {
+    return (
+      <VStack h={'100%'}>
+        <Box m={'auto !important'}>This chart doesn't have any data yet</Box>
+      </VStack>
+    );
+  }
   const firstDate = props.data[0].x;
   const lastDate = props.data[props.data.length - 1].x;
 

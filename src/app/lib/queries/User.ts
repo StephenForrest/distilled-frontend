@@ -6,6 +6,12 @@ export const CURRENT_USER = gql`
       id
       email
       name
+      workspaces {
+        id
+        title
+        domain
+        autoJoinFromDomain
+      }
     }
   }
 `;

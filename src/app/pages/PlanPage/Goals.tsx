@@ -22,9 +22,9 @@ import {
   Tooltip,
   Progress,
 } from '@chakra-ui/react';
-import GoalDrawer from './GoalDrawer';
 import { completionFormatted } from 'app/lib/utilities';
 import AppIcons from 'app/components/AppIcons';
+import { selectedGoalVar } from 'app/lib/cache';
 
 const NewGoalsComponent = (props: {
   onNewGoal: () => void;
@@ -45,7 +45,6 @@ const NewGoalsComponent = (props: {
 
 const Goals = (props: { goals: Goal[] }) => {
   const [isNewGoalModal, setIsNewGoalModal] = useState<boolean>(false);
-  const [selectedGoal, setSelectedGoal] = useState<undefined | number>();
   return (
     <>
       <CreateNewGoalModal
@@ -80,7 +79,7 @@ const Goals = (props: { goals: Goal[] }) => {
                           <Tr
                             key={goal.id}
                             _hover={{ bg: 'brand.50', cursor: 'pointer' }}
-                            onClick={() => setSelectedGoal(goal.id)}
+                            onClick={() => selectedGoalVar(goal.id)}
                           >
                             <Td w={'100%'}>
                               <HStack marginLeft={'auto !important'}>
@@ -153,10 +152,6 @@ const Goals = (props: { goals: Goal[] }) => {
           </VStack>
         );
       })()}
-      <GoalDrawer
-        goalId={selectedGoal}
-        onClose={() => setSelectedGoal(undefined)}
-      />
     </>
   );
 };

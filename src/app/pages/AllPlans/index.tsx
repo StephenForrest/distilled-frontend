@@ -5,15 +5,9 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   Heading,
-  StackDivider,
-  Stack,
-  VStack,
   Grid,
-  GridItem,
   Avatar,
-  Progress,
   Tooltip,
   Icon,
 } from '@chakra-ui/react';
@@ -24,7 +18,9 @@ import { NotFoundPage } from 'app/components/NotFoundPage/index';
 import { Table, Tbody, Tr, Td, TableContainer, HStack } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import AppIcons from 'app/components/AppIcons';
-import { formatDate, completionFormatted } from 'app/lib/utilities';
+import { formatDate } from 'app/lib/utilities';
+import { selectedGoalVar } from 'app/lib/cache';
+import PageHeader from 'app/components/PageHeader';
 
 interface PlanList extends Plan {
   recentGoals: Goal[];
@@ -55,13 +51,17 @@ export function Page() {
           <meta name="description" content="Plans page" />
         </Helmet>
         <Box p={8}>
-          <Text fontSize={'2xl'} fontWeight={'bold'}>
-            All Plans
-          </Text>
-          <Grid templateColumns="repeat(2, 1fr)" gap={6} mt={'24px'}>
+          <PageHeader text={'All 12312'} />
+          <Grid templateColumns="repeat(2, 1fr)" gap={6}>
             {plans.map(plan => {
               return (
-                <Card key={plan.id} w={'100%'} bg={'white'} variant="elevated">
+                <Card
+                  key={plan.id}
+                  w={'100%'}
+                  bg={'white'}
+                  variant="outline"
+                  boxShadow={'md'}
+                >
                   <CardHeader
                     onClick={() => navigate(`/plan/${plan.id}`)}
                     _hover={{ textDecoration: 'underline', cursor: 'pointer' }}
@@ -71,17 +71,17 @@ export function Page() {
                   </CardHeader>
                   <CardBody>
                     <Heading size="sm" ml={4} mb={4}>
-                      Objectives
+                      Goals
                     </Heading>
                     <TableContainer w={'100%'}>
                       <Table variant="simple" size="sm">
                         <Tbody>
                           {(plan.recentGoals || []).map(goal => {
-                            console.log(goal, 'goal');
                             return (
                               <Tr
                                 key={goal.id}
                                 _hover={{ bg: 'brand.50', cursor: 'pointer' }}
+                                onClick={() => selectedGoalVar(goal.id)}
                               >
                                 <Td w={'100%'}>
                                   <HStack>

@@ -11,10 +11,11 @@ import { useQuery } from '@apollo/client';
 import { GoalWithDetails, SuccessCriteriaType } from 'types';
 import { GET_GOAL } from 'app/lib/queries/Plan';
 import Tabs from './Tabs';
-import NewAction from './Action/NewAction';
+import NewAction from 'app/components/Goals/Action/NewAction';
 import NewMeasurement from './Measure/NewMeasurement';
 import Header from './Header';
 import SuccessCriteriaDetail from './SuccessCriteriaDetail';
+import Loader from 'app/components/Loader';
 
 export type Screens = 'tabs' | 'new-measure' | 'new-action' | 'action-detail';
 
@@ -64,7 +65,7 @@ const GoalDrawer = (props: {
         if (!goalId) {
           return null;
         } else if (loading) {
-          return <div>Loading...</div>;
+          return <Loader />;
         } else if (!data) {
           return <div>Something went wrong</div>;
         } else {

@@ -14,7 +14,7 @@ import {
   BoxProps,
   FlexProps,
 } from '@chakra-ui/react';
-import { GrHome, GrTask, GrVulnerability, GrServices } from 'react-icons/gr';
+import { GrHome, GrVulnerability, GrServices } from 'react-icons/gr';
 import { RiLogoutBoxRLine } from 'react-icons/ri';
 import { FcMenu } from 'react-icons/fc';
 import { IconType } from 'react-icons';
@@ -25,7 +25,7 @@ import { sessionIdVar } from 'app/lib/cache';
 import { onSignOut } from 'app/lib/mutations/Auth';
 import LogoFull from './LogoFull';
 import { useNavigate } from 'react-router-dom';
-
+import NavHeader from 'app/components/NavHeader';
 interface LinkItemProps {
   name: string;
   icon: IconType;
@@ -34,14 +34,13 @@ interface LinkItemProps {
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Dashboard', icon: GrHome, url: '/' },
   { name: 'Plans', icon: GrVulnerability, url: '/plans' },
-  { name: 'Milestones', icon: GrTask, url: '/' },
   { name: 'Integrations', icon: GrServices, url: '/integrations' },
 ];
 
 export default function SimpleSidebar({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box h="100%" bg={'#E6F6FD'}>
+    <Box h="100%">
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'flex' }}
@@ -61,6 +60,7 @@ export default function SimpleSidebar({ children }: { children: ReactNode }) {
       </Drawer>
       <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} h={'100%'}>
+        <NavHeader />
         {children}
       </Box>
     </Box>

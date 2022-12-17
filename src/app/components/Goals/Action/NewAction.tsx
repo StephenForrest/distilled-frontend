@@ -20,8 +20,8 @@ import {
   Select,
   FormErrorMessage,
 } from '@chakra-ui/react';
-import ChecklistForm from '../ActionForms/ChecklistForm';
-import MilestoneForm from '../ActionForms/MilestoneForm';
+import ChecklistForm from 'app/components/Goals/ActionForms/ChecklistForm';
+import MilestoneForm from 'app/components/Goals/ActionForms/MilestoneForm';
 import {
   getDateNDaysFromToday,
   formatDateForInput,
