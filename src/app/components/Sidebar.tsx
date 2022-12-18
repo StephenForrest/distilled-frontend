@@ -141,7 +141,7 @@ const NavItem = ({
     <Link
       href="#"
       style={{
-        textDecoration: 'none',
+        textDecoration: 'black',
         font: 'body',
       }}
       _focus={{ boxShadow: 'none' }}
@@ -156,7 +156,8 @@ const NavItem = ({
         cursor="pointer"
         color="gray.200"
         _hover={{
-          bg: 'brand.300',
+          bg: 'primary.100',
+          color: 'black',
         }}
         {...rest}
       >
