@@ -156,8 +156,8 @@ const NavItem = ({
         cursor="pointer"
         color="gray.200"
         _hover={{
-          bg: 'primary.100',
-          color: 'black',
+          bg: 'tertiary.200',
+          color: 'white',
         }}
         {...rest}
       >

@@ -12,10 +12,10 @@ export function Page() {
         <title>Dashboard</title>
         <meta name="description" content="Well hello dashboard" />
       </Helmet>
-      <VStack w={'100%'} spacing={'12px'} p={4}>
+      <VStack w={'100%'} h={'100%'} spacing={'12px'} pt={4} pb={4}>
         <WelcomeToDistilled />
         <Button
-          bg="brand.500"
+          bg="tertiary.500"
           textColor="white"
           onClick={() => setIsNewPlanModal(true)}
         >
