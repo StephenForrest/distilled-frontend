@@ -1,6 +1,7 @@
 import tokenStorage from '../tokenStorage';
 import { sessionIdVar } from '../cache';
 import { gql } from '@apollo/client';
+import { client } from 'index';
 
 // Define mutation
 export const SIGNOUT_MUTATION = gql`
@@ -27,12 +28,22 @@ export const SIGNUP = gql`
   }
 `;
 
+export const VERIFY_EMAIL = gql`
+  mutation VerifyEmail($token: String!) {
+    verifyEmail(token: $token) {
+      success
+    }
+  }
+`;
+
 export const onSignIn = (sessionId: string) => {
   tokenStorage.write(sessionId);
   sessionIdVar(sessionId);
 };
 
 export const onSignOut = () => {
+  client.resetStore();
   tokenStorage.delete();
+  localStorage.removeItem('activeWorkspaceId');
   sessionIdVar(null);
 };

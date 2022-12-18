@@ -1,34 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Center, Box, Text } from '@chakra-ui/react';
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Heading,
-  Grid,
-  Avatar,
-  Tooltip,
-  Icon,
-} from '@chakra-ui/react';
+import { Button, VStack, Grid } from '@chakra-ui/react';
 import { GET_PLANS } from 'app/lib/queries/Plan';
 import { useQuery } from '@apollo/client';
 import type { Plan, Goal } from 'types';
 import { NotFoundPage } from 'app/components/NotFoundPage/index';
-import { Table, Tbody, Tr, Td, TableContainer, HStack } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
-import AppIcons from 'app/components/AppIcons';
-import { formatDate } from 'app/lib/utilities';
-import { selectedGoalVar } from 'app/lib/cache';
 import PageHeader from 'app/components/PageHeader';
+import CreateNewPlanModal from 'app/components/CreateNewPlanModal';
+import PlanItem from './PlanItem';
 
 interface PlanList extends Plan {
   recentGoals: Goal[];
   goalsCount: number;
 }
 
+const EmptyPlansState = () => {
+  const [isNewPlanModal, setIsNewPlanModal] = useState<boolean>(false);
+  return (
+    <VStack w={'100%'} height={'100%'} maxHeight={'200px'}>
+      <Box margin={'auto !important'}>
+        <VStack spacing={4}>
+          <Text>You haven't created any plans yet.</Text>
+          <Button colorScheme="brand" onClick={() => null}>
+            Create new plan
+          </Button>
+        </VStack>
+      </Box>
+      <CreateNewPlanModal
+        isOpen={isNewPlanModal}
+        onClose={() => setIsNewPlanModal(false)}
+      />
+    </VStack>
+  );
+};
+
 export function Page() {
-  const navigate = useNavigate();
   const { data, loading } = useQuery<{ getPlans: PlanList[] }>(GET_PLANS);
   if (loading) {
     return <Center>Loading...</Center>;
@@ -45,183 +52,28 @@ export function Page() {
   } else {
     const plans = data.getPlans;
     return (
-      <>
+      <VStack h={'100%'} alignItems={'flex-start'} w={'100%'}>
         <Helmet>
           <title>All Plans</title>
           <meta name="description" content="Plans page" />
         </Helmet>
-        <Box p={8}>
-          <PageHeader text={'All 12312'} />
-          <Grid templateColumns="repeat(2, 1fr)" gap={6}>
-            {plans.map(plan => {
+        <Box p={8} h={'100%'} w={'100%'}>
+          <PageHeader text={'All Plans'} />
+          {(() => {
+            if (!plans.length) {
+              return <EmptyPlansState />;
+            } else {
               return (
-                <Card
-                  key={plan.id}
-                  w={'100%'}
-                  bg={'white'}
-                  variant="outline"
-                  boxShadow={'md'}
-                >
-                  <CardHeader
-                    onClick={() => navigate(`/plan/${plan.id}`)}
-                    _hover={{ textDecoration: 'underline', cursor: 'pointer' }}
-                    pb={2}
-                  >
-                    <Heading size="sm">{plan.name}</Heading>
-                  </CardHeader>
-                  <CardBody>
-                    <Heading size="sm" ml={4} mb={4}>
-                      Goals
-                    </Heading>
-                    <TableContainer w={'100%'}>
-                      <Table variant="simple" size="sm">
-                        <Tbody>
-                          {(plan.recentGoals || []).map(goal => {
-                            return (
-                              <Tr
-                                key={goal.id}
-                                _hover={{ bg: 'brand.50', cursor: 'pointer' }}
-                                onClick={() => selectedGoalVar(goal.id)}
-                              >
-                                <Td w={'100%'}>
-                                  <HStack>
-                                    <Icon
-                                      color={'gray.500'}
-                                      as={AppIcons['goal']}
-                                    />
-                                    <Text>{goal.title} </Text>
-                                  </HStack>
-                                </Td>
-                                <Td>
-                                  <HStack spacing={6}>
-                                    <Tooltip label="Actions">
-                                      <HStack w={'40px'}>
-                                        <Icon
-                                          color={'gray.500'}
-                                          as={AppIcons['action']}
-                                        />
-                                        <Text fontSize={'xs'}>
-                                          {goal.actionsCount!}
-                                        </Text>
-                                      </HStack>
-                                    </Tooltip>
-                                    <Tooltip label="Measurements">
-                                      <HStack w={'40px'}>
-                                        <Icon
-                                          color={'gray.500'}
-                                          as={AppIcons['measurement']}
-                                        />
-                                        <Text fontSize={'xs'}>
-                                          {goal.measurementsCount!}
-                                        </Text>
-                                      </HStack>
-                                    </Tooltip>
-                                  </HStack>
-                                </Td>
-                                <Td>
-                                  <HStack marginLeft={'auto !important'}>
-                                    <Text
-                                      color={'gray.500'}
-                                      fontSize={'sm'}
-                                      ml={'auto'}
-                                    >
-                                      {formatDate(new Date(goal.expiresOn))}
-                                    </Text>
-
-                                    <Avatar
-                                      name={goal.owner.name}
-                                      size="xs"
-                                      colorScheme={'gray'}
-                                    />
-                                  </HStack>
-                                </Td>
-                              </Tr>
-                            );
-                          })}
-                        </Tbody>
-                      </Table>
-                    </TableContainer>
-                    {plan.goalsCount > 3 && (
-                      <Box>
-                        <Text
-                          pl="4"
-                          onClick={() => navigate(`/plan/${plan.id}`)}
-                          mt={4}
-                          fontSize="sm"
-                          _hover={{
-                            textDecoration: 'underline',
-                            cursor: 'pointer',
-                          }}
-                        >
-                          {plan.goalsCount - 3} more
-                        </Text>
-                      </Box>
-                    )}
-                    {/* <Stack divider={<StackDivider />} spacing="2">
-                      {plan.recentGoals!.map(goal => {
-                        return (
-                          <Box key={goal.id}>
-                            <HStack>
-                              <Icon color={'gray.500'} as={AppIcons['goal']} />
-                              <Text fontSize="sm">{goal.title}</Text>
-                            </HStack>
-                          </Box>
-                        );
-                      })}
-                      {plan.goalsCount > 3 && (
-                        <Box>
-                          <Text pt="2" fontSize="sm">
-                            {plan.goalsCount - 3} more
-                          </Text>
-                        </Box>
-                      )}
-                    </Stack> */}
-                  </CardBody>
-                </Card>
+                <Grid templateColumns="repeat(2, 1fr)" gap={6}>
+                  {plans.map(plan => (
+                    <PlanItem plan={plan} key={plan.id} />
+                  ))}
+                </Grid>
               );
-            })}
-          </Grid>
-          {/* <VStack spacing={4} w={'100%'} mt={'32px'}>
-            {plans.map(plan => {
-              console.log(plan, 'plan');
-              return (
-                <Card key={plan.id} w={'100%'} bg={'white'} variant="elevated">
-                  <CardHeader
-                    onClick={() => navigate(`/plan/${plan.id}`)}
-                    _hover={{ textDecoration: 'underline', cursor: 'pointer' }}
-                  >
-                    <Heading size="md">{plan.name}</Heading>
-                  </CardHeader>
-                  <CardBody>
-                    <Stack divider={<StackDivider />} spacing="2">
-                      {plan.recentGoals!.map(goal => {
-                        return (
-                          <Box key={goal.id}>
-                            <HStack>
-                              <Icon color={'gray.500'} as={AppIcons['goal']} />
-                              <Text fontSize="sm">{goal.title}</Text>
-                            </HStack>
-                          </Box>
-                        );
-                      })}
-                      {plan.goalsCount > 3 && (
-                        <Box>
-                          <Text pt="2" fontSize="sm">
-                            {plan.goalsCount - 3} more
-                          </Text>
-                        </Box>
-                      )}
-                    </Stack>
-                  </CardBody>
-                </Card>
-              );
-            })}
-          </VStack> */}
-          {/* </Tbody> */}
-          {/* </Table> */}
-          {/* </TableContainer> */}
+            }
+          })()}
         </Box>
-      </>
+      </VStack>
     );
   }
 }

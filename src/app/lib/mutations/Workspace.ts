@@ -1,6 +1,17 @@
 import { gql } from '@apollo/client';
 
 // Define mutation
+export const CREATE_WORKSPACE_MUTATION = gql`
+  mutation createWorkspace($title: String!, $autoJoinFromDomain: Boolean!) {
+    createWorkspace(title: $title, autoJoinFromDomain: $autoJoinFromDomain) {
+      workspace {
+        title
+        autoJoinFromDomain
+      }
+    }
+  }
+`;
+
 export const UPDATE_WORKSPACE_MUTATION = gql`
   mutation updateWorkspace($title: String!, $autoJoinFromDomain: Boolean!) {
     updateWorkspace(title: $title, autoJoinFromDomain: $autoJoinFromDomain) {

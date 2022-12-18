@@ -11,19 +11,22 @@ import {
   Button,
   Icon,
   Text,
+  MenuOptionGroup,
+  MenuItemOption,
 } from '@chakra-ui/react';
 import { useQuery, useMutation, useReactiveVar } from '@apollo/client';
 import { CURRENT_USER } from 'app/lib/queries/User';
 import { RiLogoutBoxRLine } from 'react-icons/ri';
 import { SIGNOUT_MUTATION } from 'app/lib/mutations/Auth';
 import { onSignOut } from 'app/lib/mutations/Auth';
-import { sessionIdVar } from 'app/lib/cache';
+import { sessionIdVar, activeWorkspaceIdVar } from 'app/lib/cache';
 import { useNavigate } from 'react-router-dom';
 
 const NavHeader = () => {
   const [logOut] = useMutation(SIGNOUT_MUTATION);
   const { data } = useQuery(CURRENT_USER);
   const sessionId = useReactiveVar(sessionIdVar);
+  const activeWorkspaceId = useReactiveVar(activeWorkspaceIdVar);
   const navigate = useNavigate();
 
   return (
@@ -50,7 +53,22 @@ const NavHeader = () => {
                   </MenuButton>
 
                   <MenuList fontSize={'sm'}>
-                    <MenuItem>Link 1</MenuItem>
+                    <MenuOptionGroup
+                      defaultValue={`${activeWorkspaceId}`}
+                      title="Workspace"
+                    >
+                      {data.currentUser.workspaces.map(workspace => {
+                        return (
+                          <MenuItemOption
+                            value={workspace.id}
+                            key={workspace.id}
+                          >
+                            {workspace.title}
+                          </MenuItemOption>
+                        );
+                      })}
+                    </MenuOptionGroup>
+                    <MenuDivider />
                     <MenuItem onClick={() => navigate('/settings')}>
                       Settings
                     </MenuItem>

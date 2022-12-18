@@ -30,6 +30,7 @@ export function HomePage() {
             initial="initial"
             animate="in"
             exit="out"
+            style={{ height: '100%' }}
             variants={{
               initial: {
                 opacity: 0,

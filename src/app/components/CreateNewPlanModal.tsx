@@ -34,7 +34,7 @@ const CreateNewPlanModal = (props: {
     });
     const uuid = result.data?.createPlan?.plan?.uuid;
     if (uuid) {
-      navigate(`plan/${uuid}`);
+      navigate(`/plan/${uuid}`);
     }
   };
 

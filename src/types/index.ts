@@ -132,3 +132,28 @@ export interface GoalMeasurementFormErrors
     [key: string]: string;
   };
 }
+
+export type WorkspaceMember = {
+  id: string;
+  role: string;
+  user: {
+    id: number;
+    email: string;
+    name: string;
+  };
+};
+
+export type Workspace = {
+  title: string;
+  domain: string;
+  personalDomain?: boolean;
+  autoJoinFromDomain: boolean;
+  workspaceMembers: WorkspaceMember[];
+};
+
+export type CurrentUser = {
+  name: string;
+  email: string;
+  emailVerified: boolean;
+  workspace: Workspace[];
+};

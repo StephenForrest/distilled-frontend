@@ -12,6 +12,7 @@ import { RedirectUrl } from '../pages/Integrations/RedirectUrl';
 import { PlanPage } from '../pages/PlanPage/Loadable';
 import { AllPlans } from '../pages/AllPlans/Loadable';
 import { NotFoundPage } from './NotFoundPage/Loadable';
+import { VerifyEmail } from '../pages/VerifyEmail/Loadable';
 import { AnimatePresence } from 'framer-motion';
 
 export const RoutesComponent = () => {
@@ -53,6 +54,8 @@ export const RoutesComponent = () => {
           path="oauth-slack"
           element={<PrivateRoute Component={RedirectUrl} />}
         />
+
+        <Route path="verify-email" element={<VerifyEmail />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
