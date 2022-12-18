@@ -7,6 +7,7 @@ import { SignupPage } from '../pages/SignupPage/Loadable';
 import { HomePage } from '../pages/HomePage';
 import { DashboardPage } from '../pages/Dashboard/Loadable';
 import { IntegrationsPage } from '../pages/Integrations/Loadable';
+import { ActionsPage } from '../pages/ActionsPage/Loadable';
 import { SettingsPage } from '../pages/SettingsPage/Loadable';
 import { RedirectUrl } from '../pages/Integrations/RedirectUrl';
 import { PlanPage } from '../pages/PlanPage/Loadable';
@@ -30,6 +31,10 @@ export const RoutesComponent = () => {
           <Route
             path="integrations"
             element={<PrivateRoute Component={IntegrationsPage} />}
+          />
+          <Route
+            path="actions"
+            element={<PrivateRoute Component={ActionsPage} />}
           />
           <Route
             path="settings"

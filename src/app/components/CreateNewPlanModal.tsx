@@ -31,6 +31,7 @@ const CreateNewPlanModal = (props: {
         name: planName,
       },
       refetchQueries: ['getPlans'],
+      awaitRefetchQueries: true,
     });
     const uuid = result.data?.createPlan?.plan?.uuid;
     if (uuid) {
@@ -62,8 +63,7 @@ const CreateNewPlanModal = (props: {
               isLoading={loading}
               loadingText={'Submitting'}
               mt={4}
-              colorScheme="primary"
-              textColor="black"
+              colorScheme="brand"
               type="submit"
             >
               Save

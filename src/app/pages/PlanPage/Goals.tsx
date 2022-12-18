@@ -1,30 +1,10 @@
 import React, { useState } from 'react';
-import {
-  Box,
-  Button,
-  VStack,
-  HStack,
-  Text,
-  Divider,
-  Avatar,
-} from '@chakra-ui/react';
+import { Box, Button, VStack, Divider } from '@chakra-ui/react';
 import type { Goal } from 'types';
 import CreateNewGoalModal from 'app/components/CreateNewGoalModal';
-import { formatDate } from 'app/lib/utilities';
-import { FiTarget } from 'react-icons/fi';
-import { Icon } from '@chakra-ui/react';
-import {
-  Table,
-  Tbody,
-  Tr,
-  Td,
-  TableContainer,
-  Tooltip,
-  Progress,
-} from '@chakra-ui/react';
-import { completionFormatted } from 'app/lib/utilities';
-import AppIcons from 'app/components/AppIcons';
-import { selectedGoalVar } from 'app/lib/cache';
+import GoalsList from './GoalsList';
+import * as animationData from 'app/jsons/EmptyBoxAnimation.json';
+import Lottie from 'react-lottie';
 
 const NewGoalsComponent = (props: {
   onNewGoal: () => void;
@@ -32,7 +12,7 @@ const NewGoalsComponent = (props: {
 }) => {
   return (
     <Box pt={8}>
-      <Button colorScheme={'brand'} size={'sm'} onClick={props.onNewGoal}>
+      <Button colorScheme={'brand'} size={'md'} onClick={props.onNewGoal}>
         {props.firstGoal ? (
           <span> Create your first goal </span>
         ) : (
@@ -52,105 +32,45 @@ const Goals = (props: { goals: Goal[] }) => {
         onClose={() => setIsNewGoalModal(false)}
       />
       {(() => {
-        return (
-          <VStack spacing={8} w={'100%'} alignItems={'flex-start'}>
-            <NewGoalsComponent
-              firstGoal={props.goals.length === 0}
-              onNewGoal={() => setIsNewGoalModal(true)}
-            />
-            <VStack
-              spacing={0}
-              divider={<Divider />}
-              w={'100%'}
-              alignItems={'flex-start'}
-            >
-              <TableContainer w={'100%'}>
-                <Table variant="simple" size="sm">
-                  <Tbody>
-                    {([...props.goals] || [])
-                      .sort((a, b) =>
-                        new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1,
-                      )
-                      .map(goal => {
-                        const completion = completionFormatted(
-                          goal.completion!,
-                        );
-                        return (
-                          <Tr
-                            key={goal.id}
-                            _hover={{ bg: 'brand.50', cursor: 'pointer' }}
-                            onClick={() => selectedGoalVar(goal.id)}
-                          >
-                            <Td w={'100%'}>
-                              <HStack marginLeft={'auto !important'}>
-                                <Icon color={'gray.500'} as={FiTarget} />
-                                <Text>{goal.title} </Text>
-                              </HStack>
-                            </Td>
-                            <Td>
-                              <HStack spacing={6}>
-                                <Tooltip label="Actions">
-                                  <HStack w={'40px'}>
-                                    <Icon
-                                      color={'gray.500'}
-                                      as={AppIcons['action']}
-                                    />
-                                    <Text fontSize={'xs'}>
-                                      {goal.actionsCount!}
-                                    </Text>
-                                  </HStack>
-                                </Tooltip>
-                                <Tooltip label="Measurements">
-                                  <HStack w={'40px'}>
-                                    <Icon
-                                      color={'gray.500'}
-                                      as={AppIcons['measurement']}
-                                    />
-                                    <Text fontSize={'xs'}>
-                                      {goal.measurementsCount!}
-                                    </Text>
-                                  </HStack>
-                                </Tooltip>
-                              </HStack>
-                            </Td>
-                            <Td>
-                              <HStack spacing={4}>
-                                <Progress
-                                  value={completion}
-                                  borderRadius={8}
-                                  colorScheme="green"
-                                  w={'200px'}
-                                />
-                                <Text>{completion}%</Text>
-                                <Text>On Track</Text>
-                              </HStack>
-                            </Td>
-                            <Td>
-                              <HStack marginLeft={'auto !important'}>
-                                <Text
-                                  color={'gray.500'}
-                                  fontSize={'sm'}
-                                  ml={'auto'}
-                                >
-                                  {formatDate(new Date(goal.expiresOn))}
-                                </Text>
-
-                                <Avatar
-                                  name={goal.owner.name}
-                                  size="xs"
-                                  colorScheme={'gray'}
-                                />
-                              </HStack>
-                            </Td>
-                          </Tr>
-                        );
-                      })}
-                  </Tbody>
-                </Table>
-              </TableContainer>
+        if (props.goals.length > 0) {
+          return (
+            <VStack spacing={8} w={'100%'} alignItems={'flex-start'}>
+              <NewGoalsComponent
+                firstGoal={props.goals.length === 0}
+                onNewGoal={() => setIsNewGoalModal(true)}
+              />
+              <VStack
+                spacing={0}
+                divider={<Divider />}
+                w={'100%'}
+                alignItems={'flex-start'}
+              >
+                <GoalsList goals={props.goals} />
+              </VStack>
             </VStack>
-          </VStack>
-        );
+          );
+        } else {
+          return (
+            <VStack spacing={8} w={'100%'}>
+              <Lottie
+                options={{
+                  loop: true,
+                  autoplay: true,
+                  animationData: animationData,
+                  rendererSettings: {
+                    preserveAspectRatio: 'xMidYMid slice',
+                  },
+                }}
+                height={300}
+                width={300}
+              />
+              <NewGoalsComponent
+                firstGoal={props.goals.length === 0}
+                onNewGoal={() => setIsNewGoalModal(true)}
+              />
+            </VStack>
+          );
+        }
       })()}
     </>
   );

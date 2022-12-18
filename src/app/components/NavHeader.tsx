@@ -30,7 +30,7 @@ const NavHeader = () => {
   const navigate = useNavigate();
 
   return (
-    <Box pl={8} pr={8} pt={4} pb={0}>
+    <Box pl={8} pr={8} pt={4} pb={4}>
       <HStack>
         <Box id={'Header'}></Box>
         <Box marginLeft={'auto !important'}>

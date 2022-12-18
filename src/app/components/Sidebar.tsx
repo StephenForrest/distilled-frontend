@@ -26,14 +26,17 @@ import { onSignOut } from 'app/lib/mutations/Auth';
 import LogoFull from './LogoFull';
 import { useNavigate } from 'react-router-dom';
 import NavHeader from 'app/components/NavHeader';
+import { BiTask } from 'react-icons/bi';
+
 interface LinkItemProps {
   name: string;
   icon: IconType;
   url: string;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Dashboard', icon: GrHome, url: '/' },
+  { name: 'Welcome', icon: GrHome, url: '/' },
   { name: 'Plans', icon: GrVulnerability, url: '/plans' },
+  { name: 'Actions', icon: BiTask, url: '/actions' },
   { name: 'Integrations', icon: GrServices, url: '/integrations' },
 ];
 
@@ -156,8 +159,8 @@ const NavItem = ({
         cursor="pointer"
         color="gray.200"
         _hover={{
-          bg: 'primary.100',
-          color: 'black',
+          bg: 'brand.500',
+          color: 'white',
         }}
         {...rest}
       >

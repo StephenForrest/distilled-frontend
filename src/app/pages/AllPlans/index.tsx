@@ -9,6 +9,8 @@ import { NotFoundPage } from 'app/components/NotFoundPage/index';
 import PageHeader from 'app/components/PageHeader';
 import CreateNewPlanModal from 'app/components/CreateNewPlanModal';
 import PlanItem from './PlanItem';
+import * as animationData from 'app/jsons/EmptyStateAnimation.json';
+import Lottie from 'react-lottie';
 
 interface PlanList extends Plan {
   recentGoals: Goal[];
@@ -20,9 +22,21 @@ const EmptyPlansState = () => {
   return (
     <VStack w={'100%'} height={'100%'} maxHeight={'200px'}>
       <Box margin={'auto !important'}>
-        <VStack spacing={4}>
+        <VStack spacing={8}>
+          <Lottie
+            options={{
+              loop: true,
+              autoplay: true,
+              animationData: animationData,
+              rendererSettings: {
+                preserveAspectRatio: 'xMidYMid slice',
+              },
+            }}
+            height={300}
+            width={300}
+          />
           <Text>You haven't created any plans yet.</Text>
-          <Button colorScheme="brand" onClick={() => null}>
+          <Button colorScheme="brand" onClick={() => setIsNewPlanModal(true)}>
             Create new plan
           </Button>
         </VStack>
