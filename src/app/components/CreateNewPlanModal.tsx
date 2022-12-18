@@ -62,7 +62,8 @@ const CreateNewPlanModal = (props: {
               isLoading={loading}
               loadingText={'Submitting'}
               mt={4}
-              colorScheme="brand"
+              colorScheme="primary"
+              textColor="black"
               type="submit"
             >
               Save
