@@ -54,6 +54,7 @@ export const RoutesComponent = () => {
           path="oauth-slack"
           element={<PrivateRoute Component={RedirectUrl} />}
         />
+        <Route path="oauth-gmail" element={<RedirectUrl />} />
 
         <Route path="verify-email" element={<VerifyEmail />} />
 
