@@ -8,6 +8,7 @@ export interface Goal {
   completion: number;
   owner: {
     name: string;
+    profilePic: string;
   };
   actionsCount?: number;
   measurementsCount?: number;
@@ -75,6 +76,7 @@ export interface SuccessCriteria {
   endDate?: string;
   owner?: {
     name: string;
+    profilePic: string;
   };
   action?: {
     trackingType: string;

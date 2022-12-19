@@ -59,7 +59,12 @@ const Goal = props => {
             {formatDate(new Date(goal.expiresOn))}
           </Text>
 
-          <Avatar name={goal.owner.name} size="xs" colorScheme={'gray'} />
+          <Avatar
+            name={goal.owner.name}
+            size="xs"
+            src={goal.owner!.profilePic}
+            referrerPolicy={'no-referrer'}
+          />
         </HStack>
       </Td>
     </Tr>

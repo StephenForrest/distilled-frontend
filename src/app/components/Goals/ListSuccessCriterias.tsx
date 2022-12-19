@@ -133,8 +133,9 @@ const ListSuccessCriterias = (props: {
                       <HStack>
                         <Avatar
                           name={successCriteria.owner!.name}
+                          src={successCriteria.owner!.profilePic}
                           size="xs"
-                          colorScheme={'gray'}
+                          referrerPolicy={'no-referrer'}
                         />
                         <Text fontSize={'sm'}>
                           {successCriteria.owner!.name}

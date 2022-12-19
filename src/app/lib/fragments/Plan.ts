@@ -8,6 +8,7 @@ export const GOAL_FRAGMENT = gql`
     createdAt
     owner {
       name
+      profilePic
     }
     measurementsCount
     actionsCount
@@ -27,6 +28,7 @@ export const SUCCESS_CRITERIA_FRAGMENT = gql`
     createdAt
     owner {
       name
+      profilePic
     }
     completion
     successCriteriaType
@@ -71,6 +73,7 @@ export const GOAL_DETAILS_FRAGMENT = gql`
     createdAt
     owner {
       name
+      profilePic
     }
     completion
     measurementsCount
