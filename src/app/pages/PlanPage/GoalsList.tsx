@@ -81,6 +81,8 @@ const GoalsList = (props: { goals }) => {
                         name={goal.owner.name}
                         size="xs"
                         colorScheme={'gray'}
+                        src={goal.owner.profilePic}
+                        referrerPolicy={'no-referrer'}
                       />
                     </HStack>
                   </Td>

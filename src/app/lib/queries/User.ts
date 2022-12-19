@@ -13,6 +13,7 @@ export const CURRENT_USER = gql`
         autoJoinFromDomain
       }
       emailVerified
+      profilePic
     }
   }
 `;

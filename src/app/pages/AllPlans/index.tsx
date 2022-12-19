@@ -11,6 +11,7 @@ import CreateNewPlanModal from 'app/components/CreateNewPlanModal';
 import PlanItem from './PlanItem';
 import * as animationData from 'app/jsons/EmptyStateAnimation.json';
 import Lottie from 'react-lottie';
+import PlanFilters from './PlanFilters';
 
 interface PlanList extends Plan {
   recentGoals: Goal[];
@@ -71,7 +72,8 @@ export function Page() {
           <title>All Plans</title>
           <meta name="description" content="Plans page" />
         </Helmet>
-        <Box p={8} h={'100%'} w={'100%'}>
+        {plans.length > 0 && <PlanFilters />}
+        <Box p={8} w={'100%'}>
           <PageHeader text={'All Plans'} />
           {(() => {
             if (!plans.length) {
