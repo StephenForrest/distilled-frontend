@@ -18,7 +18,7 @@ const WelcomeToDistilled = () => {
       <WelcomeBanner />
       <Box marginTop={20} mb={4}>
         <Text fontSize={'md'} color={'gray.700'}>
-          To get started, create a community plan and start setting some goals
+          Here's a guide on how you can start using Distilled.
         </Text>
       </Box>
     </VStack>
