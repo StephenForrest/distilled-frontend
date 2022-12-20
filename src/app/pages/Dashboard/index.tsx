@@ -17,6 +17,7 @@ export function Page() {
         <Button
           bg="tertiary.500"
           textColor="white"
+          mt="2"
           onClick={() => setIsNewPlanModal(true)}
         >
           Create new plan
