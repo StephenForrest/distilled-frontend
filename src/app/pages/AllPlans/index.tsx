@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Center, Box, Text } from '@chakra-ui/react';
 import { Button, VStack, Grid } from '@chakra-ui/react';
@@ -12,14 +12,18 @@ import PlanItem from './PlanItem';
 import * as animationData from 'app/jsons/EmptyStateAnimation.json';
 import Lottie from 'react-lottie';
 import PlanFilters from './PlanFilters';
+import fuzzysort from 'fuzzysort';
 
 interface PlanList extends Plan {
   recentGoals: Goal[];
   goalsCount: number;
 }
 
-const EmptyPlansState = () => {
-  const [isNewPlanModal, setIsNewPlanModal] = useState<boolean>(false);
+const EmptyPlansState = (props: {
+  isNewPlanModal: boolean;
+  setIsNewPlanModal: (value: boolean) => void;
+}) => {
+  const { isNewPlanModal, setIsNewPlanModal } = props;
   return (
     <VStack w={'100%'} height={'100%'} maxHeight={'200px'}>
       <Box margin={'auto !important'}>
@@ -51,7 +55,26 @@ const EmptyPlansState = () => {
 };
 
 export function Page() {
-  const { data, loading } = useQuery<{ getPlans: PlanList[] }>(GET_PLANS);
+  const [isNewPlanModal, setIsNewPlanModal] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>('');
+  const [filteredPlans, setFilteredPlans] = useState<PlanList[]>([]);
+  const { data, loading } = useQuery<{ getPlans: PlanList[] }>(GET_PLANS, {
+    fetchPolicy: 'no-cache',
+  });
+
+  useMemo(() => {
+    if (data) {
+      if (search.length > 0) {
+        const d = fuzzysort.go(search, data.getPlans, { key: 'name' });
+        setFilteredPlans(d.map(res => res.obj));
+      } else {
+        setFilteredPlans(data.getPlans);
+      }
+    } else {
+      return [];
+    }
+  }, [data, search]);
+
   if (loading) {
     return <Center>Loading...</Center>;
   } else if (!data) {
@@ -72,16 +95,27 @@ export function Page() {
           <title>All Plans</title>
           <meta name="description" content="Plans page" />
         </Helmet>
-        {plans.length > 0 && <PlanFilters />}
-        <Box p={8} w={'100%'}>
+        {plans.length > 0 && (
+          <PlanFilters
+            setIsNewPlanModal={setIsNewPlanModal}
+            search={search}
+            setSearch={setSearch}
+          />
+        )}
+        <Box p={8} pt={4} w={'100%'}>
           <PageHeader text={'All Plans'} />
           {(() => {
             if (!plans.length) {
-              return <EmptyPlansState />;
+              return (
+                <EmptyPlansState
+                  isNewPlanModal={isNewPlanModal}
+                  setIsNewPlanModal={setIsNewPlanModal}
+                />
+              );
             } else {
               return (
                 <Grid templateColumns="repeat(2, 1fr)" gap={6}>
-                  {plans.map(plan => (
+                  {filteredPlans.map(plan => (
                     <PlanItem plan={plan} key={plan.id} />
                   ))}
                 </Grid>
@@ -89,6 +123,10 @@ export function Page() {
             }
           })()}
         </Box>
+        <CreateNewPlanModal
+          isOpen={isNewPlanModal}
+          onClose={() => setIsNewPlanModal(false)}
+        />
       </VStack>
     );
   }

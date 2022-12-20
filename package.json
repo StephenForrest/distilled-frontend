@@ -33,6 +33,7 @@
     "eslint-plugin-react-hooks": "4.6.0",
     "fontfaceobserver": "2.3.0",
     "framer-motion": "7.6.12",
+    "fuzzysort": "2.0.4",
     "graphql": "16.6.0",
     "husky": "8.0.1",
     "i18next": "21.9.2",

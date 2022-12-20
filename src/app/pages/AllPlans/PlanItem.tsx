@@ -89,7 +89,7 @@ const PlanItem = props => {
           cursor: 'pointer',
         }}
         bg={'gray.100'}
-        p={2}
+        p={3}
         pl={4}
       >
         <Heading size="md">{plan.name}</Heading>
