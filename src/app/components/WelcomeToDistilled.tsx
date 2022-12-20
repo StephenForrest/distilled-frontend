@@ -33,7 +33,7 @@ const WelcomeToDistilled = () => {
       <Box position="absolute" top={0} left={0}>
         <SvgBlob
           variant="gradient"
-          colors={['#2980B9', '#6DD5FA']}
+          colors={['#22FE14', '#c9ffc6']}
           width="35%"
           height="35%"
           opacity="35%"
@@ -43,7 +43,7 @@ const WelcomeToDistilled = () => {
       <Box position="absolute" top={'-50'} left={'50%'}>
         <SvgBlob
           variant="gradient"
-          colors={['#2980B9', '#6DD5FA']}
+          colors={['#5E2CAF', '#bfa5e8']}
           width="35%"
           height="35%"
           opacity="35%"
@@ -53,7 +53,16 @@ const WelcomeToDistilled = () => {
       <Box position="absolute" bottom={'-50'} left={'0%'}>
         <SvgBlob
           variant="gradient"
-          colors={['#2980B9', '#6DD5FA']}
+          colors={['#fe0adc', '#ffbcf5']}
+          width="35%"
+          height="35%"
+          opacity="35%"
+        />
+      </Box>
+      <Box position="absolute" bottom={'-30'} right={'0%'}>
+        <SvgBlob
+          variant="gradient"
+          colors={['#d3fa51', '#e6fc9c']}
           width="35%"
           height="35%"
           opacity="35%"
