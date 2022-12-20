@@ -16,6 +16,7 @@ import { FiTarget } from 'react-icons/fi';
 import { selectedGoalVar } from 'app/lib/cache';
 import AppIcons from 'app/components/AppIcons';
 import { completionFormatted, formatDate } from 'app/lib/utilities';
+import TrackStatus from 'app/components/TrackStatus';
 
 const GoalsList = (props: { goals }) => {
   return (
@@ -36,13 +37,13 @@ const GoalsList = (props: { goals }) => {
                 >
                   <Td w={'100%'}>
                     <HStack marginLeft={'auto !important'}>
-                      <Icon color={'gray.500'} as={FiTarget} />
+                      <Icon color={'gray.500'} as={AppIcons['goal']} />
                       <Text>{goal.title} </Text>
                     </HStack>
                   </Td>
                   <Td>
                     <HStack spacing={6}>
-                      <Tooltip label="Actions">
+                      <Tooltip label="Tasks">
                         <HStack w={'40px'}>
                           <Icon color={'gray.500'} as={AppIcons['action']} />
                           <Text fontSize={'xs'}>{goal.actionsCount!}</Text>
@@ -67,8 +68,8 @@ const GoalsList = (props: { goals }) => {
                         colorScheme="green"
                         w={'200px'}
                       />
-                      <Text>{completion}%</Text>
-                      <Text>On Track</Text>
+                      <Text w={'50px'}>{completion}%</Text>
+                      <TrackStatus editable={false} />
                     </HStack>
                   </Td>
                   <Td>

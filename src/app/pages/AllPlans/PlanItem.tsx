@@ -39,7 +39,7 @@ const Goal = props => {
       </Td>
       <Td>
         <HStack spacing={6}>
-          <Tooltip label="Actions">
+          <Tooltip label="Tasks">
             <HStack w={'40px'}>
               <Icon color={'gray.500'} as={AppIcons['action']} />
               <Text fontSize={'xs'}>{goal.actionsCount!}</Text>
@@ -89,7 +89,7 @@ const PlanItem = props => {
           cursor: 'pointer',
         }}
         bg={'gray.100'}
-        p={2}
+        p={3}
         pl={4}
       >
         <Heading size="md">{plan.name}</Heading>

@@ -14,7 +14,6 @@ import {
   BoxProps,
   FlexProps,
 } from '@chakra-ui/react';
-import { GrHome, GrVulnerability, GrServices } from 'react-icons/gr';
 import { RiLogoutBoxRLine } from 'react-icons/ri';
 import { FcMenu } from 'react-icons/fc';
 import { IconType } from 'react-icons';
@@ -26,18 +25,17 @@ import { onSignOut } from 'app/lib/mutations/Auth';
 import LogoFull from './LogoFull';
 import { useNavigate } from 'react-router-dom';
 import NavHeader from 'app/components/NavHeader';
-import { BiTask } from 'react-icons/bi';
-
+import AppIcons from 'app/components/AppIcons';
 interface LinkItemProps {
   name: string;
   icon: IconType;
   url: string;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Welcome', icon: GrHome, url: '/' },
-  { name: 'Plans', icon: GrVulnerability, url: '/plans' },
-  { name: 'Actions', icon: BiTask, url: '/actions' },
-  { name: 'Integrations', icon: GrServices, url: '/integrations' },
+  { name: 'Welcome', icon: AppIcons['waving'], url: '/' },
+  { name: 'Plans', icon: AppIcons['plan'], url: '/plans' },
+  { name: 'Tasks', icon: AppIcons['action'], url: '/tasks' },
+  { name: 'Integrations', icon: AppIcons['integration'], url: '/integrations' },
 ];
 
 export default function SimpleSidebar({ children }: { children: ReactNode }) {
@@ -164,7 +162,7 @@ const NavItem = ({
         }}
         {...rest}
       >
-        {icon && <Icon mr="4" fontSize="16" className="NavbarIcon" as={icon} />}
+        {icon && <Icon mr="4" boxSize="6" as={icon} />}
         {children}
       </Flex>
     </Link>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Center, Box } from '@chakra-ui/react';
+import { Center, Box, HStack, Text } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { GET_PLAN } from 'app/lib/queries/Plan';
 import { useQuery } from '@apollo/client';
@@ -8,6 +8,7 @@ import type { Plan } from 'types';
 import { NotFoundPage } from 'app/components/NotFoundPage/index';
 import Goals from 'app/pages/PlanPage/Goals';
 import PageHeader from 'app/components/PageHeader';
+import PlannerIcon from 'app/icons/Planner';
 
 export function Page() {
   const { uuid } = useParams();
@@ -34,7 +35,14 @@ export function Page() {
           <meta name="description" content="Plans page" />
         </Helmet>
         <Box p={6} pt={0}>
-          <PageHeader text={data!.getPlan?.name} />
+          <PageHeader>
+            <HStack spacing={1}>
+              <PlannerIcon boxSize={6} />
+              <Text fontSize={'2xl'} fontWeight={'bold'}>
+                {data!.getPlan?.name}
+              </Text>
+            </HStack>
+          </PageHeader>
           <Goals goals={data!.getPlan?.goals || []} />
         </Box>
       </>

@@ -9,14 +9,14 @@ import {
 } from '@chakra-ui/react';
 import { SearchIcon, AddIcon } from '@chakra-ui/icons';
 
-const PlanFilters = (props: {
-  setIsNewPlanModal: (value: boolean) => void;
+const GoalFilters = (props: {
+  setIsNewGoalModal: (value: boolean) => void;
   search: string;
   setSearch: (value: string) => void;
 }) => {
-  const { setIsNewPlanModal, search, setSearch } = props;
+  const { setIsNewGoalModal, search, setSearch } = props;
   return (
-    <HStack pl={8} pr={8} mt={2} w={'100%'}>
+    <HStack pl={2} pr={2} mt={2} w={'100%'}>
       <FormControl>
         <InputGroup size={'sm'} w={'300px'}>
           <InputLeftElement
@@ -24,7 +24,7 @@ const PlanFilters = (props: {
             children={<SearchIcon color="gray.300" />}
           />
           <Input
-            placeholder="Search plans"
+            placeholder="Search goals"
             value={search}
             onChange={e => setSearch(e.target.value)}
           />
@@ -37,12 +37,12 @@ const PlanFilters = (props: {
         pl={4}
         pr={4}
         leftIcon={<AddIcon />}
-        onClick={() => setIsNewPlanModal(true)}
+        onClick={() => setIsNewGoalModal(true)}
       >
-        Create new plan
+        Create new goal
       </Button>
     </HStack>
   );
 };
 
-export default PlanFilters;
+export default GoalFilters;
