@@ -4236,6 +4236,11 @@ binary-extensions@^2.0.0:
   resolved "https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.2.0.tgz"
   integrity sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==
 
+blobshape@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/blobshape/-/blobshape-1.0.0.tgz"
+  integrity sha512-GUD6tUIvj7k8zLSMtfdM1RyusWDjFqYL9g6J6QIgwxbVjL3b6mbRz5peerDc+6kbZX/14BSr3ed9sizrJKdkQQ==
+
 bluebird@^3.5.5:
   version "3.7.2"
   resolved "https://registry.npmjs.org/bluebird/-/bluebird-3.7.2.tgz"
@@ -11014,6 +11019,13 @@ react-style-singleton@^2.2.1:
     get-nonce "^1.0.0"
     invariant "^2.2.4"
     tslib "^2.0.0"
+
+react-svg-blob@0.3.1:
+  version "0.3.1"
+  resolved "https://registry.npmjs.org/react-svg-blob/-/react-svg-blob-0.3.1.tgz"
+  integrity sha512-hJCdgcao8NDuOkGgKgSvbjMx15O7rndwSMGu2akWlrWzOqEL6M0cPwqCGO8brD2rnqMYwu1Zky6ZCLv+4g5/Eg==
+  dependencies:
+    blobshape "^1.0.0"
 
 react-test-renderer@18.2.0:
   version "18.2.0"
