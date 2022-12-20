@@ -2,7 +2,7 @@ import React from 'react';
 import { Circle, HStack, Text } from '@chakra-ui/react';
 import { Menu, MenuButton, MenuList, MenuItem, Button } from '@chakra-ui/react';
 
-const TrackingText = () => {
+const TrackingText = (props: { editable?: boolean }) => {
   const options = {
     ontrack: (
       <HStack>
@@ -23,20 +23,25 @@ const TrackingText = () => {
       </HStack>
     ),
   };
-  return (
-    <HStack spacing={2} mt={'12px'}>
-      <Menu>
-        <MenuButton as={Button} variant={'outline'} size={'xs'}>
-          {options['ontrack']}
-        </MenuButton>
-        <MenuList>
-          <MenuItem>{options['ontrack']}</MenuItem>
-          <MenuItem>{options['atrisk']}</MenuItem>
-          <MenuItem>{options['completed']}</MenuItem>
-        </MenuList>
-      </Menu>
-    </HStack>
-  );
+
+  if (typeof props.editable === 'undefined' || props.editable === true) {
+    return (
+      <HStack spacing={2} mt={'12px'}>
+        <Menu>
+          <MenuButton as={Button} variant={'outline'} size={'xs'}>
+            {options['ontrack']}
+          </MenuButton>
+          <MenuList>
+            <MenuItem>{options['ontrack']}</MenuItem>
+            <MenuItem>{options['atrisk']}</MenuItem>
+            <MenuItem>{options['completed']}</MenuItem>
+          </MenuList>
+        </Menu>
+      </HStack>
+    );
+  } else {
+    return <>{options['ontrack']}</>;
+  }
 };
 
 export default TrackingText;

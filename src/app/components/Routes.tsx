@@ -33,7 +33,7 @@ export const RoutesComponent = () => {
             element={<PrivateRoute Component={IntegrationsPage} />}
           />
           <Route
-            path="actions"
+            path="tasks"
             element={<PrivateRoute Component={ActionsPage} />}
           />
           <Route

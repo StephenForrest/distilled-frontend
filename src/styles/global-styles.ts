@@ -38,14 +38,6 @@ export const GlobalStyle = createGlobalStyle`
     opacity: 1;
   }
 
-  .NavbarIcon path {
-    stroke: var(--chakra-colors-gray-200);
-  }
-
-  .NavbarIcon:hover path {
-    stroke: var(--chakra-colors-brand-200);
-  }
-
   .ListSuccessCriteriaIcon path {
     stroke: var(--chakra-colors-gray-500);
   }

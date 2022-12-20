@@ -39,7 +39,7 @@ const Goal = props => {
       </Td>
       <Td>
         <HStack spacing={6}>
-          <Tooltip label="Actions">
+          <Tooltip label="Tasks">
             <HStack w={'40px'}>
               <Icon color={'gray.500'} as={AppIcons['action']} />
               <Text fontSize={'xs'}>{goal.actionsCount!}</Text>

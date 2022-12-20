@@ -1,21 +1,28 @@
 import React from 'react';
-import { GrLineChart } from 'react-icons/gr';
-import { BiTask } from 'react-icons/bi';
-import { TbChecklist } from 'react-icons/tb';
-import { GoMilestone } from 'react-icons/go';
-import { FaSlackHash } from 'react-icons/fa';
-import { FiTarget } from 'react-icons/fi';
+import Goal from 'app/icons/Goal';
+import Slack from 'app/icons/Slack';
+import Planner from 'app/icons/Planner';
+import Integration from 'app/icons/Integration';
+import Checklist from 'app/icons/Checklist';
+import Milestone from 'app/icons/Milestone';
+import Measure from 'app/icons/Measure';
+import Waving from 'app/icons/Waving';
+import Task from 'app/icons/Task';
 
 const Icons = {
-  goal: FiTarget,
+  waving: Waving,
+  integration: Integration,
+  plan: Planner,
 
-  action: BiTask,
-  measurement: GrLineChart,
+  goal: Goal,
 
-  checklist: TbChecklist,
-  milestone: GoMilestone,
+  action: Task,
+  measurement: Measure,
 
-  slack: FaSlackHash,
+  checklist: Checklist,
+  milestone: Milestone,
+
+  slack: Slack,
 };
 
 export default Icons;

@@ -36,6 +36,8 @@ const CheckUserLoaded = ({ Component }) => {
       localStorage.setItem('activeWorkspaceId', workspaceId);
       sessionIdVar(workspaceId);
     }
+  } else {
+    localStorage.setItem('activeWorkspaceId', activeWorkspaceId);
   }
 
   return <Component />;

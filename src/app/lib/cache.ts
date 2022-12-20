@@ -23,8 +23,9 @@ export const selectedGoalVar: ReactiveVar<number | undefined> = makeVar<
   number | undefined
 >(undefined);
 
-export const activeWorkspaceIdVar: ReactiveVar<String | null> =
-  makeVar<String | null>(localStorage.getItem('activeWorkspaceId'));
+export const activeWorkspaceIdVar: ReactiveVar<string | null> = makeVar<
+  string | null
+>(localStorage.getItem('activeWorkspaceId'));
 
 export const requestedRoute: ReactiveVar<String | null> =
   makeVar<String | null>('');

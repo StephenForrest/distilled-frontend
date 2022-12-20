@@ -7,9 +7,9 @@ export function ActionPage() {
     <>
       <Helmet>
         <title>Welcome</title>
-        <meta name="description" content="Welcome" />
+        <meta name="description" content="Distilled Tasks" />
       </Helmet>
-      <PageHeader text={'Actions'} />
+      <PageHeader text={'Tasks'} />
     </>
   );
 }
