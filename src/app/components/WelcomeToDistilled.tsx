@@ -25,49 +25,11 @@ const WelcomeToDistilled = () => {
     <VStack
       w="100%"
       spacing={10}
-      backgroundColor="gray.100"
+      backgroundImage="url('/background.svg')"
       position={'relative'}
       p={20}
     >
       <PageHeader text={`Hello ${data.currentUser.name?.split(' ')[0]} 👋`} />
-      <Box position="absolute" top={0} left={0}>
-        <SvgBlob
-          variant="gradient"
-          colors={['#22FE14', '#c9ffc6']}
-          width="35%"
-          height="35%"
-          opacity="35%"
-        />
-      </Box>
-
-      <Box position="absolute" top={'-50'} left={'50%'}>
-        <SvgBlob
-          variant="gradient"
-          colors={['#5E2CAF', '#bfa5e8']}
-          width="35%"
-          height="35%"
-          opacity="35%"
-        />
-      </Box>
-
-      <Box position="absolute" bottom={'-50'} left={'0%'}>
-        <SvgBlob
-          variant="gradient"
-          colors={['#fe0adc', '#ffbcf5']}
-          width="35%"
-          height="35%"
-          opacity="35%"
-        />
-      </Box>
-      <Box position="absolute" bottom={'-30'} right={'0%'}>
-        <SvgBlob
-          variant="gradient"
-          colors={['#d3fa51', '#e6fc9c']}
-          width="35%"
-          height="35%"
-          opacity="35%"
-        />
-      </Box>
 
       <Box>
         <Text fontSize={'6xl'} fontWeight="extrabold">
