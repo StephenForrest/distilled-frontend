@@ -30,7 +30,7 @@ const NavHeader = () => {
   const navigate = useNavigate();
   console.log(data.currentUser.profilePic);
   return (
-    <Box bg="white" pl={8} pr={8} pt={4} pb={4}>
+    <Box bg="gray.100" pl={8} pr={8} pt={4} pb={4}>
       <HStack>
         <Box id={'Header'}></Box>
         <Box marginLeft={'auto !important'}>
