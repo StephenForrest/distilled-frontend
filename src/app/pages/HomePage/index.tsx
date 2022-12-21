@@ -2,20 +2,25 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Sidebar from 'app/components/Sidebar';
 import { Outlet } from 'react-router-dom';
-import { Center, Box } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { useQuery } from '@apollo/client';
 import { CURRENT_USER } from 'app/lib/queries/User';
 import { useReactiveVar } from '@apollo/client';
 import GoalDrawer from 'app/components/Goals/GoalDrawer';
-import { selectedGoalVar } from 'app/lib/cache';
+import { selectedDrawerConfig } from 'app/lib/cache';
 import { motion } from 'framer-motion';
+import Loader from 'app/components/Loader';
 
 export function HomePage() {
   const { loading: userLoading } = useQuery(CURRENT_USER);
-  const selectedGoal = useReactiveVar(selectedGoalVar);
+  const drawerConfig = useReactiveVar(selectedDrawerConfig);
 
   if (userLoading) {
-    return <Center>Loading...</Center>;
+    return (
+      <Box p={10}>
+        <Loader size={10} />
+      </Box>
+    );
   }
 
   return (
@@ -50,8 +55,13 @@ export function HomePage() {
             <Outlet />
           </motion.div>
           <GoalDrawer
-            goalId={selectedGoal}
-            onClose={() => selectedGoalVar(undefined)}
+            goalId={drawerConfig.goalId}
+            onClose={() =>
+              selectedDrawerConfig({
+                goalId: undefined,
+                successCriteriaId: undefined,
+              })
+            }
           />
         </Box>
       </Sidebar>

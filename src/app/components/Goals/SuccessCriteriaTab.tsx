@@ -62,7 +62,7 @@ const EmptyState = (props: {
               mb={2}
             />
             <Text fontSize={'sm'} fontWeight={'semibold'}>
-              Add an action
+              Add a Task
             </Text>
             <Text
               fontSize={'xs'}
@@ -70,7 +70,7 @@ const EmptyState = (props: {
               fontWeight={'light'}
               align={'center'}
             >
-              A specific task or activity that an individual or team takes in
+              A specific action or activity that an individual or team takes in
               order to move closer to achieving a goal
             </Text>
           </VStack>

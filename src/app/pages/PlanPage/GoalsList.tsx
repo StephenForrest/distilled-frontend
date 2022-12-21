@@ -12,8 +12,7 @@ import {
   Text,
   Avatar,
 } from '@chakra-ui/react';
-import { FiTarget } from 'react-icons/fi';
-import { selectedGoalVar } from 'app/lib/cache';
+import { selectedDrawerConfig } from 'app/lib/cache';
 import AppIcons from 'app/components/AppIcons';
 import { completionFormatted, formatDate } from 'app/lib/utilities';
 import TrackStatus from 'app/components/TrackStatus';
@@ -33,7 +32,7 @@ const GoalsList = (props: { goals }) => {
                 <Tr
                   key={goal.id}
                   _hover={{ bg: 'brand.50', cursor: 'pointer' }}
-                  onClick={() => selectedGoalVar(goal.id)}
+                  onClick={() => selectedDrawerConfig({ goalId: goal.id })}
                 >
                   <Td w={'100%'}>
                     <HStack marginLeft={'auto !important'}>

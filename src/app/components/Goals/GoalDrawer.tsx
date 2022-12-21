@@ -19,6 +19,8 @@ import Header from './Header';
 import SuccessCriteriaDetail from './SuccessCriteriaDetail';
 import Loader from 'app/components/Loader';
 import AppIcons from 'app/components/AppIcons';
+import { selectedDrawerConfig } from 'app/lib/cache';
+import { useReactiveVar } from '@apollo/client';
 
 export type Screens = 'tabs' | 'new-measure' | 'new-action' | 'action-detail';
 
@@ -27,9 +29,11 @@ const GoalDrawer = (props: {
   onClose: () => void;
 }) => {
   const [screen, setScreen] = useState<Screens>('tabs');
-  const [selectedSuccessCriteria, setSelectedSuccessCriteria] = useState<
-    string | undefined
-  >(undefined);
+  const drawerConfig = useReactiveVar(selectedDrawerConfig);
+
+  const selectedSuccessCriteria = drawerConfig.successCriteriaId;
+  const setSelectedSuccessCriteria = (id: string | undefined) =>
+    selectedDrawerConfig({ ...drawerConfig, successCriteriaId: id });
   const { goalId } = props;
   const { data, loading } = useQuery<{ getGoal: GoalWithDetails }>(GET_GOAL, {
     variables: { id: goalId },

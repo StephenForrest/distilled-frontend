@@ -49,3 +49,14 @@ export const GET_SUCCESS_CRITERIA = gql`
     ...SuccessCriteriaFields
   }
 `;
+
+export const GET_ACTION_SUCCESS_CRITERIAS = gql`
+  ${SUCCESS_CRITERIA_FRAGMENT}
+  query getActionSuccessCriterias {
+    getActionSuccessCriterias {
+      ...SuccessCriteriaFields
+      kanbanCategory
+      goalId
+    }
+  }
+`;

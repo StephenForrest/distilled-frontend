@@ -19,7 +19,7 @@ import {
 import { formatDate } from 'app/lib/utilities';
 import { useNavigate } from 'react-router-dom';
 import AppIcons from 'app/components/AppIcons';
-import { selectedGoalVar } from 'app/lib/cache';
+import { selectedDrawerConfig } from 'app/lib/cache';
 
 const Goal = props => {
   const { goal } = props;
@@ -29,7 +29,7 @@ const Goal = props => {
         bg: 'brand.50',
         cursor: 'pointer',
       }}
-      onClick={() => selectedGoalVar(goal.id)}
+      onClick={() => selectedDrawerConfig({ goalId: goal.id })}
     >
       <Td w={'100%'}>
         <HStack>

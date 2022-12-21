@@ -9,6 +9,7 @@ import { NotFoundPage } from 'app/components/NotFoundPage/index';
 import Goals from 'app/pages/PlanPage/Goals';
 import PageHeader from 'app/components/PageHeader';
 import PlannerIcon from 'app/icons/Planner';
+import Loader from 'app/components/Loader';
 
 export function Page() {
   const { uuid } = useParams();
@@ -16,7 +17,13 @@ export function Page() {
     variables: { uuid },
   });
   if (loading) {
-    return <Center>Loading...</Center>;
+    return (
+      <Center>
+        <Box p={10}>
+          <Loader size={8} />
+        </Box>
+      </Center>
+    );
   } else if (!data) {
     return (
       <>

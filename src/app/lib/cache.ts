@@ -19,9 +19,10 @@ export const sessionIdVar: ReactiveVar<String | null> = makeVar<String | null>(
   tokenStorage.read(),
 );
 
-export const selectedGoalVar: ReactiveVar<number | undefined> = makeVar<
-  number | undefined
->(undefined);
+export const selectedDrawerConfig: ReactiveVar<{
+  goalId: number | undefined;
+  successCriteriaId?: string | undefined;
+}> = makeVar<{ goalId: number | undefined }>({ goalId: undefined });
 
 export const activeWorkspaceIdVar: ReactiveVar<string | null> = makeVar<
   string | null

@@ -28,6 +28,7 @@ import {
   SlackMetricType,
 } from 'types';
 import { client } from 'index';
+import Loader from 'app/components/Loader';
 
 interface SlackChannelProperties {
   id: string;
@@ -103,7 +104,11 @@ const SlackIntegration = (props: {
   }, [data?.getIntegrationsByType, settings.integrationId, selectIntegration]);
 
   if (loading) {
-    return <Center>Loading...</Center>;
+    return (
+      <Center>
+        <Loader size={2} />
+      </Center>
+    );
   }
 
   if (!data.getIntegrationsByType || !data.getIntegrationsByType.length) {

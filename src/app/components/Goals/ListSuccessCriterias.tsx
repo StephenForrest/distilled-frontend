@@ -16,71 +16,8 @@ import ProgressSlider from 'app/components/ProgressSlider';
 import { formatDate } from 'app/lib/utilities';
 import { completionFormatted } from 'app/lib/utilities';
 import AppIcon from 'app/components/AppIcons';
-
-const SuccessCriteriaIcon = (props: { successCriteria: SuccessCriteria }) => {
-  const { successCriteria } = props;
-  if (successCriteria.successCriteriaType === 'action') {
-    return (
-      <Icon
-        as={AppIcon['action']}
-        boxSize={5}
-        className="ListSuccessCriteriaActionIcon"
-        mb={2}
-      />
-    );
-  } else {
-    return (
-      <Icon
-        as={AppIcon['measurement']}
-        boxSize={5}
-        className="ListSuccessCriteriaIcon"
-        mb={2}
-      />
-    );
-  }
-};
-
-export const SuccessCriteriaTrackingIcon = (props: {
-  successCriteria: SuccessCriteria;
-}) => {
-  const { successCriteria } = props;
-  if (successCriteria.successCriteriaType === 'action') {
-    if (successCriteria.action?.trackingType === 'checklist') {
-      return (
-        <HStack alignItems={'flex-start'} spacing={1}>
-          <Icon
-            as={AppIcon['checklist']}
-            boxSize={4}
-            className="ListSuccessCriteriaActionIcon"
-          />
-          <Text fontSize={'xs'}>Checklist</Text>
-        </HStack>
-      );
-    } else {
-      return (
-        <HStack alignItems={'flex-start'} spacing={1}>
-          <Icon
-            as={AppIcon['milestone']}
-            boxSize={4}
-            className="ListSuccessCriteriaActionIcon"
-          />
-          <Text fontSize={'xs'}>Milestone</Text>
-        </HStack>
-      );
-    }
-  } else {
-    return (
-      <HStack alignItems={'flex-start'} spacing={1}>
-        <Icon
-          as={AppIcon['slack']}
-          boxSize={4}
-          className="ListSuccessCriteriaActionIcon"
-        />
-        <Text fontSize={'xs'}>Slack</Text>
-      </HStack>
-    );
-  }
-};
+import SuccessCriteriaTrackingIcon from 'app/components/Goals/SuccessCriteritaTrackingIcon';
+import SuccessCriteriaIcon from 'app/components/Goals/SuccessCriteriaIcon';
 
 const ListSuccessCriterias = (props: {
   successCriterias: SuccessCriteria[];

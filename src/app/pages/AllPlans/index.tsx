@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Center, Box, Text, HStack } from '@chakra-ui/react';
+import { Box, Text, HStack } from '@chakra-ui/react';
 import { Button, VStack, Grid } from '@chakra-ui/react';
 import { GET_PLANS } from 'app/lib/queries/Plan';
 import { useQuery } from '@apollo/client';
@@ -14,6 +14,7 @@ import Lottie from 'react-lottie';
 import PlanFilters from './PlanFilters';
 import fuzzysort from 'fuzzysort';
 import PlannerIcon from 'app/icons/Planner';
+import Loader from 'app/components/Loader';
 
 interface PlanList extends Plan {
   recentGoals: Goal[];
@@ -77,7 +78,11 @@ export function Page() {
   }, [data, search]);
 
   if (loading) {
-    return <Center>Loading...</Center>;
+    return (
+      <Box p={10}>
+        <Loader size={8} />
+      </Box>
+    );
   } else if (!data) {
     return (
       <>
