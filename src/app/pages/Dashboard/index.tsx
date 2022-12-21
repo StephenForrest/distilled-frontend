@@ -26,7 +26,7 @@ export function Page() {
       <WelcomeToDistilled />
       <VStack bg="white" w={'100%'} h={'100%'} spacing={8} p={4}>
         <Grid templateColumns="repeat(2, 1fr)" gap={8} w={'80%'}>
-          <Card bg="white">
+          <Card bg="gray.100">
             <CardHeader>
               <Heading size="md">Plan your goals</Heading>
             </CardHeader>
@@ -61,7 +61,7 @@ export function Page() {
               </Stack>
             </CardBody>
           </Card>
-          <Card>
+          <Card bg="gray.100">
             <CardHeader>
               <Heading size="md">Strategy Report</Heading>
             </CardHeader>

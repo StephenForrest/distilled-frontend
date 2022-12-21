@@ -79,10 +79,10 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const [logOut] = useMutation(SIGNOUT_MUTATION);
   return (
     <Box
-      bg={'gray.50'}
+      bg={'gray.100'}
       borderRight="1px"
       borderRightColor={'gray.300'}
-      borderRadius={'0px 0px 0px 0px'}
+      borderRadius={'0px 12px 0px 0px'}
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
