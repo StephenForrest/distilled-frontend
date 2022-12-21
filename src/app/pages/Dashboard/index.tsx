@@ -24,9 +24,9 @@ export function Page() {
         <meta name="description" content="Welcome" />
       </Helmet>
       <WelcomeToDistilled />
-      <VStack w={'100%'} h={'100%'} spacing={8} p={4}>
+      <VStack bg="white" w={'100%'} h={'100%'} spacing={8} p={4}>
         <Grid templateColumns="repeat(2, 1fr)" gap={8} w={'80%'}>
-          <Card>
+          <Card bg="white">
             <CardHeader>
               <Heading size="md">Plan your goals</Heading>
             </CardHeader>

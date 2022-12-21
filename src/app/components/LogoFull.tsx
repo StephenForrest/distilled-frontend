@@ -1,7 +1,9 @@
 import React from 'react';
 
 const LogoFull = () => {
-  return <img alt="Logo" src={process.env.PUBLIC_URL + '/wordmark.svg'} />;
+  return (
+    <img alt="Logo" src={process.env.PUBLIC_URL + '/wordmark-black.png'} />
+  );
 };
 
 export const LogoFullBlack = () => {

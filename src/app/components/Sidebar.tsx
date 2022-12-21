@@ -22,7 +22,7 @@ import { SIGNOUT_MUTATION } from 'app/lib/mutations/Auth';
 import { useMutation, useReactiveVar } from '@apollo/client';
 import { sessionIdVar } from 'app/lib/cache';
 import { onSignOut } from 'app/lib/mutations/Auth';
-import LogoFull from './LogoFull';
+import LogoFullBlack from './LogoFull';
 import { useNavigate } from 'react-router-dom';
 import NavHeader from 'app/components/NavHeader';
 import AppIcons from 'app/components/AppIcons';
@@ -79,10 +79,10 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const [logOut] = useMutation(SIGNOUT_MUTATION);
   return (
     <Box
-      bg={'gray.800'}
+      bg={'gray.50'}
       borderRight="1px"
-      borderRightColor={'gray.800'}
-      borderRadius={'0px 12px 0px 0px'}
+      borderRightColor={'gray.300'}
+      borderRadius={'0px 0px 0px 0px'}
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
@@ -97,14 +97,15 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         mb="2"
         justifyContent="space-between"
       >
-        <LogoFull />
+        <LogoFullBlack />
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map(link => (
         <NavItem
           key={link.name}
           icon={link.icon}
-          textColor="white"
+          textColor="gray.600"
+          fontSize="md"
           onClick={() => navigate(link.url)}
         >
           {link.name}
@@ -155,7 +156,7 @@ const NavItem = ({
         px="8"
         role="group"
         cursor="pointer"
-        color="gray.200"
+        color="gray.600"
         _hover={{
           bg: 'brand.500',
           color: 'white',
@@ -193,7 +194,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       />
 
       <Text fontSize="2xl" ml="8" fontFamily="body" fontWeight="bold">
-        <LogoFull />
+        <LogoFullBlack />
       </Text>
     </Flex>
   );

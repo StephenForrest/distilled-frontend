@@ -4,7 +4,6 @@ import { CURRENT_USER } from 'app/lib/queries/User';
 import { Text, VStack, Box } from '@chakra-ui/react';
 import { SvgBlob } from 'react-svg-blob';
 import PageHeader from './PageHeader';
-import WelcomeBanner from './WelcomeBanner';
 
 function generateShapeProps() {
   return {
