@@ -38,7 +38,8 @@ export function Page() {
                     Summary
                   </Heading>
                   <Text pt="2" fontSize="sm">
-                    View a summary of all your clients over the last month.
+                    View a summary of your strategic objectives over the last
+                    month.
                   </Text>
                 </Box>
                 <Box>
@@ -46,7 +47,7 @@ export function Page() {
                     Overview
                   </Heading>
                   <Text pt="2" fontSize="sm">
-                    Check out the overview of your clients.
+                    Check out the overview of your current goals.
                   </Text>
                 </Box>
                 <Box>
@@ -54,7 +55,7 @@ export function Page() {
                     Analysis
                   </Heading>
                   <Text pt="2" fontSize="sm">
-                    See a detailed analysis of all your business clients.
+                    See a detailed analysis of all your strategic objectives.
                   </Text>
                 </Box>
               </Stack>
@@ -62,7 +63,7 @@ export function Page() {
           </Card>
           <Card>
             <CardHeader>
-              <Heading size="md">Client Report</Heading>
+              <Heading size="md">Strategy Report</Heading>
             </CardHeader>
 
             <CardBody>
@@ -72,7 +73,8 @@ export function Page() {
                     Summary
                   </Heading>
                   <Text pt="2" fontSize="sm">
-                    View a summary of all your clients over the last month.
+                    View a summary of your strategic objectives over the last
+                    month.
                   </Text>
                 </Box>
                 <Box>
@@ -80,7 +82,7 @@ export function Page() {
                     Overview
                   </Heading>
                   <Text pt="2" fontSize="sm">
-                    Check out the overview of your clients.
+                    Check out the overview of your current goals.
                   </Text>
                 </Box>
                 <Box>
@@ -88,7 +90,7 @@ export function Page() {
                     Analysis
                   </Heading>
                   <Text pt="2" fontSize="sm">
-                    See a detailed analysis of all your business clients.
+                    See a detailed analysis of all your strategic objectives.
                   </Text>
                 </Box>
               </Stack>
