@@ -19,6 +19,8 @@ import { onSignOut } from 'app/lib/mutations/Auth';
 import theme from './theme';
 import '@fontsource/inter/400.css';
 import '@fontsource/manrope/700.css';
+import * as Sentry from '@sentry/react';
+import { BrowserTracing } from '@sentry/tracing';
 
 // Use consistent styling
 import 'sanitize.css/sanitize.css';
@@ -43,6 +45,17 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
       }
     });
   if (networkError) console.log(`[Network error]: ${networkError}`);
+});
+
+Sentry.init({
+  dsn: 'https://7093c26897f04ea28f90926825fbb99c@o4504371094159360.ingest.sentry.io/4504371095142400',
+  integrations: [new BrowserTracing()],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+  enabled: process.env.NODE_ENV !== 'development',
 });
 
 const MOUNT_NODE = document.getElementById('root') as HTMLElement;
