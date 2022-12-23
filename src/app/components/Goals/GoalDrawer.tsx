@@ -8,6 +8,8 @@ import {
   Text,
   HStack,
   Icon,
+  Button,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { useQuery } from '@apollo/client';
 import { GoalWithDetails, SuccessCriteriaType } from 'types';
@@ -21,6 +23,9 @@ import Loader from 'app/components/Loader';
 import AppIcons from 'app/components/AppIcons';
 import { selectedDrawerConfig } from 'app/lib/cache';
 import { useReactiveVar } from '@apollo/client';
+import DeleteGoalDialog from './DeleteGoalDialogue';
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import EditableGoalName from './EditableGoalName';
 
 export type Screens = 'tabs' | 'new-measure' | 'new-action' | 'action-detail';
 
@@ -28,6 +33,8 @@ const GoalDrawer = (props: {
   goalId: number | undefined;
   onClose: () => void;
 }) => {
+  const [editGoalName, setEditGoalName] = useState<boolean>(false);
+  const { isOpen, onClose: onAlertClose, onOpen } = useDisclosure();
   const [screen, setScreen] = useState<Screens>('tabs');
   const drawerConfig = useReactiveVar(selectedDrawerConfig);
 
@@ -95,7 +102,45 @@ const GoalDrawer = (props: {
                         <HStack>
                           <Icon as={AppIcons['goal']} />
                           <Header showBackButton={false} onClose={onClose}>
-                            <Text>{data?.getGoal?.title}</Text>
+                            <HStack spacing={4}>
+                              <EditableGoalName
+                                title={data!.getGoal?.title}
+                                editable={editGoalName}
+                                id={goalId}
+                                onFinishEdit={() => setEditGoalName(false)}
+                              />
+                              <HStack
+                                spacing={0}
+                                color={'gray.300'}
+                                _hover={{ color: 'gray.500' }}
+                              >
+                                {!editGoalName && (
+                                  <Button
+                                    p={2}
+                                    variant="ghost"
+                                    _hover={{ bg: 'brand.50' }}
+                                    size={'xs'}
+                                    onClick={() => setEditGoalName(true)}
+                                  >
+                                    <EditIcon boxSize={3} />
+                                  </Button>
+                                )}
+                                <Button
+                                  p={2}
+                                  variant="ghost"
+                                  _hover={{ bg: 'brand.50' }}
+                                  size={'xs'}
+                                  onClick={onOpen}
+                                >
+                                  <DeleteIcon boxSize={3} />
+                                </Button>
+                                <DeleteGoalDialog
+                                  isOpen={isOpen}
+                                  onClose={onAlertClose}
+                                  id={goalId}
+                                />
+                              </HStack>
+                            </HStack>
                           </Header>
                         </HStack>
                       </DrawerHeader>

@@ -1,37 +1,33 @@
 import React, { useState } from 'react';
 import { Text, Input, HStack, Button } from '@chakra-ui/react';
-import { UPDATE_PLAN_MUTATION } from 'app/lib/mutations/Plan';
+import { UPDATE_GOAL_MUTATION } from 'app/lib/mutations/Plan';
 import { useMutation } from '@apollo/client';
 
 const EditableInput = (props: {
-  name: string;
+  title: string;
   editable: boolean;
-  id: string;
+  id: number;
   onFinishEdit: () => void;
 }) => {
-  const [updatePlan, { loading }] = useMutation(UPDATE_PLAN_MUTATION);
-  const [editableName, setEditableName] = useState<string>(props.name);
-  const { name, editable, onFinishEdit } = props;
+  const [updateGoal, { loading }] = useMutation(UPDATE_GOAL_MUTATION);
+  const [editableName, setEditableName] = useState<string>(props.title);
+  const { title, editable, onFinishEdit } = props;
 
   const onSubmit = async e => {
     e.preventDefault();
-    const res = await updatePlan({
+    const res = await updateGoal({
       variables: {
         id: props.id,
-        name: editableName,
+        title: editableName,
       },
     });
-    if (res.data.updatePlan) {
+    if (res.data.updateGoal) {
       onFinishEdit();
     }
   };
 
   if (!editable) {
-    return (
-      <Text fontSize={'2xl'} fontWeight={'bold'}>
-        {name}
-      </Text>
-    );
+    return <Text>{title}</Text>;
   } else {
     return (
       <HStack as="form" spacing={3} onSubmit={onSubmit}>
