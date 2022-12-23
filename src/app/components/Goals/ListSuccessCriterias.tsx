@@ -19,6 +19,18 @@ import AppIcon from 'app/components/AppIcons';
 import SuccessCriteriaTrackingIcon from 'app/components/Goals/SuccessCriteritaTrackingIcon';
 import SuccessCriteriaIcon from 'app/components/Goals/SuccessCriteriaIcon';
 
+type Props = {
+  successCriteria: {
+    endDate: Date;
+  };
+  formatDate: (date: Date) => string;
+};
+
+const DueDate: React.FC<Props> = props => {
+  const formattedDate = props.formatDate(props.successCriteria.endDate);
+  return <div>{formattedDate}</div>;
+};
+
 const ListSuccessCriterias = (props: {
   successCriterias: SuccessCriteria[];
   onSuccessCriteriaSelect: (id: string) => void;
@@ -87,7 +99,10 @@ const ListSuccessCriterias = (props: {
                           Due on
                         </Text>{' '}
                         <Text fontSize={'sm'}>
-                          {formatDate(successCriteria.endDate)}
+                          <DueDate
+                            successCriteria={{ endDate: new Date() }}
+                            formatDate={date => date.toLocaleDateString()}
+                          />
                         </Text>
                       </HStack>
                     </HStack>
