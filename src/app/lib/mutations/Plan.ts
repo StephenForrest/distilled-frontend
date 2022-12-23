@@ -29,3 +29,23 @@ export const CREATE_GOAL_MUTATION = gql`
     }
   }
 `;
+
+export const DELETE_PLAN_MUTATION = gql`
+  mutation DeletePlan($id: String!) {
+    deletePlan(id: $id) {
+      success
+    }
+  }
+`;
+
+export const UPDATE_PLAN_MUTATION = gql`
+  mutation UpdatePlan($id: String!, $name: String!) {
+    updatePlan(id: $id, name: $name) {
+      plan {
+        id
+        name
+        uuid
+      }
+    }
+  }
+`;

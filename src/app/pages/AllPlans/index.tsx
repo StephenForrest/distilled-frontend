@@ -110,7 +110,7 @@ export function Page() {
         )}
         <Box p={8} pt={4} w={'100%'}>
           <PageHeader>
-            <HStack spacing={1}>
+            <HStack spacing={2}>
               <PlannerIcon boxSize={6} />
               <Text fontSize={'2xl'} fontWeight={'bold'}>
                 All Plans
