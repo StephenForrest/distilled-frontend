@@ -24,6 +24,18 @@ const categoriesTitle = {
   backlog: 'Backlog',
 };
 
+type Props = {
+  successCriteria: {
+    endDate: Date;
+  };
+  formatDate: (date: Date) => string;
+};
+
+const DueDate: React.FC<Props> = props => {
+  const formattedDate = props.formatDate(props.successCriteria.endDate);
+  return <div>{formattedDate}</div>;
+};
+
 const CategoryItem = props => {
   const { action: successCriteria, index } = props;
   const completion = completionFormatted(successCriteria.completion || 0);
@@ -84,9 +96,10 @@ const CategoryItem = props => {
                       <Text fontSize={'xs'} color={'gray.500'}>
                         Due on
                       </Text>{' '}
-                      <Text fontSize={'sm'}>
-                        {formatDate(successCriteria.endDate)}
-                      </Text>
+                      <DueDate
+                        successCriteria={{ endDate: new Date() }}
+                        formatDate={date => date.toLocaleDateString()}
+                      />
                     </HStack>
                   </HStack>
                 </VStack>

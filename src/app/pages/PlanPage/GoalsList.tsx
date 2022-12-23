@@ -17,6 +17,18 @@ import AppIcons from 'app/components/AppIcons';
 import { completionFormatted, formatDate } from 'app/lib/utilities';
 import TrackStatus from 'app/components/TrackStatus';
 
+type Props = {
+  successCriteria: {
+    endDate: Date;
+  };
+  formatDate: (date: Date) => string;
+};
+
+const DueDate: React.FC<Props> = props => {
+  const formattedDate = props.formatDate(props.successCriteria.endDate);
+  return <div>{formattedDate}</div>;
+};
+
 const GoalsList = (props: { goals }) => {
   return (
     <TableContainer w={'100%'}>
@@ -74,7 +86,10 @@ const GoalsList = (props: { goals }) => {
                   <Td>
                     <HStack marginLeft={'auto !important'}>
                       <Text color={'gray.500'} fontSize={'sm'} ml={'auto'}>
-                        {formatDate(new Date(goal.expiresOn))}
+                        <DueDate
+                          successCriteria={{ endDate: new Date() }}
+                          formatDate={date => date.toLocaleDateString()}
+                        />
                       </Text>
 
                       <Avatar
