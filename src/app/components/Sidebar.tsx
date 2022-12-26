@@ -158,8 +158,8 @@ const NavItem = ({
         color="gray.600"
         borderRadius={'8px 8px 8px 8px'}
         _hover={{
-          bg: 'brand.200',
-          color: 'gray.600',
+          bg: 'brand.500',
+          color: 'white',
           mr: '4',
           ml: '4',
           fontWeight: 'medium',
