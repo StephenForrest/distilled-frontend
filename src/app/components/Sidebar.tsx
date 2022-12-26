@@ -154,12 +154,17 @@ const NavItem = ({
         align="center"
         p="3"
         px="8"
+        fontWeight="medium"
         role="group"
         cursor="pointer"
         color="gray.600"
+        borderRadius={'8px 8px 8px 8px'}
         _hover={{
-          bg: 'brand.500',
-          color: 'white',
+          bg: 'brand.200',
+          color: 'gray.600',
+          mr: '4',
+          ml: '4',
+          fontWeight: 'medium',
         }}
         {...rest}
       >
