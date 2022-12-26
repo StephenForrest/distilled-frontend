@@ -29,3 +29,42 @@ export const CREATE_GOAL_MUTATION = gql`
     }
   }
 `;
+
+export const DELETE_PLAN_MUTATION = gql`
+  mutation DeletePlan($id: String!) {
+    deletePlan(id: $id) {
+      success
+    }
+  }
+`;
+
+export const UPDATE_PLAN_MUTATION = gql`
+  mutation UpdatePlan($id: String!, $name: String!) {
+    updatePlan(id: $id, name: $name) {
+      plan {
+        id
+        name
+        uuid
+      }
+    }
+  }
+`;
+
+export const DELETE_GOAL_MUTATION = gql`
+  mutation DeleteGoal($id: String!) {
+    deleteGoal(id: $id) {
+      success
+    }
+  }
+`;
+
+export const UPDATE_GOAL_MUTATION = gql`
+  ${GOAL_FRAGMENT}
+  mutation UpdateGoal($id: String!, $title: String!) {
+    updateGoal(id: $id, title: $title) {
+      goal {
+        ...GoalCommonFields
+      }
+    }
+  }
+`;

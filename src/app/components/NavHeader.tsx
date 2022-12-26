@@ -28,7 +28,6 @@ const NavHeader = () => {
   const sessionId = useReactiveVar(sessionIdVar);
   const activeWorkspaceId = useReactiveVar(activeWorkspaceIdVar);
   const navigate = useNavigate();
-  console.log(data.currentUser.profilePic);
   return (
     <Box bg="white" pl={8} pr={8} pt={4} pb={4}>
       <HStack>
