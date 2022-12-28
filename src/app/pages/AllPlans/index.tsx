@@ -96,7 +96,12 @@ export function Page() {
   } else {
     const plans = data.getPlans;
     return (
-      <VStack h={'100%'} alignItems={'flex-start'} w={'100%'}>
+      <VStack
+        backgroundColor={'white'}
+        h={'100%'}
+        alignItems={'flex-start'}
+        w={'100%'}
+      >
         <Helmet>
           <title>All Plans</title>
           <meta name="description" content="Plans page" />
@@ -108,7 +113,7 @@ export function Page() {
             setSearch={setSearch}
           />
         )}
-        <Box p={8} pt={4} w={'100%'}>
+        <Box backgroundColor={'white'} p={8} pt={4} w={'100%'}>
           <PageHeader>
             <HStack spacing={2}>
               <PlannerIcon boxSize={6} />

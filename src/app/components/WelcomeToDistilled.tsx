@@ -24,11 +24,11 @@ const WelcomeToDistilled = () => {
     <VStack
       w="100%"
       spacing={10}
-      backgroundImage="url('/background.svg')"
+      backgroundColor="white"
       position={'relative'}
       p={20}
     >
-      <PageHeader text={`Hello ${data.currentUser.name?.split(' ')[0]} 👋`} />
+      <PageHeader text={`Dashboard`} />
 
       <Box>
         <Text fontSize={'6xl'} fontWeight="extrabold">

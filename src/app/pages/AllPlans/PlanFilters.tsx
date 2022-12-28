@@ -16,9 +16,9 @@ const PlanFilters = (props: {
 }) => {
   const { setIsNewPlanModal, search, setSearch } = props;
   return (
-    <HStack pl={8} pr={8} mt={2} w={'100%'}>
+    <HStack backgroundColor={'white'} pl={8} pr={8} mt={2} w={'100%'}>
       <FormControl>
-        <InputGroup size={'sm'} w={'300px'}>
+        <InputGroup backgroundColor="gray.50" size={'sm'} w={'300px'}>
           <InputLeftElement
             pointerEvents="none"
             children={<SearchIcon color="gray.300" />}
