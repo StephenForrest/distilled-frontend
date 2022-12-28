@@ -1,59 +1,60 @@
 import React from 'react';
 import { Icon } from '@chakra-ui/react';
-const Unamed = props => (
-  <Icon viewBox="0 0 192 192" {...props}>
-    <defs>
-      <style>
-        {
-          '.measure-cls-1,.measure-cls-2{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:7px;}.measure-cls-1{stroke:#B740FF;}.measure-cls-2{stroke:#080808;}'
-        }
-      </style>
-    </defs>
-    <polyline
-      className="measure-cls-1"
-      points="24.85 111.28 52.78 139.22 52.78 139.22 91.18 100.83 91.16 100.82 108.43 118.28 167.15 59.54"
+
+export const Unamed = props => (
+  <Icon viewBox="0 0 256 256" {...props}>
+    <rect width={256} height={256} fill="none" />
+    <path
+      d="M24,184V161.1C24,103.6,70.2,56.2,127.6,56A104,104,0,0,1,232,160v24a8,8,0,0,1-8,8H32A8,8,0,0,1,24,184Z"
+      fill="none"
+      stroke="#000000"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={24}
     />
     <line
-      className="measure-cls-2"
-      x1={46.07}
-      y1={108.46}
-      x2={46.07}
-      y2={101.52}
+      x1={128}
+      y1={56}
+      x2={128}
+      y2={88}
+      fill="none"
+      stroke="#000000"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={24}
     />
     <line
-      className="measure-cls-2"
-      x1={46.07}
-      y1={167}
-      x2={46.07}
-      y2={156.13}
+      x1={27.5}
+      y1={133.1}
+      x2={58.5}
+      y2={141.4}
+      fill="none"
+      stroke="#000000"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={24}
     />
     <line
-      className="measure-cls-2"
-      x1={96.81}
-      y1={83.3}
-      x2={96.81}
-      y2={64.19}
+      x1={228.5}
+      y1={133.1}
+      x2={197.5}
+      y2={141.4}
+      fill="none"
+      stroke="#000000"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={24}
     />
     <line
-      className="measure-cls-2"
-      x1={96.81}
-      y1={167}
-      x2={96.81}
-      y2={130.63}
-    />
-    <line
-      className="measure-cls-2"
-      x1={147.56}
-      y1={54.93}
-      x2={147.56}
-      y2={25}
-    />
-    <line
-      className="measure-cls-2"
-      x1={147.56}
-      y1={166.89}
-      x2={147.56}
-      y2={103.26}
+      x1={103.4}
+      y1={192}
+      x2={171.8}
+      y2={102.9}
+      fill="none"
+      stroke="#000000"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={24}
     />
   </Icon>
 );

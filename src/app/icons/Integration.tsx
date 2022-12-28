@@ -1,11 +1,26 @@
 import React from 'react';
 import { Icon } from '@chakra-ui/react';
-const Unamed = props => (
-  <Icon viewBox="0 0 48 48" {...props}>
-    <image
-      width={48}
-      height={48}
-      xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEPklEQVR4nO2YX2gcVRTGf0kxmibWIpWoKPgHFBER+yBKSdo8RIuk2Xu3rChSpFQURFoMFMGXiC8+tBXUF9vCzmxDEbcm9EFQBBF98s+TwSehVpO9dxOr4oO1lf45ctfNmpnM7OxmM9MU/eDAsjtn5vvufPecexb+x38QUmadeCyIjwTC4weuBsgktywj79cEXHTiWOuQIpsjBfiIHGWAtQLx2Cgez8gkGxrfCV1SYjxWgI8O3OM4m8TnOSnTm70AnyN1Ur+Lz0Hx2CY+XzchL+JxWTxK4rFFPN4Vjz/rv72eLfkSD9U83Yys30Y4IR53ZEPe2cTj81Uj7zdEnMhGgM/TrZCRIoNyjL5a+AyJz1QLQobTF+DINSexLza31HSDO+GH0hdQpl88iiu1gXhMx2zuA1KmJ3UBDSI+Ty4jUmQwMa/E1lDeOSkykg3rMJmwgGP0tfQG/WAFyoZtFBmfswEyZfoTcybZEBLwRzZsw0SKjNRef/AtDCXmebWGF7RQiVw2rP+xQE9tw7mNt3wjTyXme5yMLb0eN6cvwOPNpqWwxHiT3P0JJfhU+gJ8hltoZNM1qyw2Mvc5buWDcbBjgvM7GJjPc9fS+GmMW9tsZis5SizIYW7oiLxV3GcUl6xGwlHNsa0hoMjtyypQ57GbTmE0Ooq8C5Njz9Jr3RF4sY7Xj8Zb6kflqM0tS+JHKTFa3w+z9Xt8IxN0dy5AsS9WgObVgIAyvbVh5DibQsJ0E/KevMW1jWsPc039+rs7Jl8XcCBOgNW8E77+uwI91R3cGRBwlIEmPt/TMUlb4CajmbeKT0yexwW6TufYaBVvW83Z2Dfg9obivTnNbbMFeo3iJauZtYq/KmPc2xAwQbd4XIgUUOSJzgVojoSsMVMjEr/y4fjNKKqB7xQfL32G+MxECDgvJe7piLzRbDaKi22QbTkqmjHShECX1XyRBvm6xU6dfpbrUhNg8+xqkcgJk2OwOkKfC5tnyGimWsrVvJKeAM0bLZCPHQetYjwh1zXAF9K20MtWcz5u5ZPuYRXTkQIUc0s7daqY0zzo/BrRaRPHQavYGmGbr2YL3JgJ+UW4eh4m4vxOAhYK9EcIeJ+sYTQfhIk4ckl5Z8a4/ooLkAm6jeKjZT7OJ4+DzucRAr5sRfyqwB0DjOazmBKYOA5azcmY3JnwmWjVYRSPWcWvTUupih8Hq4r9CWX4TFXxcHoCNIda6qqKaWeVxUZWt03kyrezAB3DlTqr+aWd40GbMWtGWU+aMJq9qQnIsZO0IQXWWcW3q03eKD4lK1TzDNcfesn1g4ri0YrmKaP4uQWPz1nNdqMZcTOA0Vw2mgvVndxPlqhoxhZUcA51G9YoPoxdZY33/fZ/51mH+RwPuOrGWoHRvNZk9Z9nrcNqXmzi8+z+gF0prCIfJ2Be8whrHWaU9RXNbmeXQOTZ5SrYlebH1Ya/AQ6qDzJ2CW/nAAAAAElFTkSuQmCC"
+
+export const Unamed = props => (
+  <Icon viewBox="0 0 256 256" {...props}>
+    <rect width={256} height={256} fill="none" />
+    <circle
+      cx={128}
+      cy={128}
+      r={44}
+      fill="none"
+      stroke="#000000"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={24}
+    />
+    <path
+      d="M183.7,65.1q3.8,3.5,7.2,7.2l27.3,3.9a103.2,103.2,0,0,1,10.2,24.6l-16.6,22.1s.3,6.8,0,10.2l16.6,22.1a102.2,102.2,0,0,1-10.2,24.6l-27.3,3.9s-4.7,4.9-7.2,7.2l-3.9,27.3a103.2,103.2,0,0,1-24.6,10.2l-22.1-16.6a57.9,57.9,0,0,1-10.2,0l-22.1,16.6a102.2,102.2,0,0,1-24.6-10.2l-3.9-27.3q-3.7-3.5-7.2-7.2l-27.3-3.9a103.2,103.2,0,0,1-10.2-24.6l16.6-22.1s-.2-6.8,0-10.2L27.6,100.8A102.2,102.2,0,0,1,37.8,76.2l27.3-3.9q3.5-3.7,7.2-7.2l3.9-27.3a103.2,103.2,0,0,1,24.6-10.2l22.1,16.6a57.9,57.9,0,0,1,10.2,0l22.1-16.6a102.2,102.2,0,0,1,24.6,10.2Z"
+      fill="none"
+      stroke="#000000"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={24}
     />
   </Icon>
 );

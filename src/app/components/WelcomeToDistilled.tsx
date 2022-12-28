@@ -28,7 +28,7 @@ const WelcomeToDistilled = () => {
       position={'relative'}
       p={20}
     >
-      <PageHeader text={`Dashboard`} />
+      <PageHeader text={`Welcome`} />
 
       <Box>
         <Text fontSize={'6xl'} fontWeight="extrabold">

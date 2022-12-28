@@ -146,7 +146,7 @@ const NavItem = ({
         textDecoration: 'black',
         font: 'body',
       }}
-      _focus={{ boxShadow: 'none' }}
+      _focus={{ boxShadow: 'lg' }}
       mt={stickToBottom ? 'auto' : ''}
       onClick={typeof onClick !== 'undefined' ? onClick : () => null}
     >
