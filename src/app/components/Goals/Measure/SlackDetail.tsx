@@ -1,4 +1,5 @@
 import React from 'react';
+import Pusher from 'pusher-js';
 import {
   Card,
   CardBody,
@@ -30,6 +31,7 @@ const SlackDetail = (props: { tracking: MeasurementTrackingSlackSettings }) => {
   const { data, loading } = useQuery(GET_SLACK_ACTION_LOGS, {
     variables: { measurementsSlackId: props.tracking.id! },
   });
+
   return (
     <Card w={'100%'} variant={'outline'}>
       <CardHeader>

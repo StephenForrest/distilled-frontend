@@ -1,6 +1,8 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { VStack, HStack, Text, Box } from '@chakra-ui/react';
 import TrackStatus from 'app/components/TrackStatus';
+import Pusher from 'pusher-js';
 import ProgressSlider from 'app/components/ProgressSlider';
 import {
   SuccessCriteria,
@@ -12,6 +14,17 @@ import MilestoneDetail from './Action/MilestoneDetail';
 import SlackDetail from './Measure/SlackDetail';
 import { completionFormatted } from 'app/lib/utilities';
 import { MeasurementTrackingSlackSettings } from 'types';
+
+Pusher.logToConsole = true;
+const pusher = new Pusher('YOUR_APP_KEY', { cluster: 'YOUR_CLUSTER' });
+
+const channel = pusher.subscribe('slack-events');
+channel.bind(
+  'slack-events',
+  (data: SuccessCriteriaWithMeasurementSlackTracking) => {
+    console.log('data', data); // data will be the same as the one you sent from the server
+  },
+);
 
 export interface SuccessCriteriaWithActionChecklistTracking
   extends SuccessCriteria {
@@ -66,6 +79,27 @@ const DetailTab = (props: {
 }) => {
   const { successCriteria } = props;
   const completion = completionFormatted(successCriteria.completion || 0);
+
+  const [data, setData] =
+    useState<SuccessCriteriaWithMeasurementSlackTracking | null>(null);
+
+  useEffect(() => {
+    Pusher.logToConsole = true;
+    const pusher = new Pusher('YOUR_APP_KEY', { cluster: 'YOUR_CLUSTER' });
+
+    const channel = pusher.subscribe('success-criteria');
+    channel.bind(
+      'update',
+      (newData: SuccessCriteriaWithMeasurementSlackTracking) => {
+        setData(newData);
+      },
+    );
+
+    return () => {
+      pusher.unsubscribe('success-criteria');
+    };
+  }, []);
+
   return (
     <VStack w={'100%'} alignItems={'flex-start'} spacing={4}>
       <HStack w={'100%'}>
@@ -73,9 +107,11 @@ const DetailTab = (props: {
       </HStack>
       <VStack w={'100%'} alignItems={'flex-start'} pb={8}>
         <Text fontSize={'3xl'} fontWeight={'bold'}>
-          {completion}%
+          {data ? completionFormatted(data.completion) : completion}%
         </Text>
-        <ProgressSlider value={completion} />
+        <ProgressSlider
+          value={data ? completionFormatted(data.completion) : completion}
+        />
       </VStack>
       <Box w={'100%'}>
         {(() => {
