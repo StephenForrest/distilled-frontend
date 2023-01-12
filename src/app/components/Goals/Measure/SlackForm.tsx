@@ -137,7 +137,7 @@ const SlackIntegration = (props: {
 
   return (
     <VStack alignItems={'flex-start'} mt={4} spacing={4}>
-      <FormControl>
+      <FormControl isRequired>
         <FormLabel fontSize={'small'}>Choose slack integration</FormLabel>
         <Menu>
           <MenuButton
@@ -169,7 +169,7 @@ const SlackIntegration = (props: {
         </Menu>
       </FormControl>
       <HStack w={'100%'} alignItems={'flex-start'}>
-        <FormControl isInvalid={!!errors?.metric}>
+        <FormControl isRequired isInvalid={!!errors?.metric}>
           <FormLabel fontSize={'small'}>What do you want to track?</FormLabel>
           <Select
             size={'sm'}
@@ -196,10 +196,8 @@ const SlackIntegration = (props: {
             </optgroup>
           </Select>
         </FormControl>
-        <FormControl isInvalid={!!errors?.channelFilters}>
-          <FormLabel fontSize={'small'}>
-            Filter by channels (Optional)
-          </FormLabel>
+        <FormControl isRequired isInvalid={!!errors?.channelFilters}>
+          <FormLabel fontSize={'small'}>Filter by channels</FormLabel>
           <ChakraSelect
             size="sm"
             isLoading={channelsLoading}
@@ -223,7 +221,7 @@ const SlackIntegration = (props: {
           />
         </FormControl>
       </HStack>
-      <FormControl isInvalid={!!errors?.value}>
+      <FormControl isRequired isInvalid={!!errors?.value}>
         <FormLabel fontSize={'small'}>Target value</FormLabel>
         <Input
           type="number"

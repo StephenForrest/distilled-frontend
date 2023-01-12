@@ -131,7 +131,7 @@ export const NewMeasurementForm = (props: {
     <VStack>
       <form onSubmit={onSubmit} className="full-width">
         <Stack spacing={6} w={'100%'}>
-          <FormControl isInvalid={!!formErrors.name}>
+          <FormControl isRequired isInvalid={!!formErrors.name}>
             <FormLabel fontSize={'small'}>Name</FormLabel>
             <Input
               type="text"
@@ -146,7 +146,7 @@ export const NewMeasurementForm = (props: {
           </FormControl>
           <HStack spacing="24px" alignItems={'flex-start'}>
             <VStack spacing={0} alignItems={'flex-start'}>
-              <FormControl isInvalid={!!formErrors.startDate}>
+              <FormControl isRequired isInvalid={!!formErrors.startDate}>
                 <FormLabel fontSize={'small'}>Start date</FormLabel>
                 <Input
                   type="date"
@@ -161,7 +161,7 @@ export const NewMeasurementForm = (props: {
               </FormControl>
             </VStack>
             <VStack spacing={0} alignItems={'flex-start'}>
-              <FormControl isInvalid={!!formErrors.endDate}>
+              <FormControl isRequired isInvalid={!!formErrors.endDate}>
                 <FormLabel fontSize={'small'}>End date</FormLabel>
                 <Input
                   type="date"
