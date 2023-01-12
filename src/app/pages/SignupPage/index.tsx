@@ -24,7 +24,6 @@ import GoogleIcon from 'app/icons/Google';
 import useGoogleOauth from 'app/lib/hooks/oauth/useGoogleOauth';
 
 const { useState } = React;
-
 export function Signup() {
   const { onClick } = useGoogleOauth();
   const [signUp, { loading, error }] = useMutation(SIGNUP);
