@@ -35,7 +35,7 @@ interface SlackChannelProperties {
   name: string;
 }
 
-const SlackIntegration = (props: {
+const SlackForm = (props: {
   settings: Partial<MeasurementTrackingSlackSettings>;
   errors: GoalMeasurementFormErrors['trackingSettings'];
   onUpdate: (settings: Partial<MeasurementTrackingSlackSettings>) => void;
@@ -209,13 +209,18 @@ const SlackIntegration = (props: {
               `${channel.id}`
             }
             value={channelSuggestions.filter((cs: SlackChannelProperties) => {
-              return (settings.channelFilters || []).indexOf(cs.id) > -1;
+              return (settings.channelFilters || []).find(
+                filter => filter.slackChannelId === cs.id,
+              );
             })}
             options={channelSuggestions}
             onChange={option => {
               onUpdate({
                 ...settings,
-                channelFilters: option.map(cs => cs.id),
+                channelFilters: option.map(cs => ({
+                  slackChannelId: cs.id,
+                  name: cs.name,
+                })),
               });
             }}
           />
@@ -240,4 +245,4 @@ const SlackIntegration = (props: {
   );
 };
 
-export default SlackIntegration;
+export default SlackForm;

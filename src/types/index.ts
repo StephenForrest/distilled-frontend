@@ -107,11 +107,16 @@ export type SlackMetricType =
   | 'new_invites'
   | 'all_invites';
 
+export type SlackChannelFilterType = {
+  name: String;
+  slackChannelId: String;
+};
+
 export type MeasurementTrackingSlackSettings = {
   id?: string;
   integrationId: string | number;
   metric: SlackMetricType;
-  channelFilters?: string[];
+  channelFilters: SlackChannelFilterType[];
   value: number;
 };
 export type MeasurementTrackingGithubSettings = {};

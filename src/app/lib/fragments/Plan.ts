@@ -58,6 +58,11 @@ export const SUCCESS_CRITERIA_FRAGMENT = gql`
           integrationId
           metric
           value
+          channelFilters {
+            id
+            name
+            slackChannelId
+          }
         }
       }
     }

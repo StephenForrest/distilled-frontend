@@ -19,7 +19,7 @@ const useSlackOauth = (customScopes?: String[]) => {
   const [scopes, setScopes] = useState<String[]>(
     customScopes && customScopes?.length > 0
       ? customScopes
-      : ['channels:read', 'users:read'],
+      : ['channels:read', 'users:read', 'channels:history'],
   );
 
   const onMessage = useCallback(
