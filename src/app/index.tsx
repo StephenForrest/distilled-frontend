@@ -33,7 +33,9 @@ export function App() {
 
       <RoutesComponent />
       <GlobalStyle />
-      {!loading && <WebSocketConnect user={data.currentUser} />}
+      {!loading && data?.currentUser && (
+        <WebSocketConnect user={data.currentUser} />
+      )}
     </BrowserRouter>
   );
 }
