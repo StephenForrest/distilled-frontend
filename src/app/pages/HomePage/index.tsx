@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Sidebar from 'app/components/Sidebar';
 import { Outlet } from 'react-router-dom';

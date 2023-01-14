@@ -46,6 +46,7 @@ const GoalDrawer = (props: {
     variables: { id: goalId },
   });
 
+  // TODO (atanych): find out why goalId is null
   const onCreateNew = (successCriteriaType: SuccessCriteriaType) => {
     if (successCriteriaType === 'measurement') {
       setScreen('new-measure');

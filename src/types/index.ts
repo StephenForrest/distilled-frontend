@@ -151,6 +151,7 @@ export type WorkspaceMember = {
 };
 
 export type Workspace = {
+  id: string;
   title: string;
   domain: string;
   personalDomain?: boolean;
@@ -162,5 +163,5 @@ export type CurrentUser = {
   name: string;
   email: string;
   emailVerified: boolean;
-  workspace: Workspace[];
+  workspaces: Workspace[];
 };

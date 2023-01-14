@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@absinthe/socket": "0.2.1",
     "@apollo/client": "3.7.1",
     "@chakra-ui/icons": "2.0.12",
     "@chakra-ui/react": "2.4.1",
@@ -51,6 +52,7 @@
     "lint-staged": "13.0.3",
     "moment": "2.29.4",
     "node-plop": "0.26.3",
+    "phoenix": "1.7.0-rc.1",
     "plop": "2.7.6",
     "prettier": "2.7.1",
     "pusher-js": "8.0.0",
