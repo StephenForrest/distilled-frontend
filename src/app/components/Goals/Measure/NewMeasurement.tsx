@@ -63,14 +63,33 @@ export const NewMeasurementForm = (props: {
   const endDate = formatDateForInput(
     new Date(new Date(goal.expiresOn).toString()),
   );
-  const [form, setForm] = useState<MeasurementSlackForm>({
-    name: existingForm?.name ?? '',
-    description: existingForm?.description || '',
-    trackingType: existingForm?.trackingType || 'slack',
-    startDate: existingForm?.startDate || getDateNDaysFromToday(0),
-    endDate: existingForm?.endDate || endDate,
-    trackingSettings: existingForm?.trackingSettings || {},
-  } as MeasurementSlackForm);
+  const [form, setForm] = useState<MeasurementSlackForm>(
+    (): MeasurementSlackForm => {
+      let trackingSettings;
+      if (
+        existingForm?.trackingType === 'slack' &&
+        existingForm?.trackingSettings?.channelFilters
+      ) {
+        trackingSettings = {
+          ...existingForm.trackingSettings,
+          channelFilters: existingForm.trackingSettings.channelFilters.map(
+            f => ({ name: f.name, slackChannelId: f.slackChannelId }),
+          ),
+        };
+      } else {
+        trackingSettings = existingForm?.trackingSettings || {};
+      }
+      const result = {
+        name: existingForm?.name ?? '',
+        description: existingForm?.description || '',
+        trackingType: existingForm?.trackingType || 'slack',
+        startDate: existingForm?.startDate || getDateNDaysFromToday(0),
+        endDate: existingForm?.endDate || endDate,
+        trackingSettings,
+      } as MeasurementSlackForm;
+      return result;
+    },
+  );
 
   const updateErrors = (attr: keyof GoalMeasurementForm, value: unknown) => {
     setFormErrors({ ...formErrors, [attr]: value });
@@ -89,6 +108,7 @@ export const NewMeasurementForm = (props: {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log('form.trackingSettings', form.trackingSettings);
     const variables = {
       goalId: goal.id,
       name: form.name,
