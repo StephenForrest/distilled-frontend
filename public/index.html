@@ -76,6 +76,10 @@
               email: 'johndoe@acme.com',
               accountType: 'Starter',
             });
+            analytics.group('GroupId', {
+              name: 'Workspace Name',
+              plan: 'Starter',
+            });
           }
       })();
     </script>
