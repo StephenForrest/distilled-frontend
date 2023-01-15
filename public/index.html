@@ -71,6 +71,11 @@
             analytics.SNIPPET_VERSION = '4.15.3';
             analytics.load('gTUh4D0jkewYlS9wEBS9ByGXlMbTDNPH');
             analytics.page();
+            analytics.identify('UserId', {
+              name: 'User Name',
+              email: 'johndoe@acme.com',
+              accountType: 'Starter',
+            });
           }
       })();
     </script>
