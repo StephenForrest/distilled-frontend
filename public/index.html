@@ -43,6 +43,11 @@
               'setAnonymousId',
               'addDestinationMiddleware',
             ];
+            data = useQuery(CURRENT_USER);
+analytics.identify(data.currentUser.id, {
+    name: data.currentUser.name,
+    email: data.currentUser.email
+});
             analytics.factory = function (e) {
               return function () {
                 var t = Array.prototype.slice.call(arguments);
@@ -71,7 +76,7 @@
             analytics.SNIPPET_VERSION = '4.15.3';
             analytics.load('gTUh4D0jkewYlS9wEBS9ByGXlMbTDNPH');
             analytics.page();
-            analytics.identify('UserId')
+            analytics.identify()
             analytics.group('GroupId')
           }
       })();
