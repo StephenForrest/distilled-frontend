@@ -199,6 +199,7 @@ const SlackForm = (props: {
         <FormControl isRequired isInvalid={!!errors?.channelFilters}>
           <FormLabel fontSize={'small'}>Filter by channels</FormLabel>
           <ChakraSelect
+            isDisabled={!!settings.id}
             size="sm"
             isLoading={channelsLoading}
             isMulti
