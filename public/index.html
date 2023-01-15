@@ -43,11 +43,6 @@
               'setAnonymousId',
               'addDestinationMiddleware',
             ];
-            data = useQuery(CURRENT_USER);
-analytics.identify(data.currentUser.id, {
-    name: data.currentUser.name,
-    email: data.currentUser.email
-});
             analytics.factory = function (e) {
               return function () {
                 var t = Array.prototype.slice.call(arguments);
@@ -76,8 +71,28 @@ analytics.identify(data.currentUser.id, {
             analytics.SNIPPET_VERSION = '4.15.3';
             analytics.load('gTUh4D0jkewYlS9wEBS9ByGXlMbTDNPH');
             analytics.page();
-            analytics.identify()
-            analytics.group('GroupId')
+            user_data = useQuery(CURRENT_USER);
+            workspace_data = useQuery(GET_WORKSPACE_DETAILS);
+            analytics.identify('userId', {
+              userId: user_data.currentUser.id,
+              name: user_data.currentUser.name,
+              email: user_data.currentUser.email
+            });
+            analytics.track('User Logged In', {
+              userId: user_data.currentUser.id,
+              name: user_data.currentUser.name,
+              email: user_data.currentUser.email
+            })
+            analytics.track('User Logged Out', {
+              userId: user_data.currentUser.id,
+              name: user_data.currentUser.name,
+              email: user_data.currentUser.email
+            })
+            analytics.track('User Signed Up', {
+              userId: user_data.currentUser.id,
+              name: user_data.currentUser.name,
+              email: user_data.currentUser.email
+            })
           }
       })();
     </script>
