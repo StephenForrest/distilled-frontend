@@ -5,7 +5,7 @@ import {
   StepperCompleted,
   StepperStep,
 } from '@saas-ui/react';
-import { Spacer } from '@chakra-ui/react';
+import { Spacer, Box } from '@chakra-ui/react';
 import * as React from 'react';
 import SignupForm from './SignUpForm';
 import Pricing from './PricingStep';
@@ -43,27 +43,39 @@ export function Onboarding() {
 
   return (
     <>
-      <Stepper step={step} mb="2">
-        {steps.map((args, i) => (
-          <StepperStep key={i} {...args} />
-        ))}
-        <StepperCompleted py="4">Completed</StepperCompleted>
-      </Stepper>
-      <ButtonGroup width="100%">
-        <Button
-          label="Back"
-          onClick={back}
-          isDisabled={step === 0}
-          variant="ghost"
-        />
-        <Spacer />
-        <Button
-          label="Next"
-          onClick={next}
-          isDisabled={step >= 3}
-          colorScheme="primary"
-        />
-      </ButtonGroup>
+      <Box
+        as="form"
+        width={{ base: '100%', md: '500px' }}
+        mx="auto"
+        px={10}
+        py={8}
+        rounded="lg"
+        bg="white"
+      >
+        <Stepper step={step} mb="2">
+          {steps.map((args, i) => (
+            <StepperStep key={i} {...args} />
+          ))}
+          <StepperCompleted py="4">Completed</StepperCompleted>
+        </Stepper>
+        <ButtonGroup width="100%">
+          <Button
+            alignSelf="flex-start"
+            label="Back"
+            onClick={back}
+            isDisabled={step === 0}
+            variant="ghost"
+          />
+          <Spacer />
+          <Button
+            alignSelf="flex-end"
+            label="Next"
+            onClick={next}
+            isDisabled={step >= 3}
+            colorScheme="primary"
+          />
+        </ButtonGroup>
+      </Box>
     </>
   );
 }
