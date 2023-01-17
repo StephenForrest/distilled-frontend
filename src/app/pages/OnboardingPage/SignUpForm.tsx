@@ -1,65 +1,47 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, FormControl, FormLabel, Input, Select } from '@chakra-ui/react';
 
 function SignupForm() {
-  const [firstName, setFirstName] = React.useState('');
-  const [lastName, setLastName] = React.useState('');
-  const [company, setCompany] = React.useState('');
-  const [role, setRole] = React.useState('');
-  const [numberOfEmployees, setNumberOfEmployees] = React.useState('');
+  const handleSubmit = async event => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    try {
+      await fetch('https://your-form-backend-url', {
+        method: 'POST',
+        body: formData,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <>
-      <Box
-        as="form"
-        width={{ base: '100%', md: '500px' }}
-        mx="auto"
-        px={8}
-        py={6}
-        rounded="lg"
-        bg="white"
-      >
-        <FormControl>
+    <form onSubmit={handleSubmit}>
+      <Box>
+        <FormControl pt="6">
           <FormLabel htmlFor="first-name">First Name</FormLabel>
-          <Input
-            id="first-name"
-            type="text"
-            value={firstName}
-            onChange={e => setFirstName(e.target.value)}
-          />
+          <Input id="first-name" isRequired name="first-name" type="text" />
         </FormControl>
 
         <FormControl mt={4}>
           <FormLabel htmlFor="last-name">Last Name</FormLabel>
-          <Input
-            id="last-name"
-            type="text"
-            value={lastName}
-            onChange={e => setLastName(e.target.value)}
-          />
+          <Input id="last-name" isRequired name="last-name" type="text" />
         </FormControl>
 
         <FormControl mt={4}>
           <FormLabel htmlFor="company">Company</FormLabel>
-          <Input
-            id="company"
-            type="text"
-            value={company}
-            onChange={e => setCompany(e.target.value)}
-          />
+          <Input id="company" isRequired name="company" type="text" />
         </FormControl>
 
         <FormControl mt={4}>
           <FormLabel htmlFor="role">Role</FormLabel>
-          <Select
-            id="role"
-            value={role}
-            onChange={e => setRole(e.target.value)}
-          >
+          <Select id="role" isRequired name="role">
             <option value="">Select a role</option>
-            <option value="developer">Developer</option>
-            <option value="designer">Designer</option>
-            <option value="product-manager">Product Manager</option>
+            <option value="developer">Developer Advocate</option>
+            <option value="designer">Community Manager</option>
+            <option value="product-manager">Leadership</option>
+            <option value="product-manager">Purchasing</option>
+            <option value="product-manager">Project Manager</option>
           </Select>
         </FormControl>
 
@@ -68,9 +50,9 @@ function SignupForm() {
             Number of Employees
           </FormLabel>
           <Select
+            isRequired
             id="number-of-employees"
-            value={numberOfEmployees}
-            onChange={e => setNumberOfEmployees(e.target.value)}
+            name="number-of-employees"
           >
             <option value="">Select the number of employees</option>
             <option value="1-10">1-10</option>
@@ -80,9 +62,9 @@ function SignupForm() {
             <option value="500+">500+</option>
           </Select>
         </FormControl>
+        <button type="submit">Submit</button>
       </Box>
-      ;
-    </>
+    </form>
   );
 }
 

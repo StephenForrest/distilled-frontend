@@ -41,6 +41,7 @@
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-react-hooks": "4.6.0",
     "fontfaceobserver": "2.3.0",
+    "formik": "2.2.9",
     "framer-motion": "7.6.12",
     "fuzzysort": "2.0.4",
     "graphql": "16.6.0",
@@ -85,7 +86,8 @@
     "stylelint-processor-styled-components": "1.10.0",
     "ts-node": "10.9.1",
     "typescript": "4.6.4",
-    "web-vitals": "2.1.4"
+    "web-vitals": "2.1.4",
+    "yup": "0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",
