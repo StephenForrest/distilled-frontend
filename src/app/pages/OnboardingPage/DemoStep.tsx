@@ -4,7 +4,7 @@ import React from 'react';
 function Demo() {
   return (
     <Grid templateColumns="1fr" alignItems="center" justifyContent="center">
-      <VStack align="center" justify="center">
+      <VStack align="center" pb={10} justify="center">
         <iframe
           title="demo"
           src="https://demo.arcade.software/1KfsiicMWjdsE4m2SbNe?embed"

@@ -1,6 +1,7 @@
 import {
   Button,
   ButtonGroup,
+  Form,
   Stepper,
   StepperCompleted,
   StepperStep,
@@ -15,8 +16,12 @@ import {
   Select,
   VStack,
   Grid,
+  Text,
 } from '@chakra-ui/react';
 import { Helmet } from 'react-helmet-async';
+import { useForm } from 'react-hook-form';
+import Lottie from 'react-lottie';
+import * as animationData from 'app/jsons/checkmark.json';
 import * as React from 'react';
 
 declare global {
@@ -33,92 +38,79 @@ declare global {
 export function Onboarding() {
   const [step, setStep] = React.useState(1);
 
-  const handleSubmit = async event => {
-    event.preventDefault();
-    if (step === 1) {
-      setStep(2); // move to next step if on step 1
-    } else if (step === 2) {
-      const formData = new FormData(event.target);
-      try {
-        await fetch('https://your-form-backend-url', {
-          method: 'POST',
-          body: formData,
-        });
-        setStep(3); // move to next step if on step 2 and form is submitted successfully
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
+  const { register, handleSubmit } = useForm();
 
   function back() {
     setStep(step - 1);
   }
 
-  const next = () => {
+  const next = values => {
     setStep(step + 1);
+    console.log(values);
+    // Send the form data to Slapform
+    fetch('https://api.slapform.com/vEpZatyM5', {
+      method: 'POST',
+      body: JSON.stringify(values),
+    });
   };
 
   const steps = [
     {
       name: 'step 1',
-      title: 'First step',
+      title: 'Information',
       children: (
-        <form onSubmit={handleSubmit}>
-          <Box>
-            <FormControl pt="6">
-              <FormLabel htmlFor="first-name">First Name</FormLabel>
-              <Input id="first-name" isRequired name="first-name" type="text" />
-            </FormControl>
+        <Box>
+          <FormControl pt="6">
+            <FormLabel htmlFor="first-name">First Name</FormLabel>
+            <Input id="first-name" isRequired name="first-name" type="text" />
+          </FormControl>
 
-            <FormControl mt={4}>
-              <FormLabel htmlFor="last-name">Last Name</FormLabel>
-              <Input id="last-name" isRequired name="last-name" type="text" />
-            </FormControl>
+          <FormControl mt={4}>
+            <FormLabel htmlFor="last-name">Last Name</FormLabel>
+            <Input id="last-name" isRequired name="last-name" type="text" />
+          </FormControl>
 
-            <FormControl mt={4}>
-              <FormLabel htmlFor="company">Company</FormLabel>
-              <Input id="company" isRequired name="company" type="text" />
-            </FormControl>
+          <FormControl mt={4}>
+            <FormLabel htmlFor="company">Company</FormLabel>
+            <Input id="company" isRequired name="company" type="text" />
+          </FormControl>
 
-            <FormControl mt={4}>
-              <FormLabel htmlFor="role">Role</FormLabel>
-              <Select id="role" isRequired name="role">
-                <option value="">Select a role</option>
-                <option value="developer">Developer Advocate</option>
-                <option value="designer">Community Manager</option>
-                <option value="product-manager">Leadership</option>
-                <option value="product-manager">Purchasing</option>
-                <option value="product-manager">Project Manager</option>
-              </Select>
-            </FormControl>
+          <FormControl mt={4}>
+            <FormLabel htmlFor="role">Role</FormLabel>
+            <Select id="role" isRequired name="role">
+              <option value="">Select a role</option>
+              <option value="developer">Developer Advocate</option>
+              <option value="designer">Community Manager</option>
+              <option value="product-manager">Leadership</option>
+              <option value="product-manager">Purchasing</option>
+              <option value="product-manager">Project Manager</option>
+            </Select>
+          </FormControl>
 
-            <FormControl mt={4}>
-              <FormLabel htmlFor="number-of-employees">
-                Number of Employees
-              </FormLabel>
-              <Select
-                isRequired
-                id="number-of-employees"
-                name="number-of-employees"
-              >
-                <option value="">Select the number of employees</option>
-                <option value="1-10">1-10</option>
-                <option value="11-50">11-50</option>
-                <option value="51-200">51-200</option>
-                <option value="201-500">201-500</option>
-                <option value="500+">500+</option>
-              </Select>
-            </FormControl>
-            <button type="submit">Submit</button>
-          </Box>
-        </form>
+          <FormControl mt={4}>
+            <FormLabel htmlFor="number-of-employees">
+              Number of Employees
+            </FormLabel>
+            <Select
+              isRequired
+              id="number-of-employees"
+              name="number-of-employees"
+            >
+              <option value="">Select the number of employees</option>
+              <option value="1-10">1-10</option>
+              <option value="11-50">11-50</option>
+              <option value="51-200">51-200</option>
+              <option value="201-500">201-500</option>
+              <option value="500+">500+</option>
+            </Select>
+          </FormControl>
+        </Box>
       ),
     },
 
     {
       name: 'step 2',
-      title: 'Second step',
+      title: 'Pricing',
       children: (
         <>
           <Helmet>
@@ -144,7 +136,7 @@ export function Onboarding() {
     },
     {
       name: 'step 3',
-      title: 'Third step',
+      title: 'Demo',
       children: (
         <Grid templateColumns="1fr" alignItems="center" justifyContent="center">
           <VStack align="center" justify="center">
@@ -162,8 +154,8 @@ export function Onboarding() {
 
   return (
     <>
-      <Heading textAlign="center" mt={5} mb={4}>
-        Tell us a bit about yourself
+      <Heading textAlign="center" pt={20} pb={10} mb={4}>
+        Let's get started! 💪
       </Heading>
       <Box
         as="form"
@@ -174,11 +166,26 @@ export function Onboarding() {
         rounded="lg"
         bg="gray.50"
       >
-        <Stepper step={step} mx="auto" mb="2">
+        <Stepper step={step} mx="auto" px="auto">
           {steps.map((args, i) => (
             <StepperStep key={i} {...args} />
           ))}
-          <StepperCompleted py="4">Completed</StepperCompleted>
+          <StepperCompleted mx="auto" px="auto" py="4">
+            <Box>
+              <Heading>Congratulations!</Heading>
+              <Text>You have completed the onboarding process.</Text>
+            </Box>
+            <Lottie
+              options={{
+                animationData: animationData, // this is the json object of the lottie file
+                loop: false,
+                autoplay: true,
+              }}
+              height={200}
+              width={200}
+            />
+            <Button alignSelf="flex-start" />
+          </StepperCompleted>
         </Stepper>
         <ButtonGroup width="100%">
           <Button
