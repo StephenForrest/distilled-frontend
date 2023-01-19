@@ -19,7 +19,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { Helmet } from 'react-helmet-async';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import Lottie from 'react-lottie';
 import * as animationData from 'app/jsons/checkmark.json';
 import * as React from 'react';
@@ -35,23 +35,38 @@ declare global {
   }
 }
 
-export function Onboarding() {
-  const [step, setStep] = React.useState(1);
+interface IShippingFields {
+  firstName: string;
+  lastName: string;
+  company: string;
+  role: string;
+  numOfEmployees: string;
+}
 
-  const { register, handleSubmit } = useForm();
+export function Onboarding() {
+  const [step, setStep] = React.useState(0);
+
+  const { register, handleSubmit, getValues } = useForm<IShippingFields>({
+    mode: 'onSubmit',
+  });
+
+  const onSubmit: SubmitHandler<IShippingFields> = async data => {
+    console.log(data);
+  };
 
   function back() {
     setStep(step - 1);
   }
 
-  const next = values => {
+  const next = (value: any) => {
     setStep(step + 1);
-    console.log(values);
+    console.log(value);
+    alert(JSON.stringify(getValues(['firstName', 'lastName', 'company'])));
     // Send the form data to Slapform
-    fetch('https://api.slapform.com/vEpZatyM5', {
-      method: 'POST',
-      body: JSON.stringify(values),
-    });
+    // fetch('https://api.slapform.com/vEpZatyM5', {
+    //   method: 'POST',
+    //   body: JSON.stringify(value),
+    // });
   };
 
   const steps = [
@@ -62,20 +77,38 @@ export function Onboarding() {
         <Box>
           <FormControl pt="6">
             <FormLabel htmlFor="first-name">First Name</FormLabel>
-            <Input id="first-name" isRequired name="first-name" type="text" />
+            <Input
+              {...register('firstName')}
+              id="first-name"
+              isRequired
+              name="firstName"
+              type="text"
+            />
           </FormControl>
 
           <FormControl mt={4}>
             <FormLabel htmlFor="last-name">Last Name</FormLabel>
-            <Input id="last-name" isRequired name="last-name" type="text" />
+            <Input
+              {...register('lastName')}
+              id="last-name"
+              isRequired
+              name="lastName"
+              type="text"
+            />
           </FormControl>
 
           <FormControl mt={4}>
             <FormLabel htmlFor="company">Company</FormLabel>
-            <Input id="company" isRequired name="company" type="text" />
+            <Input
+              {...register('company')}
+              id="company"
+              isRequired
+              name="company"
+              type="text"
+            />
           </FormControl>
 
-          <FormControl mt={4}>
+          {/*           <FormControl mt={4}>
             <FormLabel htmlFor="role">Role</FormLabel>
             <Select id="role" isRequired name="role">
               <option value="">Select a role</option>
@@ -103,7 +136,7 @@ export function Onboarding() {
               <option value="201-500">201-500</option>
               <option value="500+">500+</option>
             </Select>
-          </FormControl>
+          </FormControl> */}
         </Box>
       ),
     },
@@ -159,6 +192,7 @@ export function Onboarding() {
       </Heading>
       <Box
         as="form"
+        onSubmit={handleSubmit(onSubmit)}
         width={{ base: '100%', md: '50%' }}
         mx="auto"
         px={8}
@@ -187,7 +221,7 @@ export function Onboarding() {
             <Button alignSelf="flex-start" />
           </StepperCompleted>
         </Stepper>
-        <ButtonGroup width="100%">
+        <ButtonGroup width="100%" py="4">
           <Button
             alignSelf="flex-start"
             label="Back"
@@ -197,6 +231,7 @@ export function Onboarding() {
           />
           <Spacer />
           <Button
+            type="submit"
             alignSelf="flex-end"
             label="Next"
             onClick={next}
