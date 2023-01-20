@@ -1,7 +1,6 @@
 import {
   Button,
   ButtonGroup,
-  Form,
   Stepper,
   StepperCompleted,
   StepperStep,
@@ -35,24 +34,49 @@ declare global {
   }
 }
 
-export function Onboarding() {
-  const [step, setStep] = React.useState(1);
+interface IShippingFields {
+  firstName: string;
+  lastName: string;
+  company: string;
+  role: string;
+  numOfEmployees: string;
+}
 
-  const { register, handleSubmit } = useForm();
+export function Onboarding() {
+  const [step, setStep] = React.useState(0);
+  const [dataForm, setDataForm] = React.useState<IShippingFields>();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IShippingFields>({
+    mode: 'onChange',
+  });
 
   function back() {
     setStep(step - 1);
   }
 
-  const next = values => {
-    setStep(step + 1);
-    console.log(values);
+  const next = React.useCallback(async () => {
     // Send the form data to Slapform
-    fetch('https://api.slapform.com/vEpZatyM5', {
-      method: 'POST',
-      body: JSON.stringify(values),
-    });
-  };
+    if (dataForm && Object.keys(errors).length === 0) {
+      setStep(step + 1);
+      try {
+        const data = await fetch(`https://api.slapform.com/vEpZatyM5`, {
+          method: 'POST',
+          body: JSON.stringify(dataForm),
+        });
+        return data.status;
+      } catch (err) {
+        throw new Error('err');
+      }
+    }
+  }, [dataForm]);
+
+  React.useEffect(() => {
+    next();
+  }, [next]);
 
   const steps = [
     {
@@ -62,22 +86,62 @@ export function Onboarding() {
         <Box>
           <FormControl pt="6">
             <FormLabel htmlFor="first-name">First Name</FormLabel>
-            <Input id="first-name" isRequired name="first-name" type="text" />
+            <Input
+              {...register('firstName', {
+                required: 'This is required!',
+                minLength: { value: 3, message: 'Minimum length should be 3' },
+              })}
+              id="first-name"
+              isRequired
+              name="firstName"
+              type="text"
+            />
           </FormControl>
+          {errors?.firstName && (
+            <Box fontSize={'md'} color={'red'}>
+              {errors.firstName.message}
+            </Box>
+          )}
 
           <FormControl mt={4}>
             <FormLabel htmlFor="last-name">Last Name</FormLabel>
-            <Input id="last-name" isRequired name="last-name" type="text" />
+            <Input
+              {...register('lastName', {
+                required: 'This is required!',
+                minLength: { value: 4, message: 'Minimum length should be 4' },
+              })}
+              id="last-name"
+              isRequired
+              name="lastName"
+              type="text"
+            />
           </FormControl>
+          {errors?.lastName && (
+            <Box fontSize={'md'} color={'red'}>
+              {errors.lastName.message}
+            </Box>
+          )}
 
           <FormControl mt={4}>
             <FormLabel htmlFor="company">Company</FormLabel>
-            <Input id="company" isRequired name="company" type="text" />
+            <Input
+              {...register('company', {
+                required: 'This is required!',
+              })}
+              id="company"
+              isRequired
+              name="company"
+              type="text"
+            />
           </FormControl>
-
+          {errors?.company && (
+            <Box fontSize={'md'} color={'red'}>
+              {errors.company.message}
+            </Box>
+          )}
           <FormControl mt={4}>
             <FormLabel htmlFor="role">Role</FormLabel>
-            <Select id="role" isRequired name="role">
+            <Select {...register('role')} id="role" isRequired name="role">
               <option value="">Select a role</option>
               <option value="developer">Developer Advocate</option>
               <option value="designer">Community Manager</option>
@@ -92,9 +156,10 @@ export function Onboarding() {
               Number of Employees
             </FormLabel>
             <Select
+              {...register('numOfEmployees')}
               isRequired
               id="number-of-employees"
-              name="number-of-employees"
+              name="numOfEmployees"
             >
               <option value="">Select the number of employees</option>
               <option value="1-10">1-10</option>
@@ -159,6 +224,7 @@ export function Onboarding() {
       </Heading>
       <Box
         as="form"
+        onSubmit={handleSubmit(data => setDataForm(data))}
         width={{ base: '100%', md: '50%' }}
         mx="auto"
         px={8}
@@ -187,7 +253,7 @@ export function Onboarding() {
             <Button alignSelf="flex-start" />
           </StepperCompleted>
         </Stepper>
-        <ButtonGroup width="100%">
+        <ButtonGroup width="100%" py="4">
           <Button
             alignSelf="flex-start"
             label="Back"
@@ -197,6 +263,7 @@ export function Onboarding() {
           />
           <Spacer />
           <Button
+            type="submit"
             alignSelf="flex-end"
             label="Next"
             onClick={next}
