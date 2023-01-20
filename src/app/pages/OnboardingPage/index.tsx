@@ -1,7 +1,6 @@
 import {
   Button,
   ButtonGroup,
-  Form,
   Stepper,
   StepperCompleted,
   StepperStep,
@@ -19,7 +18,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { Helmet } from 'react-helmet-async';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import Lottie from 'react-lottie';
 import * as animationData from 'app/jsons/checkmark.json';
 import * as React from 'react';
@@ -47,30 +46,34 @@ export function Onboarding() {
   const [step, setStep] = React.useState(0);
   const [dataForm, setDataForm] = React.useState<IShippingFields>();
 
-  const { register, handleSubmit } = useForm<IShippingFields>({
-    mode: 'onSubmit',
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IShippingFields>({
+    mode: 'onTouched',
   });
 
   function back() {
     setStep(step - 1);
   }
 
+  console.log(errors);
+
   const next = async () => {
-    setStep(step + 1);
-    try {
-      const data = await fetch(`https://api.slapform.com/vEpZatyM5`, {
-        method: 'POST',
-        body: JSON.stringify(dataForm),
-      });
-      return data.status;
-    } catch (err) {
-      throw new Error('err');
-    }
     // Send the form data to Slapform
-    // fetch('https://api.slapform.com/vEpZatyM5', {
-    //   method: 'POST',
-    //   body: JSON.stringify(value),
-    // });
+    if (Object.keys(errors).length === 0) {
+      setStep(step + 1);
+      try {
+        const data = await fetch(`https://api.slapform.com/vEpZatyM5`, {
+          method: 'POST',
+          body: JSON.stringify(dataForm),
+        });
+        return data.status;
+      } catch (err) {
+        throw new Error('err');
+      }
+    }
   };
 
   const steps = [
@@ -82,36 +85,56 @@ export function Onboarding() {
           <FormControl pt="6">
             <FormLabel htmlFor="first-name">First Name</FormLabel>
             <Input
-              {...register('firstName')}
+              {...register('firstName', {
+                required: 'This is required!',
+              })}
               id="first-name"
               isRequired
               name="firstName"
               type="text"
             />
           </FormControl>
+          {errors?.firstName && (
+            <Box fontSize={'md'} color={'red'}>
+              {errors.firstName.message}
+            </Box>
+          )}
 
           <FormControl mt={4}>
             <FormLabel htmlFor="last-name">Last Name</FormLabel>
             <Input
-              {...register('lastName')}
+              {...register('lastName', {
+                required: 'This is required!',
+              })}
               id="last-name"
               isRequired
               name="lastName"
               type="text"
             />
           </FormControl>
+          {errors?.lastName && (
+            <Box fontSize={'md'} color={'red'}>
+              {errors.lastName.message}
+            </Box>
+          )}
 
           <FormControl mt={4}>
             <FormLabel htmlFor="company">Company</FormLabel>
             <Input
-              {...register('company')}
+              {...register('company', {
+                required: 'This is required!',
+              })}
               id="company"
               isRequired
               name="company"
               type="text"
             />
           </FormControl>
-
+          {errors?.company && (
+            <Box fontSize={'md'} color={'red'}>
+              {errors.company.message}
+            </Box>
+          )}
           <FormControl mt={4}>
             <FormLabel htmlFor="role">Role</FormLabel>
             <Select {...register('role')} id="role" isRequired name="role">
