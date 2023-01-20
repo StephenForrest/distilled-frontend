@@ -45,23 +45,27 @@ interface IShippingFields {
 
 export function Onboarding() {
   const [step, setStep] = React.useState(0);
+  const [dataForm, setDataForm] = React.useState<IShippingFields>();
 
-  const { register, handleSubmit, getValues } = useForm<IShippingFields>({
+  const { register, handleSubmit } = useForm<IShippingFields>({
     mode: 'onSubmit',
   });
-
-  const onSubmit: SubmitHandler<IShippingFields> = async data => {
-    console.log(data);
-  };
 
   function back() {
     setStep(step - 1);
   }
 
-  const next = (value: any) => {
+  const next = async () => {
     setStep(step + 1);
-    console.log(value);
-    alert(JSON.stringify(getValues(['firstName', 'lastName', 'company'])));
+    try {
+      const data = await fetch(`https://api.slapform.com/vEpZatyM5`, {
+        method: 'POST',
+        body: JSON.stringify(dataForm),
+      });
+      return data.status;
+    } catch (err) {
+      throw new Error('err');
+    }
     // Send the form data to Slapform
     // fetch('https://api.slapform.com/vEpZatyM5', {
     //   method: 'POST',
@@ -108,9 +112,9 @@ export function Onboarding() {
             />
           </FormControl>
 
-          {/*           <FormControl mt={4}>
+          <FormControl mt={4}>
             <FormLabel htmlFor="role">Role</FormLabel>
-            <Select id="role" isRequired name="role">
+            <Select {...register('role')} id="role" isRequired name="role">
               <option value="">Select a role</option>
               <option value="developer">Developer Advocate</option>
               <option value="designer">Community Manager</option>
@@ -125,9 +129,10 @@ export function Onboarding() {
               Number of Employees
             </FormLabel>
             <Select
+              {...register('numOfEmployees')}
               isRequired
               id="number-of-employees"
-              name="number-of-employees"
+              name="numOfEmployees"
             >
               <option value="">Select the number of employees</option>
               <option value="1-10">1-10</option>
@@ -136,7 +141,7 @@ export function Onboarding() {
               <option value="201-500">201-500</option>
               <option value="500+">500+</option>
             </Select>
-          </FormControl> */}
+          </FormControl>
         </Box>
       ),
     },
@@ -192,7 +197,7 @@ export function Onboarding() {
       </Heading>
       <Box
         as="form"
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(data => setDataForm(data))}
         width={{ base: '100%', md: '50%' }}
         mx="auto"
         px={8}
