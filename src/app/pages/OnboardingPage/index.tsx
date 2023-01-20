@@ -58,8 +58,6 @@ export function Onboarding() {
     setStep(step - 1);
   }
 
-  console.log(errors);
-
   const next = async () => {
     // Send the form data to Slapform
     if (Object.keys(errors).length === 0) {
