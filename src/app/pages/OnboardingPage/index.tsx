@@ -51,7 +51,7 @@ export function Onboarding() {
     handleSubmit,
     formState: { errors },
   } = useForm<IShippingFields>({
-    mode: 'onTouched',
+    mode: 'onChange',
   });
 
   function back() {
@@ -60,7 +60,7 @@ export function Onboarding() {
 
   const next = async () => {
     // Send the form data to Slapform
-    if (Object.keys(errors).length === 0) {
+    if (dataForm && Object.keys(errors).length === 0) {
       setStep(step + 1);
       try {
         const data = await fetch(`https://api.slapform.com/vEpZatyM5`, {
@@ -85,6 +85,7 @@ export function Onboarding() {
             <Input
               {...register('firstName', {
                 required: 'This is required!',
+                minLength: { value: 3, message: 'Minimum length should be 3' },
               })}
               id="first-name"
               isRequired
@@ -103,6 +104,7 @@ export function Onboarding() {
             <Input
               {...register('lastName', {
                 required: 'This is required!',
+                minLength: { value: 4, message: 'Minimum length should be 4' },
               })}
               id="last-name"
               isRequired
