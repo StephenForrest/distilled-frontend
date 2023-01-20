@@ -21,6 +21,7 @@ import '@fontsource/inter/400.css';
 import '@fontsource/manrope/700.css';
 import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
+import { SaasProvider } from '@saas-ui/react';
 
 // Use consistent styling
 import 'sanitize.css/sanitize.css';
@@ -91,7 +92,9 @@ ReactDOMClient.createRoot(MOUNT_NODE!).render(
   <ApolloProvider client={client}>
     <HelmetProvider>
       <ChakraProvider theme={theme}>
-        <App />
+        <SaasProvider>
+          <App />
+        </SaasProvider>
       </ChakraProvider>
     </HelmetProvider>
   </ApolloProvider>,

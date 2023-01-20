@@ -115,7 +115,7 @@ export function Signup() {
                   <HStack w={'100%'} justifyContent={'center'}>
                     <Button
                       size={'md'}
-                      onClick={() => onClick('/')}
+                      onClick={() => onClick('/onboarding')}
                       leftIcon={<GoogleIcon boxSize="5" />}
                     >
                       Sign up with Google
