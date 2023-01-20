@@ -58,7 +58,7 @@ export function Onboarding() {
     setStep(step - 1);
   }
 
-  const next = async () => {
+  const next = React.useCallback(async () => {
     // Send the form data to Slapform
     if (dataForm && Object.keys(errors).length === 0) {
       setStep(step + 1);
@@ -72,7 +72,11 @@ export function Onboarding() {
         throw new Error('err');
       }
     }
-  };
+  }, [dataForm]);
+
+  React.useEffect(() => {
+    next();
+  }, [next]);
 
   const steps = [
     {
