@@ -71,28 +71,28 @@
             analytics.SNIPPET_VERSION = '4.15.3';
             analytics.load('gTUh4D0jkewYlS9wEBS9ByGXlMbTDNPH');
             analytics.page();
-            user_data = useQuery(CURRENT_USER);
-            workspace_data = useQuery(GET_WORKSPACE_DETAILS);
-            analytics.identify('userId', {
-              userId: user_data.currentUser.id,
-              name: user_data.currentUser.name,
-              email: user_data.currentUser.email
-            });
-            analytics.track('User Logged In', {
-              userId: user_data.currentUser.id,
-              name: user_data.currentUser.name,
-              email: user_data.currentUser.email
-            })
-            analytics.track('User Logged Out', {
-              userId: user_data.currentUser.id,
-              name: user_data.currentUser.name,
-              email: user_data.currentUser.email
-            })
-            analytics.track('User Signed Up', {
-              userId: user_data.currentUser.id,
-              name: user_data.currentUser.name,
-              email: user_data.currentUser.email
-            })
+            // user_data = useQuery(CURRENT_USER);
+            // workspace_data = useQuery(GET_WORKSPACE_DETAILS);
+            // analytics.identify('userId', {
+            //   userId: user_data.currentUser.id,
+            //   name: user_data.currentUser.name,
+            //   email: user_data.currentUser.email
+            // });
+            // analytics.track('User Logged In', {
+            //   userId: user_data.currentUser.id,
+            //   name: user_data.currentUser.name,
+            //   email: user_data.currentUser.email
+            // })
+            // analytics.track('User Logged Out', {
+            //   userId: user_data.currentUser.id,
+            //   name: user_data.currentUser.name,
+            //   email: user_data.currentUser.email
+            // })
+            // analytics.track('User Signed Up', {
+            //   userId: user_data.currentUser.id,
+            //   name: user_data.currentUser.name,
+            //   email: user_data.currentUser.email
+            // })
           }
       })();
     </script>

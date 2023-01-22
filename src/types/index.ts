@@ -156,6 +156,7 @@ export type Workspace = {
   domain: string;
   personalDomain?: boolean;
   autoJoinFromDomain: boolean;
+  apiKey: string;
   workspaceMembers: WorkspaceMember[];
 };
 
