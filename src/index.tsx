@@ -91,8 +91,8 @@ export const client = new ApolloClient({
 ReactDOMClient.createRoot(MOUNT_NODE!).render(
   <ApolloProvider client={client}>
     <HelmetProvider>
-      <ChakraProvider theme={theme}>
-        <SaasProvider>
+      <ChakraProvider>
+        <SaasProvider theme={theme}>
           <App />
         </SaasProvider>
       </ChakraProvider>
