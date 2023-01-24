@@ -11,6 +11,7 @@ export const CURRENT_USER = gql`
         title
         domain
         autoJoinFromDomain
+        currentOnboardingStep
       }
       emailVerified
       profilePic

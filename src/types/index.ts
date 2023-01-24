@@ -150,6 +150,8 @@ export type WorkspaceMember = {
   };
 };
 
+type OnboardingStep = 'survey' | 'subscription' | 'demo';
+
 export type Workspace = {
   id: string;
   title: string;
@@ -157,6 +159,7 @@ export type Workspace = {
   personalDomain?: boolean;
   autoJoinFromDomain: boolean;
   apiKey: string;
+  currentOnboardingStep: OnboardingStep | null;
   workspaceMembers: WorkspaceMember[];
 };
 
