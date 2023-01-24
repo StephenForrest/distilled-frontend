@@ -230,7 +230,7 @@ export function Onboarding() {
             width={{ base: '100%', md: '50%' }}
             px="15px"
           >
-            <Steps activeStep={activeStep} borderColor="brand.500">
+            <Steps activeStep={activeStep}>
               {steps.map(({ label, icon, children }, index) => (
                 <Step label={label} icon={icon} key={index}>
                   {children}
