@@ -60,17 +60,13 @@ export function Onboarding() {
 
   const next = React.useCallback(async () => {
     // Send the form data to Slapform
-    if (dataForm && Object.keys(errors).length === 0) {
+    if (step === 0 && dataForm && Object.keys(errors).length === 0) {
       setStep(step + 1);
-      try {
-        const data = await fetch(`https://api.slapform.com/vEpZatyM5`, {
-          method: 'POST',
-          body: JSON.stringify(dataForm),
-        });
-        return data.status;
-      } catch (err) {
-        throw new Error('err');
-      }
+      const slap = new window.Slapform();
+      await slap.submit({
+        form: 'vEpZatyM5',
+        data: dataForm,
+      });
     }
   }, [dataForm]);
 
@@ -153,7 +149,7 @@ export function Onboarding() {
 
           <FormControl mt={4}>
             <FormLabel htmlFor="number-of-employees">
-              Number of Employees
+              Number of Employees!
             </FormLabel>
             <Select
               {...register('numOfEmployees')}
