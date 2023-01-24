@@ -21,7 +21,6 @@ import '@fontsource/inter/400.css';
 import '@fontsource/manrope/700.css';
 import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
-import { SaasProvider } from '@saas-ui/react';
 
 // Use consistent styling
 import 'sanitize.css/sanitize.css';
@@ -91,10 +90,8 @@ export const client = new ApolloClient({
 ReactDOMClient.createRoot(MOUNT_NODE!).render(
   <ApolloProvider client={client}>
     <HelmetProvider>
-      <ChakraProvider>
-        <SaasProvider theme={theme}>
-          <App />
-        </SaasProvider>
+      <ChakraProvider theme={theme}>
+        <App />
       </ChakraProvider>
     </HelmetProvider>
   </ApolloProvider>,

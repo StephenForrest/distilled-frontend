@@ -1,5 +1,4 @@
 import { extendTheme } from '@chakra-ui/react';
-import { baseTheme } from '@saas-ui/react';
 
 const theme = extendTheme({
   colors: {
@@ -79,7 +78,6 @@ const theme = extendTheme({
       a: {},
       button: {},
     }),
-    baseTheme,
   },
 });
 
