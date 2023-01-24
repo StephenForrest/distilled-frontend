@@ -9,15 +9,46 @@ import { Navigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { CURRENT_USER } from 'app/lib/queries/User';
 import Loader from 'app/components/Loader';
+import {
+  useLocation,
+  useNavigate,
+  NavigateFunction,
+  Location,
+} from 'react-router-dom';
 import { observe, send } from '@absinthe/socket';
 import { getSocket, reconnectSocket } from '../services/websockets/socket';
 import { ErrorMessages } from '../services/websockets/constants';
 import { userSubscription } from '../services/websockets/subscriptions';
 import { ResultResponse } from '../services/websockets/types';
+import { Workspace } from 'types';
 
 import ChooseWorkspace from 'app/components/ChooseWorkspace';
 import CreateWorkspace from 'app/components/CreateWorkspace';
 import BlockUserVerify from 'app/components/BlockUserVerifyPage';
+
+const handleRedirects = (
+  workspace: Workspace,
+  navigation: NavigateFunction,
+  location: Location,
+) => {
+  if (!workspace.currentOnboardingStep) return;
+  if (location.pathname === '/onboarding') return;
+  if (
+    workspace.currentOnboardingStep === 'demo' &&
+    location.pathname !== '/onboarding-demo'
+  )
+    return navigation('/onboarding-demo');
+  if (
+    workspace.currentOnboardingStep === 'subscription' &&
+    location.pathname !== '/onboarding-subscription'
+  )
+    return navigation('/onboarding-subscription');
+  if (
+    workspace.currentOnboardingStep === 'survey' &&
+    location.pathname !== '/onboarding'
+  )
+    return navigation('/onboarding');
+};
 
 const subscribeToWS = workspaceId => {
   const socket = getSocket();
@@ -68,6 +99,8 @@ const subscribeToWS = workspaceId => {
 
 const CheckUserLoaded = ({ Component }) => {
   const activeWorkspaceId = useReactiveVar(activeWorkspaceIdVar);
+  const navigate = useNavigate();
+  const location = useLocation();
   const { data, loading: userLoading } = useQuery(CURRENT_USER);
 
   if (userLoading) {
@@ -89,10 +122,14 @@ const CheckUserLoaded = ({ Component }) => {
       localStorage.setItem('activeWorkspaceId', workspaceId);
       subscribeToWS(workspaceId);
       sessionIdVar(workspaceId);
+      handleRedirects(workspaces[0], navigate, location);
     }
   } else {
+    const workspaces = data.currentUser.workspaces;
+
     localStorage.setItem('activeWorkspaceId', activeWorkspaceId);
     subscribeToWS(activeWorkspaceId);
+    handleRedirects(workspaces[0], navigate, location);
   }
 
   return <Component />;

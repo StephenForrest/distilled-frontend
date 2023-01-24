@@ -6,5 +6,5 @@ import { lazyLoad } from 'utils/loadable';
 
 export const OnboardingPage = lazyLoad(
   () => import('./index'),
-  module => module.Onboarding,
+  module => module.default,
 );

@@ -16,6 +16,7 @@ import { NotFoundPage } from './NotFoundPage/Loadable';
 import { VerifyEmail } from '../pages/VerifyEmail/Loadable';
 import { AnimatePresence } from 'framer-motion';
 import { OnboardingPage } from 'app/pages/OnboardingPage/loadable';
+import { OnboardingSubscriptionPageSuccess } from 'app/pages/OnboardingPage/OnboardingSubscriptionPageSuccess';
 
 export const RoutesComponent = () => {
   const location = useLocation();
@@ -57,6 +58,24 @@ export const RoutesComponent = () => {
         <Route
           path="onboarding"
           element={<PrivateRoute Component={OnboardingPage} />}
+        />
+        <Route
+          path="onboarding-subscription"
+          element={<PrivateRoute Component={OnboardingPage} />}
+        />
+        {/* <Route
+          path="onboarding-survey"
+          element={<PrivateRoute Component={OnboardingPage} />}
+        /> */}
+        <Route
+          path="onboarding-demo"
+          element={<PrivateRoute Component={OnboardingPage} />}
+        />
+        <Route
+          path="onboarding-subscription-success"
+          element={
+            <PrivateRoute Component={OnboardingSubscriptionPageSuccess} />
+          }
         />
 
         <Route

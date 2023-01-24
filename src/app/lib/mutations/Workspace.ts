@@ -43,3 +43,13 @@ export const DELETE_WORKSPACE_MEMBER = gql`
     }
   }
 `;
+
+export const PASS_ONBOARDING_STEP = gql`
+  mutation passOnboardingStep($name: StepNameEnum!) {
+    passOnboardingStep(name: $name) {
+      workspace {
+        id
+      }
+    }
+  }
+`;
