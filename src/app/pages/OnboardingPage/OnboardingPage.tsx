@@ -92,8 +92,7 @@ export default function Onboarding() {
 
   const getStepName = (step: number) => {
     if (step === 1) return 'SUBSCRIPTION';
-    if (step === 2) return 'DEMO';
-    if (step === 3) return 'CALENDLY';
+    if (step === 2) return 'CALENDLY';
   };
 
   const steps = [
@@ -214,30 +213,6 @@ export default function Onboarding() {
     },
     {
       label: 'Demo',
-      icon: FiClipboard,
-      children: (
-        <Grid
-          templateColumns="1fr"
-          alignItems="center"
-          justifyContent="center"
-          mt="15px"
-        >
-          <VStack align="center" justify="center">
-            <AspectRatio
-              width={{ base: '320px', sm: '420px', md: '520px', lg: '720px' }}
-              height="100%"
-            >
-              <iframe
-                title="demo"
-                src="https://demo.arcade.software/1KfsiicMWjdsE4m2SbNe?embed"
-              />
-            </AspectRatio>
-          </VStack>
-        </Grid>
-      ),
-    },
-    {
-      label: 'Calendly',
       icon: FiClipboard,
       children: (
         <Grid
