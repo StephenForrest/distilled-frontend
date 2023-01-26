@@ -32,7 +32,7 @@ export function Page() {
           <WelcomeToDistilled />
         </VStack>
       </Grid>
-      <Box w="100%" px={20}>
+      <Box w="100%" px={{ base: '2', xl: '20' }}>
         <Divider justifyContent="center" width="100%" />
         <Heading justifyContent="left" size="md" pl="6" mt="6">
           Get the most from Distilled
@@ -43,7 +43,7 @@ export function Page() {
         gap={6}
         alignItems="center"
         justifyContent="center"
-        px={20}
+        px={{ base: '2', xl: '20' }}
       >
         <GridItem w="100%" p={5}>
           <Flex display={{ base: 'block', xl: 'flex' }}>
@@ -57,7 +57,7 @@ export function Page() {
               bgColor="rgb(237,242,247)"
               borderRadius="15px"
             >
-              <Image as={AppIcon['slack']} w="40px" h="40px" />
+              <Image as={AppIcon['slack']} w="40px" h="40px" alt="slack" />
             </Box>
             <Box ml="10px">
               <Text as="b">Request an invite</Text>
@@ -88,7 +88,7 @@ export function Page() {
           </Flex>
         </GridItem>
       </Grid>
-      <Box w="100%" px={20}>
+      <Box w="100%" px={{ base: '2', xl: '20' }}>
         <Divider justifyContent="center" width="100%" />
         <Heading justifyContent="left" size="md" pl="6" mt="6">
           Learn about OKRs
@@ -99,7 +99,7 @@ export function Page() {
         gap={6}
         alignItems="center"
         justifyContent="center"
-        px={20}
+        px={{ base: '2', xl: '20' }}
       >
         <GridItem w="100%" py={5} pl={5}>
           <Flex display={{ base: 'block', xl: 'flex' }}>
@@ -133,7 +133,7 @@ export function Page() {
               bgColor="rgb(237,242,247)"
               borderRadius="15px"
             >
-              <Image src={book} w="100%" h="100%" alt="flack" />
+              <Image src={book} w="100%" h="100%" alt="book" />
             </Box>
             <Box ml="10px">
               <Text as="b">OKR Academy (Coming soon)</Text>
