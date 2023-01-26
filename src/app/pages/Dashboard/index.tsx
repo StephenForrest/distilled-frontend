@@ -16,6 +16,8 @@ import {
 } from '@chakra-ui/react';
 
 import gallery from '../../../assets/web-gallery.png';
+import flack from '../../../assets/flack.png';
+import book from '../../../assets/book.png';
 
 export function Page() {
   const [isNewPlanModal, setIsNewPlanModal] = useState<boolean>(false);
@@ -66,7 +68,7 @@ export function Page() {
           </Flex>
         </GridItem>
         <GridItem w="100%">
-          <Flex>
+          <Flex display={{ base: 'block', xl: 'flex' }}>
             <Box
               p={2}
               display="flex"
@@ -77,7 +79,7 @@ export function Page() {
               bgColor="rgb(237,242,247)"
               borderRadius="15px"
             >
-              <Image src={gallery} w="100%" h="100%" alt="gallery" />
+              <Image src={flack} w="30px" h="40px" alt="flack" />
             </Box>
             <Box ml="10px">
               <Text as="b">Invite your teammates</Text>
@@ -111,7 +113,7 @@ export function Page() {
               bgColor="rgb(237,242,247)"
               borderRadius="15px"
             >
-              <Image src={gallery} w="100%" h="100%" alt="gallery" />
+              <Image src={gallery} w="100px" h="100%" alt="gallery" />
             </Box>
             <Box ml="10px">
               <Text as="b">Gallery (Coming soon)</Text>
@@ -120,17 +122,18 @@ export function Page() {
           </Flex>
         </GridItem>
         <GridItem w="100%">
-          <Flex>
+          <Flex display={{ base: 'block', xl: 'flex' }}>
             <Box
               p={2}
               display="flex"
-              h="55px"
+              h="60px"
+              w="60px"
               alignItems="center"
               justifyContent="center"
               bgColor="rgb(237,242,247)"
               borderRadius="15px"
             >
-              <Image as={AppIcon['slack']} w="40px" h="40px" />
+              <Image src={book} w="100%" h="100%" alt="flack" />
             </Box>
             <Box ml="10px">
               <Text as="b">OKR Academy (Coming soon)</Text>
