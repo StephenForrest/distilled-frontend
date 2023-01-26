@@ -14,7 +14,6 @@ const TabsComponent = (props: {
     <Tabs isLazy size={'sm'} colorScheme={'brand'}>
       <TabList>
         <Tab>Success Criteria</Tab>
-        <Tab>Details</Tab>
       </TabList>
 
       <TabPanels>
@@ -24,9 +23,6 @@ const TabsComponent = (props: {
             onCreateNew={onCreateNew}
             onSuccessCriteriaSelect={props.onSuccessCriteriaSelect}
           />
-        </TabPanel>
-        <TabPanel>
-          <p>two!</p>
         </TabPanel>
       </TabPanels>
     </Tabs>
