@@ -48,11 +48,6 @@ const handleRedirects = (
     location.pathname !== '/onboarding'
   )
     return navigation('/onboarding');
-  if (
-    workspace.currentOnboardingStep === 'calendly' &&
-    location.pathname !== '/onboarding-calendly'
-  )
-    return navigation('/onboarding-calendly');
 };
 
 const subscribeToWS = workspaceId => {

@@ -54,7 +54,6 @@ export default function Onboarding() {
   const getInitialStep = () => {
     if (location.pathname === '/onboarding-subscription') return 1;
     if (location.pathname === '/onboarding-demo') return 2;
-    if (location.pathname === '/onboarding-calendly') return 3;
     return 0;
   };
   const { nextStep, activeStep } = useSteps({
@@ -92,7 +91,7 @@ export default function Onboarding() {
 
   const getStepName = (step: number) => {
     if (step === 1) return 'SUBSCRIPTION';
-    if (step === 2) return 'CALENDLY';
+    if (step === 2) return 'DEMO';
   };
 
   const steps = [
@@ -303,11 +302,6 @@ export default function Onboarding() {
                   </Button>
                 )}
                 {activeStep === 2 && (
-                  <Button size="sm" onClick={next} colorScheme="brand">
-                    Next
-                  </Button>
-                )}
-                {activeStep === 3 && (
                   <Button size="sm" onClick={next} colorScheme="brand">
                     Finish
                   </Button>
