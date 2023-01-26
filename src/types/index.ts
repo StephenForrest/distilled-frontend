@@ -150,7 +150,7 @@ export type WorkspaceMember = {
   };
 };
 
-type OnboardingStep = 'survey' | 'subscription' | 'demo';
+type OnboardingStep = 'survey' | 'subscription' | 'demo' | 'calendly';
 
 export type Workspace = {
   id: string;

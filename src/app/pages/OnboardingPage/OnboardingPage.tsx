@@ -54,6 +54,7 @@ export default function Onboarding() {
   const getInitialStep = () => {
     if (location.pathname === '/onboarding-subscription') return 1;
     if (location.pathname === '/onboarding-demo') return 2;
+    if (location.pathname === '/onboarding-calendly') return 3;
     return 0;
   };
   const { nextStep, activeStep } = useSteps({
@@ -81,14 +82,18 @@ export default function Onboarding() {
   };
 
   const next = async () => {
-    console.log('NEXT');
-
-    const name = activeStep === 1 ? 'SUBSCRIPTION' : 'DEMO';
+    const name = getStepName(activeStep);
     await passOnboardingStep({
       variables: { name },
       refetchQueries: [{ query: CURRENT_USER }],
     });
     nextStep();
+  };
+
+  const getStepName = (step: number) => {
+    if (step === 1) return 'SUBSCRIPTION';
+    if (step === 2) return 'DEMO';
+    if (step === 3) return 'CALENDLY';
   };
 
   const steps = [
@@ -231,6 +236,33 @@ export default function Onboarding() {
         </Grid>
       ),
     },
+    {
+      label: 'Calendly',
+      icon: FiClipboard,
+      children: (
+        <Grid
+          templateColumns="1fr"
+          alignItems="center"
+          justifyContent="center"
+          mt="15px"
+        >
+          <Helmet>
+            <script
+              type="text/javascript"
+              src="https://assets.calendly.com/assets/external/widget.js"
+              async
+            ></script>
+          </Helmet>
+          <VStack align="center" justify="center">
+            <div
+              className="calendly-inline-widget"
+              data-url="https://calendly.com/james_bohrman/30min"
+              style={{ minWidth: '720px', height: '540px' }}
+            ></div>
+          </VStack>
+        </Grid>
+      ),
+    },
   ];
 
   return (
@@ -296,6 +328,11 @@ export default function Onboarding() {
                   </Button>
                 )}
                 {activeStep === 2 && (
+                  <Button size="sm" onClick={next} colorScheme="brand">
+                    Next
+                  </Button>
+                )}
+                {activeStep === 3 && (
                   <Button size="sm" onClick={next} colorScheme="brand">
                     Finish
                   </Button>

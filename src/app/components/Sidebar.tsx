@@ -35,7 +35,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: 'Welcome', icon: AppIcons['waving'], url: '/' },
   { name: 'Plans', icon: AppIcons['plan'], url: '/plans' },
   { name: 'Tasks', icon: AppIcons['action'], url: '/tasks' },
-  { name: 'Integrations', icon: AppIcons['integration'], url: '/integrations' },
+  // { name: 'Integrations', icon: AppIcons['integration'], url: '/integrations' },
 ];
 
 export default function SimpleSidebar({ children }: { children: ReactNode }) {

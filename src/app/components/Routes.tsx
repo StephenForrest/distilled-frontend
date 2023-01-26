@@ -72,6 +72,10 @@ export const RoutesComponent = () => {
           element={<PrivateRoute Component={OnboardingPage} />}
         />
         <Route
+          path="onboarding-calendly"
+          element={<PrivateRoute Component={OnboardingPage} />}
+        />
+        <Route
           path="onboarding-subscription-success"
           element={
             <PrivateRoute Component={OnboardingSubscriptionPageSuccess} />
