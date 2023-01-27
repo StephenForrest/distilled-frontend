@@ -34,7 +34,7 @@ const EmptyState = (props: {
               boxSize={8}
               mb={2}
             />
-            <Text fontSize={'sm'} fontWeight={'semibold'}>
+            <Text fontSize={'sm'} fontWeight={'semibold'} cursor="pointer">
               Add a measurement
             </Text>
             <Text
@@ -54,7 +54,7 @@ const EmptyState = (props: {
           _hover={{ bg: 'gray.50' }}
           onClick={() => props.onCreateNew('action')}
         >
-          <VStack spacing={1}>
+          <VStack spacing={1} cursor="pointer">
             <Icon
               color={'gray.800'}
               as={AppIcons['action']}
@@ -92,7 +92,7 @@ const SuccessCriteriaTab = (props: {
   }
   return (
     <VStack w={'100%'}>
-      <Menu size={'xs'}>
+      <Menu size={'md'}>
         {({ isOpen }) => (
           <>
             <MenuButton

@@ -72,7 +72,7 @@ const GoalDrawer = (props: {
       isOpen={!!goalId}
       size={'lg'}
       trapFocus={false}
-      closeOnOverlayClick={false}
+      closeOnOverlayClick={true}
     >
       <DrawerOverlay />
 

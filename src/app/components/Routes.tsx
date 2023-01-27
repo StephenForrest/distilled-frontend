@@ -55,19 +55,19 @@ export const RoutesComponent = () => {
           path="/signup"
           element={<NonAuthenticatedRoute Component={SignupPage} />}
         />
-        <Route
+        {/* <Route
           path="onboarding"
           element={<PrivateRoute Component={OnboardingPage} />}
         />
         <Route
           path="onboarding-subscription"
           element={<PrivateRoute Component={OnboardingPage} />}
-        />
+        /> */}
         {/* <Route
           path="onboarding-survey"
           element={<PrivateRoute Component={OnboardingPage} />}
         /> */}
-        <Route
+        {/* <Route
           path="onboarding-demo"
           element={<PrivateRoute Component={OnboardingPage} />}
         />
@@ -77,7 +77,7 @@ export const RoutesComponent = () => {
           element={
             <PrivateRoute Component={OnboardingSubscriptionPageSuccess} />
           }
-        />
+        /> */}
 
         <Route
           path="oauth-slack"
