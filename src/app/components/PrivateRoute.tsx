@@ -26,29 +26,29 @@ import ChooseWorkspace from 'app/components/ChooseWorkspace';
 import CreateWorkspace from 'app/components/CreateWorkspace';
 import BlockUserVerify from 'app/components/BlockUserVerifyPage';
 
-// const handleRedirects = (
-//   workspace: Workspace,
-//   navigation: NavigateFunction,
-//   location: Location,
-// ) => {
-//   if (!workspace.currentOnboardingStep) return;
-//   if (location.pathname === '/onboarding') return;
-//   if (
-//     workspace.currentOnboardingStep === 'demo' &&
-//     location.pathname !== '/onboarding-demo'
-//   )
-//     return navigation('/onboarding-demo');
-//   if (
-//     workspace.currentOnboardingStep === 'subscription' &&
-//     location.pathname !== '/onboarding-subscription'
-//   )
-//     return navigation('/onboarding-subscription');
-//   if (
-//     workspace.currentOnboardingStep === 'survey' &&
-//     location.pathname !== '/onboarding'
-//   )
-//     return navigation('/onboarding');
-// };
+const handleRedirects = (
+  workspace: Workspace,
+  navigation: NavigateFunction,
+  location: Location,
+) => {
+  if (!workspace.currentOnboardingStep) return;
+  if (location.pathname === '/onboarding') return;
+  if (
+    workspace.currentOnboardingStep === 'demo' &&
+    location.pathname !== '/onboarding-demo'
+  )
+    return navigation('/onboarding-demo');
+  if (
+    workspace.currentOnboardingStep === 'subscription' &&
+    location.pathname !== '/onboarding-subscription'
+  )
+    return navigation('/onboarding-subscription');
+  if (
+    workspace.currentOnboardingStep === 'survey' &&
+    location.pathname !== '/onboarding'
+  )
+    return navigation('/onboarding');
+};
 
 const subscribeToWS = workspaceId => {
   const socket = getSocket();
@@ -122,14 +122,14 @@ const CheckUserLoaded = ({ Component }) => {
       localStorage.setItem('activeWorkspaceId', workspaceId);
       subscribeToWS(workspaceId);
       sessionIdVar(workspaceId);
-      // handleRedirects(workspaces[0], navigate, location);
+      handleRedirects(workspaces[0], navigate, location);
     }
   } else {
     const workspaces = data.currentUser.workspaces;
 
     localStorage.setItem('activeWorkspaceId', activeWorkspaceId);
     subscribeToWS(activeWorkspaceId);
-    // handleRedirects(workspaces[0], navigate, location);
+    handleRedirects(workspaces[0], navigate, location);
   }
 
   return <Component />;
