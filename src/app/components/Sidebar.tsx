@@ -35,6 +35,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: 'Welcome', icon: AppIcons['waving'], url: '/' },
   { name: 'Plans', icon: AppIcons['plan'], url: '/plans' },
   { name: 'Tasks', icon: AppIcons['action'], url: '/tasks' },
+  { name: 'Integrations', icon: AppIcons['integration'], url: '/integrations' },
 ];
 
 export default function SimpleSidebar({ children }: { children: ReactNode }) {
@@ -145,7 +146,6 @@ const NavItem = ({
         textDecoration: 'black',
         font: 'body',
       }}
-      _focus={{ boxShadow: 'lg' }}
       mt={stickToBottom ? 'auto' : ''}
       onClick={typeof onClick !== 'undefined' ? onClick : () => null}
     >
@@ -156,18 +156,18 @@ const NavItem = ({
         fontWeight="medium"
         role="group"
         cursor="pointer"
-        color="gray.600"
+        color="black"
         borderRadius={'8px 8px 8px 8px'}
         _hover={{
           bg: 'brand.500',
           color: 'white',
-          mr: '4',
-          ml: '4',
+          mr: '2',
+          ml: '2',
           fontWeight: 'medium',
         }}
         {...rest}
       >
-        {icon && <Icon mr="4" boxSize="6" as={icon} />}
+        {icon && <Icon color="black" mr="4" boxSize="6" as={icon} />}
         {children}
       </Flex>
     </Link>

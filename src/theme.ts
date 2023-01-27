@@ -1,6 +1,24 @@
 import { extendTheme } from '@chakra-ui/react';
+import { StepsTheme } from 'chakra-ui-steps';
+
+const CustomSteps = {
+  ...StepsTheme,
+  baseStyle: props => {
+    return {
+      ...StepsTheme.baseStyle(props),
+      icon: {
+        ...StepsTheme.baseStyle(props).icon,
+        // your custom styles here
+        strokeWidth: '1px',
+      },
+    };
+  },
+};
 
 const theme = extendTheme({
+  components: {
+    Steps: CustomSteps,
+  },
   colors: {
     brand: {
       '50': '#F0EAFA',
@@ -74,7 +92,6 @@ const theme = extendTheme({
         '8xl': '6rem',
         '9xl': '8rem',
       },
-
       a: {},
       button: {},
     }),

@@ -150,12 +150,16 @@ export type WorkspaceMember = {
   };
 };
 
+type OnboardingStep = 'survey' | 'subscription' | 'demo';
+
 export type Workspace = {
   id: string;
   title: string;
   domain: string;
   personalDomain?: boolean;
   autoJoinFromDomain: boolean;
+  apiKey: string;
+  currentOnboardingStep: OnboardingStep | null;
   workspaceMembers: WorkspaceMember[];
 };
 

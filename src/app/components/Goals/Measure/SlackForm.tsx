@@ -87,7 +87,7 @@ const SlackForm = (props: {
       onUpdate({
         ...settings,
         integrationId: integration.id,
-        metric: 'new_users',
+        metric: 'new_messages',
       });
     },
     [onUpdate, settings],
@@ -181,19 +181,19 @@ const SlackForm = (props: {
               });
             }}
           >
-            <optgroup label="Users">
+            {/* <optgroup label="Users">
               <option value="new_users">New Users</option>
               <option value="all_users">Total Users</option>
               <option value="user_churn">Leaving users</option>
-            </optgroup>
+            </optgroup> */}
             <optgroup label="Messages (Public channels)">
               <option value="new_messages">New Messages</option>
               <option value="all_messages">Total messages</option>
             </optgroup>
-            <optgroup label="Invites">
+            {/* <optgroup label="Invites">
               <option value="new_invites">New invites</option>
               <option value="all_invites">Total invites</option>
-            </optgroup>
+            </optgroup> */}
           </Select>
         </FormControl>
         <FormControl isRequired isInvalid={!!errors?.channelFilters}>

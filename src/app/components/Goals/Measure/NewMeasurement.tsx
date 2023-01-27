@@ -207,37 +207,39 @@ export const NewMeasurementForm = (props: {
               {formErrors.description}
             </FormErrorMessage>
           </FormControl>
-          <FormControl>
-            <FormLabel fontSize={'small'}>Tracking type</FormLabel>
-            <Select
-              size={'sm'}
-              width={'300px'}
-              value={form.trackingType}
-              onChange={e =>
-                updateTrackingType(e.target.value as MeasurementTrackingType)
-              }
-            >
-              <option value="slack">Slack</option>
-            </Select>
-            {(() => {
-              if (form.trackingType === 'slack') {
-                return (
-                  <SlackForm
-                    settings={form.trackingSettings}
-                    errors={formErrors.trackingSettings}
-                    onUpdate={settings =>
-                      updateForm('trackingSettings', settings)
-                    }
-                    onUpdateErrors={errors =>
-                      updateErrors('trackingSettings', errors)
-                    }
-                  />
-                );
-              } else {
-                return null;
-              }
-            })()}
-          </FormControl>
+          {!successCriteriaId && (
+            <FormControl>
+              <FormLabel fontSize={'small'}>Tracking type</FormLabel>
+              <Select
+                size={'sm'}
+                width={'300px'}
+                value={form.trackingType}
+                onChange={e =>
+                  updateTrackingType(e.target.value as MeasurementTrackingType)
+                }
+              >
+                <option value="slack">Slack</option>
+              </Select>
+              {(() => {
+                if (form.trackingType === 'slack') {
+                  return (
+                    <SlackForm
+                      settings={form.trackingSettings}
+                      errors={formErrors.trackingSettings}
+                      onUpdate={settings =>
+                        updateForm('trackingSettings', settings)
+                      }
+                      onUpdateErrors={errors =>
+                        updateErrors('trackingSettings', errors)
+                      }
+                    />
+                  );
+                } else {
+                  return null;
+                }
+              })()}
+            </FormControl>
+          )}
 
           <Button
             mt={4}

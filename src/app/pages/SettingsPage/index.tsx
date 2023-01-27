@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import UserSettings from './UserSettings';
 import WorkspaceSettings from './WorkspaceSettings';
+import ZapierIntegration from './ZapierIntegration';
 
 export function Settings() {
   return (
@@ -19,6 +20,7 @@ export function Settings() {
         <TabList>
           <Tab>User Settings</Tab>
           <Tab>Workspace settings</Tab>
+          <Tab>Zapier Integration</Tab>
         </TabList>
 
         <TabPanels>
@@ -27,6 +29,9 @@ export function Settings() {
           </TabPanel>
           <TabPanel>
             <WorkspaceSettings />
+          </TabPanel>
+          <TabPanel>
+            <ZapierIntegration />
           </TabPanel>
         </TabPanels>
       </Tabs>

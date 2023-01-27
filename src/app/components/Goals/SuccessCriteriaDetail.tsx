@@ -46,15 +46,11 @@ const SuccessCriteriaDetail = (props: {
           <Tabs isLazy size={'sm'} colorScheme={'brand'}>
             <TabList>
               <Tab>Detail</Tab>
-              <Tab>Updates</Tab>
             </TabList>
 
             <TabPanels>
               <TabPanel>
                 <DetailTab successCriteria={data} />
-              </TabPanel>
-              <TabPanel>
-                <p>two!</p>
               </TabPanel>
             </TabPanels>
           </Tabs>

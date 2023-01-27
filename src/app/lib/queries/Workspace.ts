@@ -8,6 +8,7 @@ export const GET_WORKSPACE_DETAILS = gql`
       domain
       personalDomain
       autoJoinFromDomain
+      apiKey
       workspaceMembers {
         id
         user {
