@@ -15,9 +15,9 @@ import {
   Image,
 } from '@chakra-ui/react';
 
-import gallery from '../../../assets/web-gallery.png';
-import flack from '../../../assets/flack.png';
-import book from '../../../assets/book.png';
+import gallery from './icon/web-gallery.png';
+import flack from './icon/flack.png';
+import book from './icon/book.png';
 
 export function Page() {
   const [isNewPlanModal, setIsNewPlanModal] = useState<boolean>(false);
