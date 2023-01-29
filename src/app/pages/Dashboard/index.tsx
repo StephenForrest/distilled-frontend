@@ -13,20 +13,28 @@ import {
   Text,
   VStack,
   Image,
+  LinkBox,
+  LinkOverlay,
 } from '@chakra-ui/react';
-
+import NewWorkspaceMemberModal from './NewWorkspaceMemberModal';
 import gallery from './icon/web-gallery.png';
 import flack from './icon/flack.png';
 import book from './icon/book.png';
 
 export function Page() {
-  const [isNewPlanModal, setIsNewPlanModal] = useState<boolean>(false);
+  const [showNewWorkspaceMemberModal, setShowNewWorkspaceMemberModal] =
+    useState<boolean>(false);
+
   return (
     <>
       <Helmet>
         <title>Welcome</title>
         <meta name="description" content="Welcome" />
       </Helmet>
+      <NewWorkspaceMemberModal
+        isOpen={showNewWorkspaceMemberModal}
+        onClose={() => setShowNewWorkspaceMemberModal(false)}
+      />
       <Grid templateColumns="1fr" alignItems="center" justifyContent="center">
         <VStack align="center" justify="center">
           <WelcomeToDistilled />
@@ -67,26 +75,33 @@ export function Page() {
             </Box>
           </Flex>
         </GridItem>
-        <GridItem w="100%">
-          <Flex display={{ base: 'block', xl: 'flex' }}>
-            <Box
-              p={2}
-              display="flex"
-              h="60px"
-              w="60px"
-              alignItems="center"
-              justifyContent="center"
-              bgColor="rgb(237,242,247)"
-              borderRadius="15px"
-            >
-              <Image src={flack} w="30px" h="40px" alt="flack" />
-            </Box>
-            <Box ml="10px">
-              <Text as="b">Invite your teammates</Text>
-              <Text>Invite your team to collaboratively build strategy</Text>
-            </Box>
-          </Flex>
-        </GridItem>
+        <LinkBox onClick={() => setShowNewWorkspaceMemberModal(true)}>
+          <GridItem _hover={{ bg: 'gray.50', borderRadius: '5' }} w="100%">
+            <LinkOverlay href="#">
+              <Flex display={{ base: 'block', xl: 'flex' }}>
+                <Box
+                  p={2}
+                  display="flex"
+                  h="60px"
+                  w="60px"
+                  alignItems="center"
+                  justifyContent="center"
+                  bgColor="rgb(237,242,247)"
+                  borderRadius="15px"
+                  _hover={{ bg: 'gray.50' }}
+                >
+                  <Image src={flack} w="30px" h="40px" alt="flack" />
+                </Box>
+                <Box ml="10px">
+                  <Text as="b">Invite your teammates</Text>
+                  <Text>
+                    Invite your team to collaboratively build strategy
+                  </Text>
+                </Box>
+              </Flex>
+            </LinkOverlay>
+          </GridItem>
+        </LinkBox>
       </Grid>
       <Box w="100%" px={{ base: '2', xl: '20' }}>
         <Divider justifyContent="center" width="100%" />
@@ -145,16 +160,6 @@ export function Page() {
           </Flex>
         </GridItem>
       </Grid>
-
-      {/* <Divider justifyContent="center" width="500px" />
-      <Heading justifyContent="left" size="md" pl="6" mt="6">
-        Get the most from
-      </Heading> */}
-
-      <CreateNewPlanModal
-        isOpen={isNewPlanModal}
-        onClose={() => setIsNewPlanModal(false)}
-      />
     </>
   );
 }
