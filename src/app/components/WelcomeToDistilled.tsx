@@ -1,8 +1,8 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { CURRENT_USER } from 'app/lib/queries/User';
+import { CREATE_SLACK_CONNECT } from 'app/lib/mutations/User';
 import { Text, VStack, Box } from '@chakra-ui/react';
-import { SvgBlob } from 'react-svg-blob';
 import PageHeader from './PageHeader';
 
 function generateShapeProps() {
@@ -15,10 +15,19 @@ function generateShapeProps() {
 
 const WelcomeToDistilled = () => {
   const { loading: userLoading, error, data } = useQuery(CURRENT_USER);
-
+  const [createChannelConnect, { loading }] = useMutation(CREATE_SLACK_CONNECT);
   if (userLoading || error) {
     return null;
   }
+
+  const handleConnect = async () => {
+    await createChannelConnect({
+      variables: {
+        email: data.currentUser.email,
+        channelName: 'distilled-comp3',
+      },
+    });
+  };
 
   return (
     <VStack
@@ -37,6 +46,7 @@ const WelcomeToDistilled = () => {
         <Text fontSize={'md'} color={'gray.700'}>
           Here's a guide on how you can start using Distilled.
         </Text>
+        <button onClick={handleConnect}>Slack connect</button>
       </Box>
     </VStack>
   );
