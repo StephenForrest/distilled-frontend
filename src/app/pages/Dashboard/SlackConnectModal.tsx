@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -16,21 +16,34 @@ import {
   Box,
 } from '@chakra-ui/react';
 import { CREATE_SLACK_CONNECT } from 'app/lib/mutations/User';
-import { useMutation } from '@apollo/client';
+import { GET_WORKSPACE_DETAILS } from 'app/lib/queries/Workspace';
+import { useQuery, useMutation } from '@apollo/client';
 import { useToast } from '@chakra-ui/react';
 
 const SlackConnectModal = (props: { isOpen: boolean; onClose: () => void }) => {
   const toast = useToast();
+  const initialChannelName = useRef<string>('');
   const [handleConnect, { loading, error }] = useMutation(CREATE_SLACK_CONNECT);
   const [email, setEmail] = useState<string>('');
   const [channelName, setChannelName] = useState<string>('');
   const { isOpen, onClose } = props;
+  const { data, loading: workspaceLoading } = useQuery(GET_WORKSPACE_DETAILS);
+
+  useEffect(() => {
+    if (!workspaceLoading && data && !initialChannelName.current) {
+      initialChannelName.current = data.getWorkspaceDetails.domain;
+      setChannelName(data.getWorkspaceDetails.domain);
+    }
+  }, [data, workspaceLoading]);
+
   const SlackConnectInvite = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const cleanedDomain =
+      channelName.replace(/\.(com|dev|net|org|edu|gov|io)$/, '') + '-support';
     const data = await handleConnect({
       variables: {
         email,
-        channelName,
+        channelName: cleanedDomain,
       },
     });
     if (data) {
@@ -41,7 +54,7 @@ const SlackConnectModal = (props: { isOpen: boolean; onClose: () => void }) => {
       });
       props.onClose();
       setEmail('');
-      setChannelName('');
+      setChannelName(cleanedDomain);
     }
   };
 
@@ -57,7 +70,7 @@ const SlackConnectModal = (props: { isOpen: boolean; onClose: () => void }) => {
           <form onSubmit={SlackConnectInvite}>
             <VStack spacing={4} alignItems={'flex-start'}>
               <FormControl size={'xs'}>
-                <FormLabel fontSize={'sm'}>Company Name</FormLabel>
+                <FormLabel fontSize={'sm'}>Channel Name</FormLabel>
                 <Input
                   type="text"
                   value={channelName}
