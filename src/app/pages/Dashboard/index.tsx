@@ -18,13 +18,13 @@ import {
 } from '@chakra-ui/react';
 import NewWorkspaceMemberModal from './NewWorkspaceMemberModal';
 import SlackConnectModal from './SlackConnectModal';
-import { CREATE_SLACK_CONNECT } from 'app/lib/mutations/User';
 import { CURRENT_USER } from 'app/lib/queries/User';
 import gallery from './icon/web-gallery.png';
 import flack from './icon/flack.png';
 import book from './icon/book.png';
 
 export function Page() {
+  const { loading, data } = useQuery(CURRENT_USER);
   const [showNewWorkspaceMemberModal, setShowNewWorkspaceMemberModal] =
     useState<boolean>(false);
 
@@ -41,10 +41,17 @@ export function Page() {
         isOpen={showNewWorkspaceMemberModal}
         onClose={() => setShowNewWorkspaceMemberModal(false)}
       />
-      <SlackConnectModal
-        isOpen={showSlackConnectModal}
-        onClose={() => setShowSlackConnectModal(false)}
-      />
+      {!loading && (
+        <SlackConnectModal
+          isOpen={showSlackConnectModal}
+          email={data.currentUser.email}
+          domain={
+            data.currentUser.workspaces[0].domain ||
+            data.currentUser.workspaces[0].title
+          }
+          onClose={() => setShowSlackConnectModal(false)}
+        />
+      )}
       <Grid templateColumns="1fr" alignItems="center" justifyContent="center">
         <VStack align="center" justify="center">
           <WelcomeToDistilled />

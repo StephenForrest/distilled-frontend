@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -15,33 +15,49 @@ import {
   Text,
   Box,
 } from '@chakra-ui/react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { CREATE_SLACK_CONNECT } from 'app/lib/mutations/User';
 import { useMutation } from '@apollo/client';
 import { useToast } from '@chakra-ui/react';
 
-const SlackConnectModal = (props: { isOpen: boolean; onClose: () => void }) => {
+interface IFormInput {
+  email: string;
+}
+
+const SlackConnectModal = (props: {
+  isOpen: boolean;
+  email: string;
+  domain: string;
+  onClose: () => void;
+}) => {
+  const { isOpen, onClose, email, domain } = props;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInput>({
+    defaultValues: { email },
+  });
+
   const toast = useToast();
-  const [handleConnect, { loading, error }] = useMutation(CREATE_SLACK_CONNECT);
-  const [email, setEmail] = useState<string>('');
-  const [channelName, setChannelName] = useState<string>('');
-  const { isOpen, onClose } = props;
-  const SlackConnectInvite = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const data = await handleConnect({
+  const [handleConnect, { loading }] = useMutation(CREATE_SLACK_CONNECT);
+
+  const onSubmit: SubmitHandler<IFormInput> = async data => {
+    const channelName =
+      domain.replace(/\.(com|dev|net|org|edu|gov|io)$/, '') + '-support';
+    const response = (await handleConnect({
       variables: {
-        email,
+        email: data.email,
         channelName,
       },
-    });
-    if (data) {
+    })) as { data: { createSlackConnect: { ok: boolean } } };
+    if (response.data.createSlackConnect.ok) {
       toast({
         title: 'Slack Connect invite created successfully',
         status: 'success',
         position: 'top',
       });
-      props.onClose();
-      setEmail('');
-      setChannelName('');
+      onClose();
     }
   };
 
@@ -54,33 +70,30 @@ const SlackConnectModal = (props: { isOpen: boolean; onClose: () => void }) => {
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <form onSubmit={SlackConnectInvite}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <VStack spacing={4} alignItems={'flex-start'}>
-              <FormControl size={'xs'}>
-                <FormLabel fontSize={'sm'}>Company Name</FormLabel>
-                <Input
-                  type="text"
-                  value={channelName}
-                  fontSize={'sm'}
-                  required
-                  size={'sm'}
-                  autoFocus
-                  onChange={e => setChannelName(e.target.value)}
-                />
-              </FormControl>
               <FormControl size={'xs'}>
                 <FormLabel fontSize={'sm'}>Email</FormLabel>
                 <Input
-                  type="email"
-                  value={email}
+                  {...register('email', {
+                    required: 'Required',
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: 'Invalid email address',
+                    },
+                  })}
                   fontSize={'sm'}
                   size={'sm'}
                   required
                   autoFocus
-                  onChange={e => setEmail(e.target.value)}
                 />
               </FormControl>
-              {error && <Text fontSize={'sm'}>{error.message}</Text>}
+              {errors?.email && (
+                <Box fontSize={'md'} color={'red'}>
+                  {' '}
+                  {errors.email.message}{' '}
+                </Box>
+              )}
               <Box mt={'var(--chakra-space-6) !important'}>
                 <Button
                   isLoading={loading}
