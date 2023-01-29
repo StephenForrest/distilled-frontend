@@ -15,39 +15,33 @@ import {
   Text,
   Box,
 } from '@chakra-ui/react';
-import { CREATE_WORKSPACE_MEMBER } from 'app/lib/mutations/Workspace';
-import { GET_WORKSPACE_DETAILS } from 'app/lib/queries/Workspace';
+import { CREATE_SLACK_CONNECT } from 'app/lib/mutations/User';
 import { useMutation } from '@apollo/client';
 import { useToast } from '@chakra-ui/react';
 
-const NewWorkspaceMemberModal = (props: {
-  isOpen: boolean;
-  onClose: () => void;
-}) => {
+const SlackConnectModal = (props: { isOpen: boolean; onClose: () => void }) => {
   const toast = useToast();
-  const [createWorkspaceMember, { loading, error }] = useMutation(
-    CREATE_WORKSPACE_MEMBER,
-  );
+  const [handleConnect, { loading, error }] = useMutation(CREATE_SLACK_CONNECT);
   const [email, setEmail] = useState<string>('');
-  const [name, setName] = useState<string>('');
+  const [channelName, setChannelName] = useState<string>('');
   const { isOpen, onClose } = props;
-  const NewMemberInvite = async (e: React.FormEvent<HTMLFormElement>) => {
+  const SlackConnectInvite = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = await createWorkspaceMember({
+    const data = await handleConnect({
       variables: {
-        name,
         email,
+        channelName,
       },
     });
     if (data) {
       toast({
-        title: 'Workspace member created successfully',
+        title: 'Slack Connect invite created successfully',
         status: 'success',
         position: 'top',
       });
       props.onClose();
       setEmail('');
-      setName('');
+      setChannelName('');
     }
   };
 
@@ -56,22 +50,22 @@ const NewWorkspaceMemberModal = (props: {
       <ModalOverlay />
       <ModalContent>
         <ModalHeader borderBottom={'1px solid #f2f2f2'} fontSize={'md'}>
-          Create workspace member
+          Invite to Slack Connect Channel
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <form onSubmit={NewMemberInvite}>
+          <form onSubmit={SlackConnectInvite}>
             <VStack spacing={4} alignItems={'flex-start'}>
               <FormControl size={'xs'}>
-                <FormLabel fontSize={'sm'}>Name</FormLabel>
+                <FormLabel fontSize={'sm'}>Company Name</FormLabel>
                 <Input
                   type="text"
-                  value={name}
+                  value={channelName}
                   fontSize={'sm'}
                   required
                   size={'sm'}
                   autoFocus
-                  onChange={e => setName(e.target.value)}
+                  onChange={e => setChannelName(e.target.value)}
                 />
               </FormControl>
               <FormControl size={'xs'}>
@@ -108,4 +102,4 @@ const NewWorkspaceMemberModal = (props: {
   );
 };
 
-export default NewWorkspaceMemberModal;
+export default SlackConnectModal;

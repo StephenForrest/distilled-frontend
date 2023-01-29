@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import WelcomeToDistilled from 'app/components/WelcomeToDistilled';
-import CreateNewPlanModal from 'app/components/CreateNewPlanModal';
+import { useQuery, useMutation } from '@apollo/client';
 import AppIcon from 'app/components/AppIcons';
 import {
   Box,
@@ -17,12 +17,18 @@ import {
   LinkOverlay,
 } from '@chakra-ui/react';
 import NewWorkspaceMemberModal from './NewWorkspaceMemberModal';
+import SlackConnectModal from './SlackConnectModal';
+import { CREATE_SLACK_CONNECT } from 'app/lib/mutations/User';
+import { CURRENT_USER } from 'app/lib/queries/User';
 import gallery from './icon/web-gallery.png';
 import flack from './icon/flack.png';
 import book from './icon/book.png';
 
 export function Page() {
   const [showNewWorkspaceMemberModal, setShowNewWorkspaceMemberModal] =
+    useState<boolean>(false);
+
+  const [showSlackConnectModal, setShowSlackConnectModal] =
     useState<boolean>(false);
 
   return (
@@ -34,6 +40,10 @@ export function Page() {
       <NewWorkspaceMemberModal
         isOpen={showNewWorkspaceMemberModal}
         onClose={() => setShowNewWorkspaceMemberModal(false)}
+      />
+      <SlackConnectModal
+        isOpen={showSlackConnectModal}
+        onClose={() => setShowSlackConnectModal(false)}
       />
       <Grid templateColumns="1fr" alignItems="center" justifyContent="center">
         <VStack align="center" justify="center">
@@ -53,30 +63,43 @@ export function Page() {
         justifyContent="center"
         px={{ base: '2', xl: '20' }}
       >
-        <GridItem w="100%" p={5}>
-          <Flex display={{ base: 'block', xl: 'flex' }}>
-            <Box
-              p={2}
-              display="flex"
-              w="55px"
-              h="55px"
-              alignItems="center"
-              justifyContent="center"
-              bgColor="rgb(237,242,247)"
-              borderRadius="15px"
-            >
-              <Image as={AppIcon['slack']} w="40px" h="40px" alt="slack" />
-            </Box>
-            <Box ml="10px">
-              <Text as="b">Request an invite</Text>
-              <Text>
-                Join a shared Slack Connect channel with the Distilled team
-              </Text>
-            </Box>
-          </Flex>
-        </GridItem>
+        <LinkBox onClick={() => setShowSlackConnectModal(true)}>
+          <GridItem
+            _hover={{ bg: 'gray.50', borderRadius: '5' }}
+            w="100%"
+            p={5}
+          >
+            <LinkOverlay href="#">
+              <Flex display={{ base: 'block', xl: 'flex' }}>
+                <Box
+                  p={2}
+                  display="flex"
+                  w="55px"
+                  h="55px"
+                  alignItems="center"
+                  justifyContent="center"
+                  bgColor="rgb(237,242,247)"
+                  borderRadius="15px"
+                  _hover={{ bg: 'gray.50' }}
+                >
+                  <Image as={AppIcon['slack']} w="40px" h="40px" alt="slack" />
+                </Box>
+                <Box ml="10px">
+                  <Text as="b">Request an invite</Text>
+                  <Text>
+                    Join a shared Slack Connect channel with the Distilled team
+                  </Text>
+                </Box>
+              </Flex>
+            </LinkOverlay>
+          </GridItem>
+        </LinkBox>
         <LinkBox onClick={() => setShowNewWorkspaceMemberModal(true)}>
-          <GridItem _hover={{ bg: 'gray.50', borderRadius: '5' }} w="100%">
+          <GridItem
+            _hover={{ bg: 'gray.50', borderRadius: '5' }}
+            w="100%"
+            p={5}
+          >
             <LinkOverlay href="#">
               <Flex display={{ base: 'block', xl: 'flex' }}>
                 <Box
