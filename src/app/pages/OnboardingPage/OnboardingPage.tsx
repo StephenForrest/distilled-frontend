@@ -51,11 +51,11 @@ export default function Onboarding() {
   const activeWorkspaceId = useReactiveVar(activeWorkspaceIdVar);
   const [passOnboardingStep] = useMutation(PASS_ONBOARDING_STEP);
 
-  const getInitialStep = () => {
+  function getInitialStep(): 1 | 2 | 0 {
     if (location.pathname === '/onboarding-subscription') return 1;
     if (location.pathname === '/onboarding-demo') return 2;
     return 0;
-  };
+  }
   const { nextStep, activeStep } = useSteps({
     initialStep: getInitialStep(),
   });
