@@ -117,7 +117,9 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         icon={AppIcons['alembic']}
         bg="brand.100"
         textColor="black"
-        onClick={() => navigate('/upgrade')}
+        onClick={() =>
+          navigate('https://billing.stripe.com/p/login/28obK69X46ua3Nm8ww')
+        }
       >
         Upgrade to Pro
       </NavItem>
