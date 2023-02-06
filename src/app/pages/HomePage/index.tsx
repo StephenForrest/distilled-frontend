@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Sidebar from 'app/components/Sidebar';
+import { useIntercom } from 'react-use-intercom';
 import { Outlet } from 'react-router-dom';
 import { Box } from '@chakra-ui/react';
 import { useQuery } from '@apollo/client';
@@ -14,6 +15,8 @@ import Loader from 'app/components/Loader';
 export function HomePage() {
   const { loading: userLoading } = useQuery(CURRENT_USER);
   const drawerConfig = useReactiveVar(selectedDrawerConfig);
+
+  const { boot, shutdown, hide, show, update } = useIntercom();
 
   if (userLoading) {
     return (

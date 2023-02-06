@@ -9,6 +9,7 @@ import Milestone from 'app/icons/Milestone';
 import Measure from 'app/icons/Measure';
 import Waving from 'app/icons/Waving';
 import Task from 'app/icons/Task';
+import Alembic from 'app/icons/Alembic';
 
 const Icons = {
   waving: Waving,
@@ -25,6 +26,8 @@ const Icons = {
 
   slack: Slack,
   zapier: Zapier,
+
+  alembic: Alembic,
 };
 
 export default Icons;

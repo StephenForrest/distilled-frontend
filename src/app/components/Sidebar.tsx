@@ -13,6 +13,7 @@ import {
   useDisclosure,
   BoxProps,
   FlexProps,
+  LinkOverlay,
 } from '@chakra-ui/react';
 import { RiLogoutBoxRLine } from 'react-icons/ri';
 import { FcMenu } from 'react-icons/fc';
@@ -93,8 +94,8 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       <Flex
         h="20"
         alignItems="center"
-        mx="8"
         mb="2"
+        mx="8"
         justifyContent="space-between"
       >
         <LogoFullBlack />
@@ -111,6 +112,15 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           {link.name}
         </NavItem>
       ))}
+      <NavItem
+        key={'upgrade'}
+        icon={AppIcons['alembic']}
+        bg="brand.100"
+        textColor="black"
+        onClick={() => navigate('/upgrade')}
+      >
+        Upgrade to Pro
+      </NavItem>
       <NavItem
         stickToBottom={true}
         key={'signout'}
@@ -157,12 +167,9 @@ const NavItem = ({
         role="group"
         cursor="pointer"
         color="black"
-        borderRadius={'8px 8px 8px 8px'}
         _hover={{
           bg: 'brand.500',
           color: 'white',
-          mr: '2',
-          ml: '2',
           fontWeight: 'medium',
         }}
         {...rest}
