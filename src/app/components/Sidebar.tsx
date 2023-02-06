@@ -39,6 +39,8 @@ const LinkItems: Array<LinkItemProps> = [
   { name: 'Integrations', icon: AppIcons['integration'], url: '/integrations' },
 ];
 
+let url = 'https://billing.stripe.com/p/login/28obK69X46ua3Nm8ww';
+
 export default function SimpleSidebar({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
@@ -117,9 +119,9 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         icon={AppIcons['alembic']}
         bg="brand.100"
         textColor="black"
-        onClick={() =>
-          navigate('https://billing.stripe.com/p/login/28obK69X46ua3Nm8ww')
-        }
+        onClick={() => {
+          window.location.href = url;
+        }}
       >
         Upgrade to Pro
       </NavItem>

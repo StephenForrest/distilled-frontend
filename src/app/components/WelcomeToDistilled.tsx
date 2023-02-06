@@ -46,7 +46,6 @@ const WelcomeToDistilled = () => {
         <Text fontSize={'md'} color={'gray.700'}>
           Here's a guide on how you can start using Distilled.
         </Text>
-        <button onClick={handleConnect}>Slack connect</button>
       </Box>
     </VStack>
   );
