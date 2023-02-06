@@ -22,6 +22,7 @@ import {
   AspectRatio,
 } from '@chakra-ui/react';
 import * as React from 'react';
+import { useState } from 'react';
 import { Step, Steps, useSteps } from 'chakra-ui-steps';
 import { FiClipboard, FiDollarSign, FiUser } from 'react-icons/fi';
 import { PASS_ONBOARDING_STEP } from 'app/lib/mutations/Workspace';
@@ -50,12 +51,13 @@ export default function Onboarding() {
   const navigate = useNavigate();
   const activeWorkspaceId = useReactiveVar(activeWorkspaceIdVar);
   const [passOnboardingStep] = useMutation(PASS_ONBOARDING_STEP);
+  const [stepStatus, setStepStatus] = useState('incomplete');
 
-  function getInitialStep(): 1 | 2 | 0 {
+  const getInitialStep = () => {
     if (location.pathname === '/onboarding-subscription') return 1;
     if (location.pathname === '/onboarding-demo') return 2;
     return 0;
-  }
+  };
   const { nextStep, activeStep } = useSteps({
     initialStep: getInitialStep(),
   });
@@ -78,6 +80,7 @@ export default function Onboarding() {
       form: 'vEpZatyM5',
       data,
     });
+    setStepStatus('complete');
   };
 
   const next = async () => {
@@ -184,6 +187,15 @@ export default function Onboarding() {
               <option value="500+">500+</option>
             </Select>
           </FormControl>
+          <Box position="fixed" bottom="16px" right="16px">
+            <Button
+              disabled={stepStatus === 'incomplete'}
+              onClick={next}
+              bg="brand.500"
+            >
+              Next
+            </Button>
+          </Box>
         </Box>
       ),
     },
@@ -206,6 +218,15 @@ export default function Onboarding() {
               client-reference-id={activeWorkspaceId}
               publishable-key={process.env.REACT_APP_STRIPE_PUSHABLE_KEY}
             ></stripe-pricing-table>
+          </Box>
+          <Box position="fixed" bottom="16px" right="16px">
+            <Button
+              disabled={stepStatus === 'incomplete'}
+              onClick={next}
+              bg="brand.500"
+            >
+              Next
+            </Button>
           </Box>
         </>
       ),
@@ -234,6 +255,15 @@ export default function Onboarding() {
               style={{ minWidth: '720px', height: '540px' }}
             ></div>
           </VStack>
+          <Box position="fixed" bottom="16px" right="16px">
+            <Button
+              disabled={stepStatus === 'incomplete'}
+              onClick={next}
+              bg="brand.500"
+            >
+              Next
+            </Button>
+          </Box>
         </Grid>
       ),
     },
