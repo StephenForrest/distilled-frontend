@@ -10,7 +10,7 @@ import 'react-app-polyfill/stable';
 
 import * as React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
-import { IntercomProvider, useIntercom } from 'react-use-intercom';
+import { IntercomProvider } from 'react-use-intercom';
 import { ChakraProvider } from '@chakra-ui/react';
 import { ApolloClient, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';

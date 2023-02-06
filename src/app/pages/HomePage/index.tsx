@@ -15,8 +15,9 @@ import Loader from 'app/components/Loader';
 export function HomePage() {
   const { loading: userLoading } = useQuery(CURRENT_USER);
   const drawerConfig = useReactiveVar(selectedDrawerConfig);
+  const autoBoot = useIntercom();
 
-  const { boot, shutdown, hide, show, update } = useIntercom();
+  useEffect(() => {}, [autoBoot]);
 
   if (userLoading) {
     return (
