@@ -187,15 +187,6 @@ export default function Onboarding() {
               <option value="500+">500+</option>
             </Select>
           </FormControl>
-          <Box position="fixed" bottom="16px" right="16px">
-            <Button
-              disabled={stepStatus === 'incomplete'}
-              onClick={next}
-              bg="brand.500"
-            >
-              Next
-            </Button>
-          </Box>
         </Box>
       ),
     },
@@ -218,15 +209,6 @@ export default function Onboarding() {
               client-reference-id={activeWorkspaceId}
               publishable-key={process.env.REACT_APP_STRIPE_PUSHABLE_KEY}
             ></stripe-pricing-table>
-          </Box>
-          <Box position="fixed" bottom="16px" right="16px">
-            <Button
-              disabled={stepStatus === 'incomplete'}
-              onClick={next}
-              bg="brand.500"
-            >
-              Next
-            </Button>
           </Box>
         </>
       ),
@@ -255,15 +237,6 @@ export default function Onboarding() {
               style={{ minWidth: '720px', height: '540px' }}
             ></div>
           </VStack>
-          <Box position="fixed" bottom="16px" right="16px">
-            <Button
-              disabled={stepStatus === 'incomplete'}
-              onClick={next}
-              bg="brand.500"
-            >
-              Next
-            </Button>
-          </Box>
         </Grid>
       ),
     },
