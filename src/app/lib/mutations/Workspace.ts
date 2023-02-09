@@ -7,6 +7,7 @@ export const CREATE_WORKSPACE_MUTATION = gql`
       workspace {
         title
         autoJoinFromDomain
+        stripe_product
       }
     }
   }
@@ -19,6 +20,7 @@ export const UPDATE_WORKSPACE_MUTATION = gql`
         title
         autoJoinFromDomain
         domain
+        stripe_product
       }
     }
   }
