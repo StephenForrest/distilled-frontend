@@ -10,7 +10,6 @@ import 'react-app-polyfill/stable';
 
 import * as React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
-import { IntercomProvider } from 'react-use-intercom';
 import { ChakraProvider } from '@chakra-ui/react';
 import { ApolloClient, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
@@ -38,8 +37,6 @@ import './locales/i18n';
 import { onError } from '@apollo/client/link/error';
 
 // Log any GraphQL errors or network error that occurred
-
-const INTERCOM_APP_ID = 'INTERCOM_APP_ID';
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
@@ -92,15 +89,13 @@ export const client = new ApolloClient({
 });
 
 ReactDOMClient.createRoot(MOUNT_NODE!).render(
-  <IntercomProvider appId={INTERCOM_APP_ID} autoBoot>
-    <ApolloProvider client={client}>
-      <HelmetProvider>
-        <ChakraProvider theme={theme}>
-          <App />
-        </ChakraProvider>
-      </HelmetProvider>
-    </ApolloProvider>
-  </IntercomProvider>,
+  <ApolloProvider client={client}>
+    <HelmetProvider>
+      <ChakraProvider theme={theme}>
+        <App />
+      </ChakraProvider>
+    </HelmetProvider>
+  </ApolloProvider>,
 );
 
 // Hot reloadable translation json files
