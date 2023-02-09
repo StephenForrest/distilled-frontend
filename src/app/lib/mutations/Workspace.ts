@@ -19,7 +19,6 @@ export const UPDATE_WORKSPACE_MUTATION = gql`
         title
         autoJoinFromDomain
         domain
-        stripe_product
       }
     }
   }
