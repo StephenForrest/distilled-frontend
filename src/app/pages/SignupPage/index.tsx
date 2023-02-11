@@ -40,9 +40,9 @@ export function Signup() {
   const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>('');
 
   const emailValidationRegex =
-    /^[a-zA-Z0-9_.+-]+@(gmail|yahoo|hotmail|aol|outlook|icloud|zoho|gmx|mail|protonmail)\.[a-zA-Z0-9-.]+$/;
+    /^(?!.*@(gmail|yahoo|hotmail|aol|outlook|icloud|protonmail|hubspot|zoho)\.[a-z]{2,}$)/;
   const passwordValidationRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}+$/;
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -54,14 +54,16 @@ export function Signup() {
       setPublicEmailErrorMessage(
         'We apologize, but we only support private email addresses at the moment 😿',
       );
-      return;
+    } else {
+      setPublicEmailErrorMessage('');
     }
     if (!passwordValidationRegex.test(password)) {
       hasPasswordError = true;
       setPasswordErrorMessage(
         'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter and one number',
       );
-      return;
+    } else {
+      setPasswordErrorMessage('');
     }
     if (hasPublicEmailError || hasPasswordError) {
       return;
