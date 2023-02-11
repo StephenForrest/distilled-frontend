@@ -35,7 +35,9 @@ export function Signup() {
   const [name, setName] = useState<string>('');
   const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [publicEmailErrorMessage, setPublicEmailErrorMessage] =
+    useState<string>('');
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>('');
 
   const emailValidationRegex =
     /^[a-zA-Z0-9]+@(gmail|yahoo|hotmail)\.(com|co\.in)$/;
@@ -45,11 +47,13 @@ export function Signup() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!emailValidationRegex.test(login)) {
-      setErrorMessage('Public email addresses are not allowed');
+      setPublicEmailErrorMessage(
+        'We apologize, but we only support private email addresses at the moment 😿',
+      );
       return;
     }
     if (!passwordValidationRegex.test(password)) {
-      setErrorMessage(
+      setPasswordErrorMessage(
         'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter and one number',
       );
       return;
@@ -77,19 +81,21 @@ export function Signup() {
           >
             <Center>
               <form onSubmit={onSubmit} className="full-width">
-                {errorMessage && (
+                {publicEmailErrorMessage && (
                   <Alert status="error" mb={4}>
                     <AlertIcon />
                     <AlertTitle mr={2}>Error</AlertTitle>
                     <AlertDescription>
-                      We apologize, but we only support private email addresses
-                      at the moment 😿
+                      {publicEmailErrorMessage}
                     </AlertDescription>
                   </Alert>
                 )}
                 <Stack spacing={6} w={'100%'}>
                   <Text fontSize="3xl">Sign Up</Text>
-                  <FormControl isInvalid={Boolean(errorMessage)} size={'xs'}>
+                  <FormControl
+                    isInvalid={Boolean(publicEmailErrorMessage)}
+                    size={'xs'}
+                  >
                     <FormLabel>Email address</FormLabel>
                     <Input
                       type="email"
@@ -105,15 +111,14 @@ export function Signup() {
                       onChange={e => setName(e.target.value)}
                     />
                   </FormControl>
-                  <FormControl isInvalid={Boolean(errorMessage)}>
+                  <FormControl isInvalid={Boolean(passwordErrorMessage)}>
                     <FormLabel>Password</FormLabel>
-                    {error && errorMessage && (
-                      <Alert status="error" mb={4}>
+                    {error && passwordErrorMessage && (
+                      <Alert status="error" borderRadius={4} mb={4}>
                         <AlertIcon />
                         <AlertTitle mr={2}>Error</AlertTitle>
                         <AlertDescription>
-                          We apologize, but we only support private email
-                          addresses at the moment 😿
+                          {passwordErrorMessage}
                         </AlertDescription>
                       </Alert>
                     )}
