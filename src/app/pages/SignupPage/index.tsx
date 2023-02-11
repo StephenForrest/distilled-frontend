@@ -46,16 +46,24 @@ export function Signup() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    let hasPublicEmailError = false;
+    let hasPasswordError = false;
+
     if (!emailValidationRegex.test(login)) {
+      hasPublicEmailError = true;
       setPublicEmailErrorMessage(
         'We apologize, but we only support private email addresses at the moment 😿',
       );
       return;
     }
     if (!passwordValidationRegex.test(password)) {
+      hasPasswordError = true;
       setPasswordErrorMessage(
         'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter and one number',
       );
+      return;
+    }
+    if (hasPublicEmailError || hasPasswordError) {
       return;
     }
     const data = await signUp({
