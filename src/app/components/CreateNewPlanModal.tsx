@@ -11,31 +11,44 @@ import {
   Input,
   FormLabel,
   FormControl,
+  Text,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from '@chakra-ui/react';
 import { CREATE_PLAN_MUTATION } from 'app/lib/mutations/Plan';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
+import { GraphQLError } from 'graphql';
 
 const CreateNewPlanModal = (props: {
   isOpen: boolean;
   onClose: () => void;
 }) => {
   const navigate = useNavigate();
-  const [createPlanMutation, { loading }] = useMutation(CREATE_PLAN_MUTATION);
+  const [createPlanMutation, { loading, error }] =
+    useMutation(CREATE_PLAN_MUTATION);
   const [planName, setPlanName] = useState<string>('');
+  const [formError, setFormError] = useState<GraphQLError | null>(null);
   const { isOpen, onClose } = props;
   const createPlan = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const result = await createPlanMutation({
-      variables: {
-        name: planName,
-      },
-      refetchQueries: ['getPlans'],
-      awaitRefetchQueries: true,
-    });
-    const uuid = result.data?.createPlan?.plan?.uuid;
-    if (uuid) {
-      navigate(`/plan/${uuid}`);
+    setFormError(null);
+    try {
+      const result = await createPlanMutation({
+        variables: {
+          name: planName,
+        },
+        refetchQueries: ['getPlans'],
+        awaitRefetchQueries: true,
+      });
+      const uuid = result.data?.createPlan?.plan?.uuid;
+      if (uuid) {
+        navigate(`/plan/${uuid}`);
+      }
+    } catch (error) {
+      setFormError(error as GraphQLError);
     }
   };
 
@@ -48,6 +61,12 @@ const CreateNewPlanModal = (props: {
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
+          {formError && (
+            <Alert status="error" mt={4}>
+              <AlertIcon />
+              {formError.message}
+            </Alert>
+          )}
           <form onSubmit={createPlan}>
             <FormControl size={'xs'}>
               <FormLabel>Plan name</FormLabel>
