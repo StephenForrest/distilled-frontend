@@ -114,9 +114,6 @@ const SlackForm = (props: {
   if (!data.getIntegrationsByType || !data.getIntegrationsByType.length) {
     return (
       <VStack alignItems={'flex-start'} spacing={6}>
-        <Text mt={8} fontSize={'sm'}>
-          You haven't add any slack integrations yet.
-        </Text>
         <VStack alignItems={'flex-start'} spacing={2}>
           <Button size={'sm'} onClick={onClick}>
             Connect to slack
