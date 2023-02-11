@@ -42,7 +42,7 @@ export function Signup() {
   const emailValidationRegex =
     /^(?!.*@(gmail|yahoo|hotmail|aol|outlook|icloud|protonmail|hubspot|zoho)\.[a-z]{2,}$)/;
   const passwordValidationRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}+$/;
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
