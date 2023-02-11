@@ -40,7 +40,7 @@ export function Signup() {
   const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>('');
 
   const emailValidationRegex =
-    /^[a-zA-Z0-9]+@(?!(gmail|yahoo|hotmail)\.(com|co\.in))/;
+    /^[a-zA-Z0-9_.+-]+@(gmail|yahoo|hotmail|aol|outlook|icloud|zoho|gmx|mail|protonmail)\.[a-zA-Z0-9-.]+$/;
   const passwordValidationRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
