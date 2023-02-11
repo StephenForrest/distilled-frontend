@@ -9,6 +9,15 @@ export const IntegrationsPage = () => {
   return (
     <>
       <PageHeader text={'Integrations'} />
+      <div>
+        <h1>Zapier Templates</h1>
+        <zapier-zap-templates
+          theme="light"
+          ids="1170423"
+          limit={5}
+          use-this-zap="show"
+        />
+      </div>
     </>
   );
 };

@@ -129,9 +129,19 @@
       window.intercomSettings = {
         api_base: 'https://api-iam.intercom.io',
         app_id: 'INTERCOM_APP_ID',
+        name: '<%= current_user.name %>', // Full name
+        email: '<%= current_user.email %>', // Email address
+        created_at: '<%= current_user.created_at.to_i %>', // Signup date as a Unix timestamp
       };
     </script>
-
+    <script
+      type="module"
+      src="https://cdn.zapier.com/packages/partner-sdk/v0/zapier-elements/zapier-elements.esm.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.zapier.com/packages/partner-sdk/v0/zapier-elements/zapier-elements.css"
+    />
     <script>
       // We pre-filled your app ID in the widget URL: 'https://widget.intercom.io/widget/dnitzxh7'
       (function () {
