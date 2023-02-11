@@ -46,9 +46,10 @@ const CreateNewPlanModal = (props: {
       const uuid = result.data?.createPlan?.plan?.uuid;
       if (uuid) {
         navigate(`/plan/${uuid}`);
+        onClose();
       }
-    } catch (e: any) {
-      setFormError(e.graphQLErrors[0] as GraphQLError);
+    } catch (error) {
+      setFormError(error as GraphQLError);
     }
   };
 
