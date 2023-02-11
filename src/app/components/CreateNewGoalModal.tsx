@@ -12,12 +12,17 @@ import {
   FormLabel,
   FormControl,
   Text,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from '@chakra-ui/react';
 import { CREATE_GOAL_MUTATION } from 'app/lib/mutations/Plan';
 import { GOAL_FRAGMENT } from 'app/lib/fragments/Plan';
 import { useMutation } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { convertDateToUTC, getDateSevenDaysFromToday } from 'app/lib/utilities';
+import { GraphQLError } from 'graphql';
 
 const CreateNewGoalModal = (props: {
   isOpen: boolean;
@@ -43,7 +48,7 @@ const CreateNewGoalModal = (props: {
       });
     },
   });
-  const [formError, setFormError] = useState<string | undefined>();
+  const [formError, setFormError] = useState<GraphQLError | null>(null);
   const [planName, setPlanName] = useState<string>('');
   const [expiresOn, setExpiresOn] = useState<string>(
     getDateSevenDaysFromToday(),
@@ -62,9 +67,9 @@ const CreateNewGoalModal = (props: {
       props.onClose();
       setPlanName('');
       setExpiresOn(getDateSevenDaysFromToday());
-      setFormError(undefined);
-    } catch (e) {
-      setFormError('Something went wrong');
+      setFormError(null);
+    } catch (error) {
+      setFormError(error as GraphQLError);
     }
   };
 
@@ -98,7 +103,12 @@ const CreateNewGoalModal = (props: {
                 onChange={e => setExpiresOn(e.target.value)}
               />
             </FormControl>
-            {formError && <Text>formError</Text>}
+            {formError && (
+              <Alert status="error" mt={4}>
+                <AlertIcon />
+                {formError.message}
+              </Alert>
+            )}
             <Button
               isLoading={loading}
               loadingText={'Submitting'}
