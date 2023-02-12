@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import UserSettings from './UserSettings';
 import WorkspaceSettings from './WorkspaceSettings';
-import ZapierIntegration from './ZapierIntegration';
+import ZapierIntegration from './ApiKeyForm';
 
 export function Settings() {
   return (

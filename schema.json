@@ -1,0 +1,49 @@
+{
+  "data": {
+    "__schema": {
+      "queryType": {
+        "name": "Query",
+        "fields": [
+          { "name": "currentUser" },
+          { "name": "getActionSuccessCriterias" },
+          { "name": "getAllIntegrations" },
+          { "name": "getGoal" },
+          { "name": "getIntegration" },
+          { "name": "getIntegrationsByType" },
+          { "name": "getPlan" },
+          { "name": "getPlans" },
+          { "name": "getSlackActionLogs" },
+          { "name": "getWorkspaceDetails" }
+        ]
+      },
+      "mutationType": {
+        "name": "Mutation",
+        "fields": [
+          { "name": "createAuth" },
+          { "name": "createGoal" },
+          { "name": "createIntegration" },
+          { "name": "createPlan" },
+          { "name": "createSlackConnect" },
+          { "name": "createSlackIntegration" },
+          { "name": "createSuccessCriteria" },
+          { "name": "createWorkspace" },
+          { "name": "createWorkspaceMember" },
+          { "name": "deleteGoal" },
+          { "name": "deletePlan" },
+          { "name": "deleteWorkspaceMember" },
+          { "name": "passOnboardingStep" },
+          { "name": "signOut" },
+          { "name": "signUp" },
+          { "name": "updateChecklist" },
+          { "name": "updateGoal" },
+          { "name": "updateMilestone" },
+          { "name": "updatePlan" },
+          { "name": "updateSuccessCriteria" },
+          { "name": "updateUser" },
+          { "name": "updateWorkspace" },
+          { "name": "verifyEmail" }
+        ]
+      }
+    }
+  }
+}

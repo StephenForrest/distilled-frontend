@@ -35,6 +35,7 @@
     "@types/testing-library__jest-dom": "^5.14.5",
     "@types/webpack": "^5.28.0",
     "@types/webpack-env": "^1.18.0",
+    "axios": "1.3.2",
     "chakra-react-select": "4.4.3",
     "chakra-ui-steps": "2.0.1",
     "chalk": "4.1.2",
@@ -110,7 +111,11 @@
     "generate": "plop --plopfile internals/generators/plopfile.ts",
     "prettify": "prettier --write",
     "extract-messages": "i18next-scanner --config=internals/extractMessages/i18next-scanner.config.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "graphql:coverage": "graphql coverage",
+    "graphql:validate": "graphql validate",
+    "graphql:diff": "graphql diff",
+    "graphql:similar": "graphql similar"
   },
   "browserslist": {
     "production": [
@@ -152,5 +157,12 @@
         "statements": 90
       }
     }
+  },
+  "devDependencies": {
+    "@graphql-cli/coverage": "2.1.0",
+    "@graphql-cli/diff": "2.1.0",
+    "@graphql-cli/similar": "2.1.0",
+    "@graphql-cli/validate": "2.1.0",
+    "graphql-cli": "4.1.0"
   }
 }
