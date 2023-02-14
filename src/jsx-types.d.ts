@@ -1,5 +1,5 @@
 declare namespace JSX {
   interface IntrinsicElements {
-    'zapier-zap-templates': any;
+    'zapier-full-experience': any;
   }
 }
