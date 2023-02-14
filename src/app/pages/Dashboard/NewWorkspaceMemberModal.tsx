@@ -14,6 +14,8 @@ import {
   VStack,
   Text,
   Box,
+  Alert,
+  AlertIcon,
 } from '@chakra-ui/react';
 import { CREATE_WORKSPACE_MEMBER } from 'app/lib/mutations/Workspace';
 import { GET_WORKSPACE_DETAILS } from 'app/lib/queries/Workspace';
@@ -86,7 +88,12 @@ const NewWorkspaceMemberModal = (props: {
                   onChange={e => setEmail(e.target.value)}
                 />
               </FormControl>
-              {error && <Text fontSize={'sm'}>{error.message}</Text>}
+              {error && (
+                <Alert status="error" fontSize={'sm'}>
+                  <AlertIcon />
+                  {error.message}
+                </Alert>
+              )}
               <Box mt={'var(--chakra-space-6) !important'}>
                 <Button
                   isLoading={loading}
