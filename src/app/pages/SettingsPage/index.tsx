@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import UserSettings from './UserSettings';
 import WorkspaceSettings from './WorkspaceSettings';
-import ApiKeyForm from './ApiKeyForm';
+import ApiKey from './ApiKeyForm';
 
 export function Settings() {
   return (
@@ -31,7 +31,7 @@ export function Settings() {
             <WorkspaceSettings />
           </TabPanel>
           <TabPanel>
-            <ApiKeyForm />
+            <ApiKey />
           </TabPanel>
         </TabPanels>
       </Tabs>
