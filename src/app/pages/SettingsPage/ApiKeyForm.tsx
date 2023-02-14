@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   VStack,
   Text,
@@ -6,48 +7,26 @@ import {
   InputRightElement,
   Button,
 } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
 import { RiFileCopyLine } from 'react-icons/ri';
 import { useQuery } from '@apollo/client';
-import axios from 'axios';
 import { GET_WORKSPACE_DETAILS } from 'app/lib/queries/Workspace';
 import Loader from 'app/components/Loader';
 import { IconContext } from 'react-icons';
 
-const ApiKeyForm = () => {
-  const [token, setToken] = useState(null);
+type Form = {
+  apiKey: string;
+};
 
-  useEffect(() => {
-    const fetchToken = async () => {
-      try {
-        const response = await axios.get('/api/jwt');
-        setToken(response.data.token);
-        localStorage.setItem('jwt', response.data.token);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchToken();
-  }, []);
-
-  useEffect(() => {
-    if (token) {
-      axios.interceptors.request.use(config => {
-        config.headers.Authorization = `Bearer ${token}`;
-        return config;
-      });
-    }
-  }, [token]);
-
+const ApiKeyForm = (props: { data: Form }) => {
+  const { data } = props;
   return (
     <VStack w={'350px'} spacing={4} alignItems={'flex-start'} mt={4}>
-      <Text fontSize={'sm'}>API Key</Text>
+      <Text fontSize={'sm'}>Your API Key</Text>
       <InputGroup size="sm">
         <Input
           placeholder=""
           type="text"
-          value={token || ''}
+          value={data.apiKey}
           textAlign={'center'}
           isReadOnly={true}
           disabled
@@ -60,7 +39,7 @@ const ApiKeyForm = () => {
             borderTopLeftRadius={'none'}
             borderBottomLeftRadius={'none'}
             onClick={() => {
-              navigator.clipboard.writeText(token || '');
+              navigator.clipboard.writeText(data.apiKey);
             }}
           >
             <IconContext.Provider value={{ size: '2rem', color: '#6c6f73c3' }}>
@@ -73,4 +52,14 @@ const ApiKeyForm = () => {
   );
 };
 
-export default ApiKeyForm;
+const ApiKey = () => {
+  const { data, loading } = useQuery(GET_WORKSPACE_DETAILS);
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  return <ApiKeyForm data={data.getWorkspaceDetails} />;
+};
+
+export default ApiKey;
