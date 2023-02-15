@@ -173,6 +173,7 @@ const NavItem = ({
         color="black"
         _hover={{
           bg: 'brand.500',
+          borderRadius: '6px',
           color: 'white',
           fontWeight: 'medium',
         }}
