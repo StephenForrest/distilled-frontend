@@ -46,7 +46,7 @@ export const IntegrationsPage = () => {
           <ModalCloseButton />
           <ModalBody>
             <zapier-full-experience
-              client-id="ZAPIER_CLIENT_ID"
+              client-id="QRpZR4B484qiMIhBjreSnjECgKX1VudjON13vY7D"
               theme="light"
               app-search-bar-display="show"
             />
