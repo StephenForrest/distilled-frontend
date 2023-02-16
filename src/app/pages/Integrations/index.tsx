@@ -52,10 +52,9 @@ export const IntegrationsPage = () => {
             />
           </ModalBody>
           <ModalFooter>
-            <Button bgColor="brand.500" mr={3} onClick={onClose}>
-              Submit
+            <Button bgColor="brand.500" onClick={onClose}>
+              Cancel
             </Button>
-            <Button onClick={onClose}>Cancel</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
