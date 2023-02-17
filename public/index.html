@@ -105,28 +105,6 @@
             analytics.SNIPPET_VERSION = '4.15.3';
             analytics.load('SEGMENT_WRITE_KEY');
             analytics.page();
-            const { eventData } = useQuery(CURRENT_USER);
-            workspace_data = useQuery(GET_WORKSPACE_DETAILS);
-            analytics.identify('userId', {
-              userId: data.currentUser.id,
-              name: data.currentUser.name,
-              email: data.currentUser.email,
-            });
-            analytics.track('User Logged In', {
-              userId: data.currentUser.id,
-              name: data.currentUser.name,
-              email: data.currentUser.email,
-            });
-            analytics.track('User Logged Out', {
-              userId: data.currentUser.id,
-              name: data.currentUser.name,
-              email: data.currentUser.email,
-            });
-            analytics.track('User Signed Up', {
-              userId: data.currentUser.id,
-              name: data.currentUser.name,
-              email: data.currentUser.email,
-            });
           }
       })();
     </script>

@@ -54,7 +54,8 @@ export default function Onboarding() {
   const [stepStatus, setStepStatus] = useState('incomplete');
 
   const getInitialStep = () => {
-    if (location.pathname === '/onboarding-demo') return 1;
+    if (location.pathname === '/onboarding-subscription') return 1;
+    if (location.pathname === '/onboarding-demo') return 2;
     return 0;
   };
   const { nextStep, activeStep } = useSteps({
@@ -92,7 +93,8 @@ export default function Onboarding() {
   };
 
   const getStepName = (step: number) => {
-    if (step === 1) return 'DEMO';
+    if (step === 1) return 'SUBSCRIPTION';
+    if (step === 2) return 'DEMO';
   };
 
   const steps = [
@@ -186,6 +188,29 @@ export default function Onboarding() {
             </Select>
           </FormControl>
         </Box>
+      ),
+    },
+    {
+      label: 'Pricing',
+      icon: FiDollarSign,
+      children: (
+        <>
+          <Helmet>
+            <title>Pricing</title>
+            <meta name="description" content="Pricing" />
+            <script
+              async
+              src="https://js.stripe.com/v3/pricing-table.js"
+            ></script>
+          </Helmet>
+          <Box width={{ base: '100%' }} height={{ base: '100%' }} my="15px">
+            <stripe-pricing-table
+              pricing-table-id={process.env.REACT_APP_STRIPE_PRICING_TABLE_ID}
+              client-reference-id={activeWorkspaceId}
+              publishable-key={process.env.REACT_APP_STRIPE_PUSHABLE_KEY}
+            ></stripe-pricing-table>
+          </Box>
+        </>
       ),
     },
     {
