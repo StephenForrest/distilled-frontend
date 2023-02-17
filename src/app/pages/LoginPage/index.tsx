@@ -22,6 +22,7 @@ import useGoogleOauth from 'app/lib/hooks/oauth/useGoogleOauth';
 import GoogleIcon from 'app/icons/Google';
 import * as animationData from 'app/jsons/LoginAnimation.json';
 import Lottie from 'react-lottie';
+declare const window: any;
 
 const { useState } = React;
 
@@ -43,6 +44,7 @@ export function Login() {
       const data = await createAuth({ variables: { email: login, password } });
       onSignIn(data.data.createAuth.sessionId);
       navigate(from);
+      window.analytics.track('Logged In');
     } catch (err) {
       console.log('err', err);
     }
