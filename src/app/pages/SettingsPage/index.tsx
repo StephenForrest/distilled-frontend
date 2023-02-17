@@ -20,7 +20,7 @@ export function Settings() {
         <TabList>
           <Tab>User Settings</Tab>
           <Tab>Workspace settings</Tab>
-          <Tab>Zapier Integration</Tab>
+          <Tab>API Keys</Tab>
         </TabList>
 
         <TabPanels>
