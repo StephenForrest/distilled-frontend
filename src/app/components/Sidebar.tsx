@@ -39,7 +39,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: 'Integrations', icon: AppIcons['integration'], url: '/integrations' },
 ];
 
-let url = 'https://billing.stripe.com/p/login/28obK69X46ua3Nm8ww';
+let url = 'https://calendly.com/james_bohrman/30min';
 
 export default function SimpleSidebar({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
