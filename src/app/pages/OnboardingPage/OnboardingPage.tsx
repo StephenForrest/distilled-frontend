@@ -26,6 +26,7 @@ import { useState } from 'react';
 import { Step, Steps, useSteps } from 'chakra-ui-steps';
 import { FiClipboard, FiDollarSign, FiUser } from 'react-icons/fi';
 import { PASS_ONBOARDING_STEP } from 'app/lib/mutations/Workspace';
+declare const window: any;
 
 declare global {
   namespace JSX {
@@ -69,11 +70,30 @@ export default function Onboarding() {
     mode: 'onChange',
   });
 
+  const [shippingFields, setShippingFields] = useState<IShippingFields>({
+    firstName: '',
+    lastName: '',
+    company: '',
+    role: '',
+    numOfEmployees: '',
+  });
+
+  const handleShippingFieldsChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { name, value } = e.target;
+    setShippingFields(prevFields => ({
+      ...prevFields,
+      [name]: value,
+    }));
+  };
+
   const handleSubmit = async (data: IShippingFields) => {
     await passOnboardingStep({
       variables: { name: 'SURVEY' },
       refetchQueries: [{ query: CURRENT_USER }],
     });
+    window.analytics.group(activeWorkspaceId, { ...shippingFields });
     nextStep();
     const slap = new window.Slapform();
     await slap.submit({

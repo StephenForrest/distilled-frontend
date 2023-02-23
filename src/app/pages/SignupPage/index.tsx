@@ -73,22 +73,11 @@ export function Signup() {
       variables: { email: login, password, name },
     });
     onSignIn(data.data.signUp.sessionId);
-    if (data.data.signUp.isGoogleAuth) {
-      // User signed up using Google Auth
-      window.analytics.identify({
-        google_user_id: data.data.signUp.user_id,
-        name: name,
-        email: login,
-        method: 'Google Auth Signup',
-      });
-    } else {
-      // User signed up using email
-      window.analytics.identify({
-        email: login,
-        name: name,
-        method: 'Email Signup',
-      });
-    }
+    window.analytics.identify(data.data.signUp.user_id, {
+      name: name,
+      email: login,
+      method: 'Email Signup',
+    });
     window.analytics.track(
       'User Started Sign Up',
       {
