@@ -22,6 +22,11 @@ export function OnboardingSubscriptionPageSuccess() {
       name: data.currentUser.name,
       email: data.currentUser.email,
     });
+    window.analytics.group('Workspace', data.workspace.id, {
+      company: data.company,
+      workspace: data.workspace,
+      numOfEmployees: data.numOfEmployees,
+    });
   }
 
   return null;
