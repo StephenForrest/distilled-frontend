@@ -44,6 +44,10 @@ export function Login() {
       const data = await createAuth({ variables: { email: login, password } });
       onSignIn(data.data.createAuth.sessionId);
       navigate(from);
+      window.analytics.identify(data.data.createAuth.userId, {
+        method: 'Email',
+        user: login,
+      });
       window.analytics.track('Logged In', {
         method: 'Email',
         user: login,
