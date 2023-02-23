@@ -70,36 +70,25 @@ export default function Onboarding() {
     mode: 'onChange',
   });
 
-  const [shippingFields, setShippingFields] = useState<IShippingFields>({
-    firstName: '',
-    lastName: '',
-    company: '',
-    role: '',
-    numOfEmployees: '',
-  });
-
-  const handleShippingFieldsChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
-    const { name, value } = e.target;
-    setShippingFields(prevFields => ({
-      ...prevFields,
-      [name]: value,
-    }));
-  };
-
   const handleSubmit = async (data: IShippingFields) => {
+    const { company, numOfEmployees } = data;
+    const workspaceId = activeWorkspaceId;
+    const traits = {
+      workspaceId,
+      company,
+      numOfEmployees,
+    };
     await passOnboardingStep({
       variables: { name: 'SURVEY' },
       refetchQueries: [{ query: CURRENT_USER }],
     });
-    window.analytics.group(activeWorkspaceId, { ...shippingFields });
     nextStep();
     const slap = new window.Slapform();
     await slap.submit({
       form: 'vEpZatyM5',
       data,
     });
+    window.analytics.group(workspaceId, traits);
     setStepStatus('complete');
   };
 
