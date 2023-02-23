@@ -21,6 +21,7 @@ import { CREATE_PLAN_MUTATION } from 'app/lib/mutations/Plan';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { GraphQLError } from 'graphql';
+declare const window: any;
 
 const CreateNewPlanModal = (props: {
   isOpen: boolean;
@@ -45,6 +46,11 @@ const CreateNewPlanModal = (props: {
       });
       const uuid = result.data?.createPlan?.plan?.uuid;
       if (uuid) {
+        window.analytics.track('Plan Created', {
+          email: window.analytics.user().traits().email,
+          uuid: uuid,
+          planName: planName,
+        });
         navigate(`/plan/${uuid}`);
         onClose();
       }

@@ -11,6 +11,7 @@ import { CurrentUser } from 'types';
 import { CREATE_WORKSPACE_MUTATION } from 'app/lib/mutations/Workspace';
 import { useMutation } from '@apollo/client';
 import { CURRENT_USER } from 'app/lib/queries/User';
+declare const window: any;
 
 const CreateWorkspace = (props: { currentUser: CurrentUser }) => {
   const { currentUser } = props;
@@ -29,6 +30,10 @@ const CreateWorkspace = (props: { currentUser: CurrentUser }) => {
       },
       refetchQueries: [CURRENT_USER],
       awaitRefetchQueries: true,
+    });
+    window.analytics.track('Workspace Created', {
+      workspaceTitle: domain,
+      createdBy: currentUser.email,
     });
   };
 

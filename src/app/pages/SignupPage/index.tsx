@@ -26,6 +26,7 @@ import * as animationData from 'app/jsons/LoginAnimation.json';
 import Lottie from 'react-lottie';
 import GoogleIcon from 'app/icons/Google';
 import useGoogleOauth from 'app/lib/hooks/oauth/useGoogleOauth';
+declare const window: any;
 
 const { useState } = React;
 export function Signup() {
@@ -72,6 +73,18 @@ export function Signup() {
       variables: { email: login, password, name },
     });
     onSignIn(data.data.signUp.sessionId);
+    window.analytics.track(
+      'User Started Sign Up',
+      {
+        email: login,
+        name: name,
+      },
+      err => {
+        if (err) {
+          console.error('Error tracking Segment event:', err);
+        }
+      },
+    );
   };
 
   return (

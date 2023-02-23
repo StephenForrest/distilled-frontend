@@ -23,6 +23,7 @@ import { useMutation } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { convertDateToUTC, getDateSevenDaysFromToday } from 'app/lib/utilities';
 import { GraphQLError } from 'graphql';
+declare const window: any;
 
 const CreateNewGoalModal = (props: {
   isOpen: boolean;
@@ -63,6 +64,13 @@ const CreateNewGoalModal = (props: {
           expiresOn: convertDateToUTC(expiresOn),
           planUuid: uuid,
         },
+      });
+
+      window.analytics.track('Goal Created', {
+        email: window.analytics.user().traits().email,
+        id: uuid,
+        expiresOn: expiresOn,
+        title: planName,
       });
       props.onClose();
       setPlanName('');

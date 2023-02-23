@@ -21,6 +21,7 @@ import { CREATE_WORKSPACE_MEMBER } from 'app/lib/mutations/Workspace';
 import { GET_WORKSPACE_DETAILS } from 'app/lib/queries/Workspace';
 import { useMutation } from '@apollo/client';
 import { useToast } from '@chakra-ui/react';
+declare const window: any;
 
 const NewWorkspaceMemberModal = (props: {
   isOpen: boolean;
@@ -42,6 +43,10 @@ const NewWorkspaceMemberModal = (props: {
       },
     });
     if (data) {
+      window.analytics.track('Workspace Member Added', {
+        workspaceMemberName: name,
+        workspaceMemberEmail: email,
+      });
       toast({
         title: 'Workspace member created successfully',
         status: 'success',

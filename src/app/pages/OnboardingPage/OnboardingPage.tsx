@@ -45,6 +45,7 @@ interface IShippingFields {
   role: string;
   numOfEmployees: string;
 }
+declare const window: any;
 
 export default function Onboarding() {
   const location = useLocation();
@@ -79,6 +80,18 @@ export default function Onboarding() {
     await slap.submit({
       form: 'vEpZatyM5',
       data,
+    });
+    window.analytics.track('Onboarding Completed', {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      company: data.company,
+      role: data.role,
+      numOfEmployees: data.numOfEmployees,
+    });
+    window.analytics.group('Workspace', activeWorkspaceId, {
+      company: data.company,
+      workspace: activeWorkspaceId,
+      numOfEmployees: data.numOfEmployees,
     });
     setStepStatus('complete');
   };

@@ -34,6 +34,7 @@ import {
 } from 'app/lib/mutations/SuccessCriteria';
 import { GET_GOAL } from 'app/lib/queries/Plan';
 import { useMutation } from '@apollo/client';
+declare const window: any;
 
 export const NewMeasurementForm = (props: {
   goal: GoalWithDetails;
@@ -127,6 +128,12 @@ export const NewMeasurementForm = (props: {
       ) {
         setFormErrors(result.data?.createSuccessCriteria?.errors || {});
       } else {
+        window.analytics.track('Measurement Created', {
+          goalId: goal.id,
+          measurementName: form.name,
+          startDate: form.startDate,
+          endDate: form.endDate,
+        });
         onBack();
       }
     } else {
