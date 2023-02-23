@@ -82,6 +82,18 @@ export default function Onboarding() {
       data,
     });
     setStepStatus('complete');
+    // Extract the relevant fields from the data object
+    const { company, numOfEmployees } = data;
+    const workspaceId = activeWorkspaceId;
+
+    // Create the traits object using the extracted fields and the workspaceId
+    const traits = {
+      workspaceId,
+      company,
+      numOfEmployees,
+    };
+
+    window.analytics.group(workspaceId, traits);
   };
 
   const next = async () => {
