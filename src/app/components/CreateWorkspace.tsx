@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { VStack, Box } from '@chakra-ui/react';
+import {VStack, Box, Select} from '@chakra-ui/react';
 import {
   FormControl,
   FormLabel,
@@ -20,6 +20,7 @@ const CreateWorkspace = (props: { currentUser: CurrentUser }) => {
     CREATE_WORKSPACE_MUTATION,
   );
   const [workspaceName, setWorkspaceName] = useState<string>(domain);
+  const [numOfEmployees, setNumOfEmployees] = useState<string>(domain);
   const [autoJoinWorkspace, setAutoJoinWorkspace] = useState<boolean>(true);
   const onSubmit = async e => {
     e.preventDefault();
@@ -34,6 +35,7 @@ const CreateWorkspace = (props: { currentUser: CurrentUser }) => {
     window.analytics.track('Workspace Created', {
       workspaceTitle: domain,
       createdBy: currentUser.email,
+      numOfEmployees,
     });
   };
 
@@ -65,6 +67,25 @@ const CreateWorkspace = (props: { currentUser: CurrentUser }) => {
               Let people signing up from <strong>{domain}</strong> auto join
               your workspace?
             </FormLabel>
+          </FormControl>
+          <FormControl mt={4}>
+            <FormLabel htmlFor="number-of-employees">
+              Number of Employees
+            </FormLabel>
+            <Select
+                value={numOfEmployees}
+                isRequired
+                id="number-of-employees"
+                name="numOfEmployees"
+                onChange={e => setNumOfEmployees(e.target.value)}
+            >
+              <option value="">Select the number of employees</option>
+              <option value="1-10">1-10</option>
+              <option value="11-50">11-50</option>
+              <option value="51-200">51-200</option>
+              <option value="201-500">201-500</option>
+              <option value="500+">500+</option>
+            </Select>
           </FormControl>
           <Button
             colorScheme="brand"

@@ -7,7 +7,8 @@ export const GOAL_FRAGMENT = gql`
     expiresOn
     createdAt
     owner {
-      name
+      firstName
+      lastName
       profilePic
     }
     measurementsCount
@@ -27,7 +28,8 @@ export const SUCCESS_CRITERIA_FRAGMENT = gql`
     goalId
     createdAt
     owner {
-      name
+      firstName
+      lastName
       profilePic
     }
     completion
@@ -77,7 +79,8 @@ export const GOAL_DETAILS_FRAGMENT = gql`
     expiresOn
     createdAt
     owner {
-      name
+      firstName
+      lastName
       profilePic
     }
     completion

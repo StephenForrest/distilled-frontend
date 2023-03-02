@@ -177,25 +177,6 @@ export default function Onboarding() {
               <option value="product-manager">Project Manager</option>
             </Select>
           </FormControl>
-
-          <FormControl mt={4}>
-            <FormLabel htmlFor="number-of-employees">
-              Number of Employees!
-            </FormLabel>
-            <Select
-              {...register('numOfEmployees')}
-              isRequired
-              id="number-of-employees"
-              name="numOfEmployees"
-            >
-              <option value="">Select the number of employees</option>
-              <option value="1-10">1-10</option>
-              <option value="11-50">11-50</option>
-              <option value="51-200">51-200</option>
-              <option value="201-500">201-500</option>
-              <option value="500+">500+</option>
-            </Select>
-          </FormControl>
         </Box>
       ),
     },

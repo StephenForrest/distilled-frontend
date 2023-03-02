@@ -12,7 +12,8 @@ export const GET_WORKSPACE_DETAILS = gql`
       workspaceMembers {
         id
         user {
-          name
+          firstName
+          lastName
           id
           email
         }

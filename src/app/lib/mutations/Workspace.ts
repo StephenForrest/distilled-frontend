@@ -25,8 +25,8 @@ export const UPDATE_WORKSPACE_MUTATION = gql`
 `;
 
 export const CREATE_WORKSPACE_MEMBER = gql`
-  mutation createWorkspaceMember($email: String!, $name: String!) {
-    createWorkspaceMember(email: $email, name: $name) {
+  mutation createWorkspaceMember($email: String!, $firstName: String!, $lastName: String!) {
+    createWorkspaceMember(email: $email, firstName: $firstName, lastName: $lastName) {
       workspaceMember {
         id
       }
