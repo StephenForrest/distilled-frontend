@@ -41,7 +41,7 @@ const WelcomeToDistilled = () => {
 
       <Box>
         <Text fontSize={'6xl'} fontWeight="extrabold">
-          Hello {data.currentUser.name?.split(' ')[0]} 🤙
+          Hello {data.currentUser?.firstName} 🤙
         </Text>
         <Text fontSize={'md'} color={'gray.700'}>
           Here's a guide on how you can start using Distilled.

@@ -5,7 +5,10 @@ export const CURRENT_USER = gql`
     currentUser {
       id
       email
-      name
+      firstName
+      lastName
+      position
+      company
       workspaces {
         id
         title

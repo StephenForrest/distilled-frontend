@@ -8,7 +8,8 @@ import { useQuery, useMutation } from '@apollo/client';
 import { useToast } from '@chakra-ui/react';
 
 type Form = {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
 };
 
@@ -18,14 +19,15 @@ const UserSettingsForm = (props: { data: Form }) => {
   const [updateUserMutation, { loading }] = useMutation(UPDATE_USER_MUTATION);
 
   const [form, setForm] = useState<Form>({
-    name: data.name || '',
+    firstName: data.firstName || '',
+    lastName: data.lastName || '',
     email: data.email,
   });
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await updateUserMutation({
-      variables: { name: form.name },
+      variables: { firstName: form.firstName, lastName: form.lastName },
       refetchQueries: [{ query: CURRENT_USER }],
     });
     toast({
@@ -50,13 +52,23 @@ const UserSettingsForm = (props: { data: Form }) => {
           />
         </FormControl>
         <FormControl>
-          <FormLabel fontSize={'sm'}>Name</FormLabel>
+          <FormLabel fontSize={'sm'}>First Name</FormLabel>
           <Input
             size={'sm'}
             type="text"
-            value={form.name}
+            value={form.firstName}
             required={true}
-            onChange={e => setForm({ ...form, name: e.target.value })}
+            onChange={e => setForm({ ...form, firstName: e.target.value })}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel fontSize={'sm'}>Last Name</FormLabel>
+          <Input
+              size={'sm'}
+              type="text"
+              value={form.lastName}
+              required={true}
+              onChange={e => setForm({ ...form, lastName: e.target.value })}
           />
         </FormControl>
         <Box marginTop={'24px !important'}>

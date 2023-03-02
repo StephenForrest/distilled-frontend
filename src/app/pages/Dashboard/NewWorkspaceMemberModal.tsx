@@ -32,19 +32,21 @@ const NewWorkspaceMemberModal = (props: {
     CREATE_WORKSPACE_MEMBER,
   );
   const [email, setEmail] = useState<string>('');
-  const [name, setName] = useState<string>('');
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
   const { isOpen, onClose } = props;
   const NewMemberInvite = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = await createWorkspaceMember({
       variables: {
-        name,
+        firstName,
+        lastName,
         email,
       },
     });
     if (data) {
       window.analytics.track('Workspace Member Added', {
-        workspaceMemberName: name,
+        workspaceMemberName: [firstName, lastName].join(' '),
         workspaceMemberEmail: email,
       });
       toast({
@@ -54,7 +56,8 @@ const NewWorkspaceMemberModal = (props: {
       });
       props.onClose();
       setEmail('');
-      setName('');
+      setFirstName('');
+      setLastName('');
     }
   };
 
@@ -70,15 +73,27 @@ const NewWorkspaceMemberModal = (props: {
           <form onSubmit={NewMemberInvite}>
             <VStack spacing={4} alignItems={'flex-start'}>
               <FormControl size={'xs'}>
-                <FormLabel fontSize={'sm'}>Name</FormLabel>
+                <FormLabel fontSize={'sm'}>First Name</FormLabel>
                 <Input
                   type="text"
-                  value={name}
+                  value={firstName}
                   fontSize={'sm'}
                   required
                   size={'sm'}
                   autoFocus
-                  onChange={e => setName(e.target.value)}
+                  onChange={e => setFirstName(e.target.value)}
+                />
+              </FormControl>
+              <FormControl size={'xs'}>
+                <FormLabel fontSize={'sm'}>Last Name</FormLabel>
+                <Input
+                    type="text"
+                    value={lastName}
+                    fontSize={'sm'}
+                    required
+                    size={'sm'}
+                    autoFocus
+                    onChange={e => setLastName(e.target.value)}
                 />
               </FormControl>
               <FormControl size={'xs'}>

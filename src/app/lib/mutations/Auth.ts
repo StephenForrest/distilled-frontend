@@ -21,8 +21,8 @@ export const CREATE_AUTH = gql`
 `;
 
 export const SIGNUP = gql`
-  mutation Signup($email: String!, $password: String!, $name: String!) {
-    signUp(email: $email, password: $password, name: $name) {
+  mutation SignUp($email: String!, $password: String!, $firstName: String!, $lastName: String!, $company: String!, $position: String!) {
+    signUp(email: $email, password: $password, firstName: $firstName, lastName: $lastName, company: $company, position: $position) {
       sessionId
     }
   }
